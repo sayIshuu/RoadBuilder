@@ -21,7 +21,7 @@ public class pdefd77_TileGenerator : MonoBehaviour
         {
             Generate();
         }
-        if (Input.GetKeyDown("R"))
+        if (Input.GetKeyDown("r"))
         {
             SceneManager.LoadScene("MainScene");
         }

@@ -29,6 +29,8 @@ public class pdefd77_BoardCheck : MonoBehaviour
                         gameOverTxt.text = "Your Score is " + score;
                     }
                     
+                    gameOverTxt.gameObject.SetActive(true);
+                    gameOverTxt.text = "Your length is " + val;
                 }
             }
         }

@@ -8,13 +8,15 @@ public class pdefd77_BoardCheck : MonoBehaviour
     [SerializeField]
     private GameObject[] boardSlot;
     [SerializeField]
+    private TextMeshProUGUI scoreTxt;
+    [SerializeField]
     private TextMeshProUGUI gameOverTxt;
     private int score = 0;
     public int displayedTileCount = 0;
-    //dfsÃßÀûÀ» À§ÇÑ list. °¢ int°ªÀ¸·Î arrÀÇ ÀÎµ¦½º°ªÀÌ µé¾î°©´Ï´Ù.
+    //dfsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ list. ï¿½ï¿½ intï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ arrï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°©ï¿½Ï´ï¿½.
     private List<(int, int)> path = new List<(int, int)>();
     private bool[,] visited = new bool[7, 7];
-    //¹èÀ² º¯¼ö. ±æÀÌ¿¡ µû¶ó ¾ó¸¶³ª Á¡¼ö ÁõÆøµÉ Áö
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½ï¿½ï¿½Ì¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ó¸¶³ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     [SerializeField]
     private int scoreMultiplier = 1;
 
@@ -23,6 +25,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
     public void Awake()
     {
         arr = new int[7, 7] { { 0, 4, 4, 4, 4, 4, 0 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 0, 1, 1, 1, 1, 1, 0 } };
+        scoreTxt.text = "Score : " + score;
     }
 
     public void check()
@@ -41,20 +44,26 @@ public class pdefd77_BoardCheck : MonoBehaviour
                     {
                         gameOverTxt.text = "Your Score is " + score;
                     }
-
+                    if(gameoverScore >= 25)
+                    {
+                        gameOverTxt.text = "Your Score is " + score;
+                    }
+                    
                     gameOverTxt.gameObject.SetActive(true);
                     gameOverTxt.text = "Your length is " + val;
                 }
             }
         }
+
+        scoreTxt.text = "Score : " + score;
     }
 
     private int dfs(int y, int x, int prev)
     {
-        // ÀÌ¹Ì ¹æ¹®ÇÑ °æ¿ì Å½»ö Á¾·á
+        // ï¿½Ì¹ï¿½ ï¿½æ¹®ï¿½ï¿½ ï¿½ï¿½ï¿½ Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (visited[y, x]) return 0;
 
-        // ÇöÀç À§Ä¡ ¹æ¹® Ç¥½Ã ¹× °æ·Î ÀúÀå
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½æ¹® Ç¥ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         visited[y, x] = true;
         path.Add((y, x));
 
@@ -107,7 +116,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
             }
         }
 
-        // Å½»ö Á¾·á ÈÄ ¹æ¹®ÇÑ °æ·Î ÃÊ±âÈ­
+        // Å½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½æ¹®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         visited[y, x] = false;
         path.RemoveAt(path.Count - 1);
 
@@ -116,11 +125,11 @@ public class pdefd77_BoardCheck : MonoBehaviour
 
     private void getScore(int len)
     {
-        // Á¡¼ö °è»ê : ¹èÀ² Á¤ÇØ¼­. ÀÌºÎºÐÀº ½±°Ô ¼öÁ¤µÇ°Ô. ¹èÀ²º¯¼ö »©±â.
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½. ï¿½ÌºÎºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
         displayedTileCount -= len;
         score += len * scoreMultiplier;
-        // Å¸ÀÏ ÆÄ±«. path¿¡ µé¾îÀÖ´Â °ªµéÀ» ÀÌ¿ëÇØ¼­ ÆÄ±«.
-        // { ÃßÈÄ ÄÚµåÃß°¡ }
+        // Å¸ï¿½ï¿½ ï¿½Ä±ï¿½. pathï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¿ï¿½ï¿½Ø¼ï¿½ ï¿½Ä±ï¿½.
+        // { ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ß°ï¿½ }
     }
 
     private void destroyTile(int y, int x)

@@ -76,7 +76,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
             }
         }
 
-        if (prev != 2 && x < 6 && (arr[y, x] & 8) > 0 && (arr[y, x - 1] & 2) > 0)
+        if (prev != 2 && x > 0 && (arr[y, x] & 8) > 0 && (arr[y, x - 1] & 2) > 0)
         {
             if (x - 1 == 0)
             {
@@ -100,7 +100,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
             }
         }
 
-        if (prev != 8 && x > 0 && (arr[y, x] & 2) > 0 && (arr[y, x + 1] & 8) > 0)
+        if (prev != 8 && x < 6 && (arr[y, x] & 2) > 0 && (arr[y, x + 1] & 8) > 0)
         {
             if (x + 1 == 6)
             {

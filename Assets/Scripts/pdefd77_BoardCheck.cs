@@ -36,7 +36,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
             {
                 if (i != 0 && i != 6 && j != 0 && j != 6) continue;
 
-                int val = dfs(i, j, 0);
+                int val = dfs(i, j, 0,0);
 
                 if (val > 0)
                 {
@@ -54,6 +54,59 @@ public class pdefd77_BoardCheck : MonoBehaviour
         scoreTxt.text = "Score : " + score;
     }
 
+    private int dfs(int y, int x, int prev, int len)
+    {
+        if (prev != 1 && y < 6 && (arr[y, x] & 4) > 0 && (arr[y + 1, x] & 1) > 0)
+        {
+            if (y + 1 == 6)
+            {
+                return len;
+            }
+            else
+            {
+                return dfs(y + 1, x, 4, len + 1);
+            }
+        }
+
+        if (prev != 2 && x > 0 && (arr[y, x] & 8) > 0 && (arr[y, x - 1] & 2) > 0)
+        {
+            if (x - 1 == 0)
+            {
+                return len;
+            }
+            else
+            {
+                return dfs(y, x - 1, 8, len + 1);
+            }
+        }
+
+        if (prev != 4 && y > 0 && (arr[y, x] & 1) > 0 && (arr[y - 1, x] & 4) > 0)
+        {
+            if (y - 1 == 0)
+            {
+                return len;
+            }
+            else
+            {
+                return dfs(y - 1, x, 1, len + 1);
+            }
+        }
+
+        if (prev != 8 && x < 6 && (arr[y, x] & 2) > 0 && (arr[y, x + 1] & 8) > 0)
+        {
+            if (x + 1 == 6)
+            {
+                return len;
+            }
+            else
+            {
+                return dfs(y, x + 1, 2, len + 1);
+            }
+        }
+
+        return 0;
+    }
+    /*
     private int dfs(int y, int x, int prev)
     {
         // 이미 방문한 경우 탐색 종료
@@ -118,6 +171,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
 
         return 0;
     }
+    */
 
     private void getScore(int len)
     {

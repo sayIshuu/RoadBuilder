@@ -6,6 +6,8 @@ public class pdefd77_BoardCheck : MonoBehaviour
     [SerializeField]
     private GameObject[] boardSlot;
     [SerializeField]
+    private TextMeshProUGUI scoreTxt;
+    [SerializeField]
     private TextMeshProUGUI gameOverTxt;
     private int score = 0;
     public int gameoverScore = 0;
@@ -15,6 +17,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
     public void Awake()
     {
         arr = new int[7, 7] { { 0, 4, 4, 4, 4, 4, 0 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 0, 1, 1, 1, 1, 1, 0 } };
+        scoreTxt.text = "Score : " + score;
     }
 
     public void check()
@@ -39,6 +42,8 @@ public class pdefd77_BoardCheck : MonoBehaviour
                 }
             }
         }
+
+        scoreTxt.text = "Score : " + score;
     }
 
     private int dfs(int y, int x, int prev, int len)

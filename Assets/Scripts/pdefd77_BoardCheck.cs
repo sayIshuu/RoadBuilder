@@ -8,6 +8,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gameOverTxt;
     private int score = 0;
+    public int gameoverScore = 0;
 
     public static int[,] arr = new int[7, 7] { { 0, 4, 4, 4, 4, 4, 0 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 0, 1, 1, 1, 1, 1, 0 } };
 
@@ -23,7 +24,11 @@ public class pdefd77_BoardCheck : MonoBehaviour
 
                 if (val > 0)
                 {
-                    gameOverTxt.text = "Your length is " + val;
+                    if(gameoverScore >= 25)
+                    {
+                        gameOverTxt.text = "Your Score is " + score;
+                    }
+                    
                 }
             }
         }

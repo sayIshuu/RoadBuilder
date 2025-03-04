@@ -42,7 +42,7 @@ public class pdefd77_TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHand
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
 
-        if (transform.parent == canvas || transform.parent.tag == "Inventory" || transform.parent.childCount > 1)
+        if (transform.parent == canvas || transform.parent.childCount > 1)
         {
             transform.SetParent(previousParent);
             rect.position = previousParent.GetComponent<RectTransform>().position;

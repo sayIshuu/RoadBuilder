@@ -23,6 +23,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
 
                 if (val > 0)
                 {
+                    gameOverTxt.gameObject.SetActive(true);
                     gameOverTxt.text = "Your length is " + val;
                 }
             }

@@ -365,7 +365,13 @@ MonoBehaviour:
   InventorySlot1: {fileID: 1368387046}
   InventorySlot2: {fileID: 1612394814}
   InventorySlot3: {fileID: 211975258}
-  tile: {fileID: 3598650144644058067, guid: d6370cde033162d40917e32021569813, type: 3}
+  TileSet:
+  - {fileID: 2078348146171319841, guid: 7eb63bd57157c4c40abf4f4c50cb75d8, type: 3}
+  - {fileID: 2986377513957620842, guid: 4f4fdcfb298ae9b418a23b54b9424f15, type: 3}
+  - {fileID: 3736422909126430067, guid: 1664c3732485b684ab83c1e2fa142e92, type: 3}
+  - {fileID: 4074082137594387102, guid: b3e677d6339ac6b4faea5b12e4d20b5c, type: 3}
+  - {fileID: 282069670887173821, guid: 042dfe0bb3f135b458807fa51d6779f3, type: 3}
+  - {fileID: 6244704996521058071, guid: 7c67c2b6c442d7f4881d91751f99cd6c, type: 3}
 --- !u!4 &291107838
 Transform:
   m_ObjectHideFlags: 0
@@ -421,7 +427,8 @@ MonoBehaviour:
   - {fileID: 348438248}
   scoreTxt: {fileID: 1908813641}
   gameOverTxt: {fileID: 1179444657}
-  gameoverScore: 0
+  displayedTileCount: 0
+  scoreMultiplier: 1
 --- !u!1001 &329747040
 PrefabInstance:
   m_ObjectHideFlags: 0

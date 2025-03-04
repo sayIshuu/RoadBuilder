@@ -13,10 +13,10 @@ public class pdefd77_BoardCheck : MonoBehaviour
     private TextMeshProUGUI gameOverTxt;
     private int score = 0;
     public int displayedTileCount = 0;
-    //dfs������ ���� list. �� int������ arr�� �ε������� ���ϴ�.
+    //dfs추적을 위한 list. 각 int값으로 arr의 인덱스값이 들어갑니다.
     private List<(int, int)> path = new List<(int, int)>();
     private bool[,] visited = new bool[7, 7];
-    //���� ����. ���̿� ���� �󸶳� ���� ������ ��
+    //배율 변수. 길이에 따라 얼마나 점수 증폭될 지
     [SerializeField]
     private int scoreMultiplier = 1;
 
@@ -44,10 +44,6 @@ public class pdefd77_BoardCheck : MonoBehaviour
                     {
                         gameOverTxt.text = "Your Score is " + score;
                     }
-                    if(gameoverScore >= 25)
-                    {
-                        gameOverTxt.text = "Your Score is " + score;
-                    }
                     
                     gameOverTxt.gameObject.SetActive(true);
                     gameOverTxt.text = "Your length is " + val;
@@ -60,10 +56,10 @@ public class pdefd77_BoardCheck : MonoBehaviour
 
     private int dfs(int y, int x, int prev)
     {
-        // �̹� �湮�� ��� Ž�� ����
+        // 이미 방문한 경우 탐색 종료
         if (visited[y, x]) return 0;
 
-        // ���� ��ġ �湮 ǥ�� �� ��� ����
+        // 현재 위치 방문 표시 및 경로 저장
         visited[y, x] = true;
         path.Add((y, x));
 
@@ -116,7 +112,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
             }
         }
 
-        // Ž�� ���� �� �湮�� ��� �ʱ�ȭ
+        // 탐색 종료 후 방문한 경로 초기화
         visited[y, x] = false;
         path.RemoveAt(path.Count - 1);
 
@@ -125,11 +121,11 @@ public class pdefd77_BoardCheck : MonoBehaviour
 
     private void getScore(int len)
     {
-        // ���� ��� : ���� ���ؼ�. �̺κ��� ���� �����ǰ�. �������� ����.
+        // 점수 계산 : 배율 정해서. 이부분은 쉽게 수정되게. 배율변수 빼기.
         displayedTileCount -= len;
         score += len * scoreMultiplier;
-        // Ÿ�� �ı�. path�� ����ִ� ������ �̿��ؼ� �ı�.
-        // { ���� �ڵ��߰� }
+        // 타일 파괴. path에 들어있는 값들을 이용해서 파괴.
+        // { 추후 코드추가 }
     }
 
     private void destroyTile(int y, int x)

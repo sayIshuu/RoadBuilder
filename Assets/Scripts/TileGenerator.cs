@@ -43,9 +43,27 @@ public class TileGenerator : MonoBehaviour
         TileGenerate(InventorySlot3);
     }
 
+    private int getRandNum()
+    {
+        float randomValue = Random.Range(0f, 100f); // 0~100 사이의 랜덤 숫자
+
+        if (randomValue < 95f)        // 95% 확률 → 1~6
+        {
+            return Random.Range(1, 7);
+        }
+        else if (randomValue < 99.5f) // 4.5% 확률 → 7~10
+        {
+            return Random.Range(7, 11);
+        }
+        else                          // 0.5% 확률 → 11
+        {
+            return 11;
+        }
+    }
+
     public void TileGenerate(Transform slot)
     {
-        int randNum = Random.Range(1, 7);
+        int randNum = getRandNum();
         int newType;
 
         GameObject newTile = Instantiate(Tile, slot);
@@ -78,7 +96,6 @@ public class TileGenerator : MonoBehaviour
                 newType = 3;
                 ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[6]);
                 break;
-            //���� �߰�
             case 7:
                 newType = 7; // 0111
                 ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[6]);
@@ -115,5 +132,15 @@ public class TileGenerator : MonoBehaviour
     public void ChageColor(Transform transform)
     {
         transform.GetComponent<Image>().color = Color.white;
+    }
+
+    public void ChangeColorMagenta(Transform transform)
+    {
+        transform.GetComponent<Image>().color = new Color32(127, 61, 242, 255);
+    }
+
+    public void ChangeColorYellow(Transform transform)
+    {
+        transform.GetComponent<Image>().color = new Color32(230, 216, 3, 255);
     }
 }

@@ -113,14 +113,15 @@ public class pdefd77_BoardCheck : MonoBehaviour
         if (visited[y, x]) return 0;
 
         // 현재 위치 방문 표시 및 경로 저장
-        visited[y, x] = true;
-        path.Add((y, x));
+            visited[y, x] = true;
+            path.Add((y, x));
+            
 
         if (prev != 1 && y < 6 && (arr[y, x] & 4) > 0 && (arr[y + 1, x] & 1) > 0)
         {
             if (y + 1 == 6)
             {
-                return path.Count;
+                return path.Count - 1;
 
             }
             else
@@ -133,7 +134,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
         {
             if (x - 1 == 0)
             {
-                return path.Count;
+                return path.Count - 1;
             }
             else
             {
@@ -145,7 +146,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
         {
             if (y - 1 == 0)
             {
-                return path.Count;
+                return path.Count - 1;
             }
             else
             {
@@ -157,7 +158,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
         {
             if (x + 1 == 6)
             {
-                return path.Count;
+                return path.Count - 1;
             }
             else
             {
@@ -166,9 +167,10 @@ public class pdefd77_BoardCheck : MonoBehaviour
         }
 
         // 탐색 종료 후 방문한 경로 초기화
-        visited[y, x] = false;
-        path.RemoveAt(path.Count - 1);
+            visited[y, x] = false;
+            path.RemoveAt(path.Count - 1);
 
+        path.Clear();
         return 0;
     }
     */

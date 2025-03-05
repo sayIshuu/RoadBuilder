@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class BoardCheck : MonoBehaviour
 {
@@ -144,6 +145,7 @@ public class BoardCheck : MonoBehaviour
     private void destroyTile(int y, int x)
     {
         arr[y, x] = 0;
-        Destroy(boardSlot[5 * y + x - 6].transform.GetChild(0).gameObject);
+        //Destroy(boardSlot[5 * y + x - 6].transform.GetChild(0).gameObject);
+        boardSlot[5 * y + x - 6].transform.GetChild(0).GetComponent<TileBreaker>().StartBreak();
     }
 }

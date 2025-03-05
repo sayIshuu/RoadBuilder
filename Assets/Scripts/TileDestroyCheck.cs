@@ -19,7 +19,11 @@ public class TileDestroyCheck : MonoBehaviour
 
     public void Update()
     {
-        if (transform.position.y < -500)
+        if (transform.position.y > 1150)
+        {
+            transform.position = new Vector2(transform.position.x, 1150);
+        }
+        else if (transform.position.y < -100)
         {
             Destroy(gameObject);
         }

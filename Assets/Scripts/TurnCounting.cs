@@ -89,7 +89,10 @@ public class TurnCounting : MonoBehaviour
                 //°»½Å
                 limitTurn += firstLimitTurn;
                 goalScore += firstGoalScore * increaseMultiplier;
-                increaseMultiplier += 1;
+                if (increaseMultiplier < 10)
+                {
+                    increaseMultiplier += 1;
+                }
 
                 levelUpEffect.CrackerShoot(level);
                 level++;

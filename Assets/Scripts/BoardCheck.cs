@@ -159,6 +159,6 @@ public class BoardCheck : MonoBehaviour
     private void DestroyTile(int y, int x)
     {
         arr[y, x] = 0;
-        boardSlot[5 * y + x - 6].transform.GetChild(0).GetComponent<TileBreaker>().StartBreak();
+        boardSlot[5 * y + x - 6].transform.GetChild(0).GetComponent<TileDestroy>().StartBreak();
     }
 }

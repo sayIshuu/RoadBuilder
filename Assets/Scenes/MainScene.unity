@@ -542,7 +542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnCount: 0
   limitTurn: 10
-  goalScore: 100
+  goalScore: 50
   limitTurnText: {fileID: 821752492}
   goalScoreText: {fileID: 1471225003}
 --- !u!4 &318467075

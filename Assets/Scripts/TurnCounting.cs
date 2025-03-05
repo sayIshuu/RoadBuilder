@@ -93,6 +93,7 @@ public class TurnCounting : MonoBehaviour
 
                 levelUpEffect.CrackerShoot(level);
                 level++;
+                SoundManager.Instance.PlayLevelUpSound();
             }
         }
     }

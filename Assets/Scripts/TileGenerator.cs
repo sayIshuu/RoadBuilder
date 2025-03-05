@@ -39,6 +39,7 @@ public class TileGenerator : MonoBehaviour
 
     public void Reset()
     {
+        SoundManager.Instance.PlayDisplaySound();
         BoardCheck.score = 0;
         BoardCheck.gameover = false;
         SceneManager.LoadScene("MainScene");
@@ -46,6 +47,7 @@ public class TileGenerator : MonoBehaviour
 
     public void Reroll(bool isOn)
     {
+        SoundManager.Instance.PlayDisplaySound();
         if (RerollCount == 0)
         {
             Debug.Log("ºÒ°¡´É!");

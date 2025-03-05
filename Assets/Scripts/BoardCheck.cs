@@ -13,6 +13,7 @@ public class BoardCheck : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gameOverTxt;
     public static int score = 0;
+    public static bool gameover;
     public int displayedTileCount = 0;
     //dfs추적을 위한 list. 각 int값으로 arr의 인덱스값이 들어갑니다.
     private List<(int, int)> path = new List<(int, int)>();
@@ -44,15 +45,22 @@ public class BoardCheck : MonoBehaviour
 
                 if (val > 0)
                 {
-                    if (displayedTileCount >= 25)
-                    {
-                        gameOverTxt.text = "Your Score is " + score;
-                    }
+                    
 
                     //gameOverTxt.gameObject.SetActive(true);
                     //gameOverTxt.text = "Your length is " + val;
 
                     getScore(val);
+                }
+                if (displayedTileCount >= 25)
+                {
+                    //gameOverTxt.text = "Your Score is " + score;
+                    gameover = true;
+                }
+                if(gameover)
+                {
+                    gameOverTxt.gameObject.SetActive(true);
+                    gameOverTxt.text = "Your Score is " + score;
                 }
             }
         }

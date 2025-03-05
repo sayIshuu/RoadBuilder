@@ -23,13 +23,13 @@ public class TileGenerator : MonoBehaviour
 
     private int tileCount = 0;
 
-    void Start()
+    private void Start()
     {
         RerollToggle.onValueChanged.AddListener(Reroll);
         RerollCount = 3;
     }
 
-    public void Update()
+    private void Update()
     {
         if (tileCount == 0)
         {
@@ -47,7 +47,7 @@ public class TileGenerator : MonoBehaviour
     {
         BoardCheck.score = 0;
         SceneManager.LoadScene("MainScene");
-}
+    }
 
     public void Reroll(bool isOn)
     {
@@ -80,7 +80,7 @@ public class TileGenerator : MonoBehaviour
     }
 
 
-    public void DeleteTile(Transform slot)
+    private void DeleteTile(Transform slot)
     {
         Transform tile;
 
@@ -100,7 +100,7 @@ public class TileGenerator : MonoBehaviour
         tileCount -= 1;
     }
 
-    public void Generate()
+    private void Generate()
     {
         tileCount = 3;
         TileGenerate(InventorySlot1);
@@ -126,7 +126,7 @@ public class TileGenerator : MonoBehaviour
         }
     }
 
-    public void TileGenerate(Transform slot)
+    private void TileGenerate(Transform slot)
     {
         int randNum = GetRandNum();
         int newType;
@@ -194,7 +194,7 @@ public class TileGenerator : MonoBehaviour
         newTile.GetComponent<TileDraggable>().tileType = newType;
     }
 
-    public void ChangeColor(Colors colorType, params Transform[] colorList)
+    private void ChangeColor(Colors colorType, params Transform[] colorList)
     {
         Color newColor = Color.black;
 

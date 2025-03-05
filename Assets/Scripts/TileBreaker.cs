@@ -8,15 +8,10 @@ public class TileBreaker : MonoBehaviour
     private Transform canvas;
     Transform[] childList;
 
-    public void Awake()
+    private void Awake()
     {
         canvas = FindFirstObjectByType<Canvas>().transform;
         childList = gameObject.GetComponentsInChildren<Transform>();
-    }
-
-    public void Start()
-    {
-        //StartCoroutine(DestroyEffect());
     }
 
     public void StartBreak()

@@ -22,7 +22,7 @@ public class BoardCheck : MonoBehaviour
 
     public static int[,] arr = new int[7, 7] { { 0, 4, 4, 4, 4, 4, 0 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 0, 1, 1, 1, 1, 1, 0 } };
 
-    public void Awake()
+    private void Awake()
     {
         arr = new int[7, 7] { { 0, 4, 4, 4, 4, 4, 0 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 0, 1, 1, 1, 1, 1, 0 } };
         scoreTxt.text = "Score : " + score;
@@ -143,7 +143,7 @@ public class BoardCheck : MonoBehaviour
         // 타일 파괴. path에 들어있는 값들을 이용해서 파괴. 추가로 path에 들어있는 인덱스 값들 이용해서 item획득까지.
         foreach (var (y, x) in path)
         {
-            destroyTile(y, x);
+            DestroyTile(y, x);
             if (item[y, x] == 1)
             {
                 //리롤+1
@@ -156,10 +156,9 @@ public class BoardCheck : MonoBehaviour
         }
     }
 
-    private void destroyTile(int y, int x)
+    private void DestroyTile(int y, int x)
     {
         arr[y, x] = 0;
-        //Destroy(boardSlot[5 * y + x - 6].transform.GetChild(0).gameObject);
         boardSlot[5 * y + x - 6].transform.GetChild(0).GetComponent<TileBreaker>().StartBreak();
     }
 }

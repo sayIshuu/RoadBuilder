@@ -7,9 +7,11 @@ public class TurnCounting : MonoBehaviour
     //싱글톤패턴
     public static TurnCounting Instance;
 
-    public int turnCount = 0;
-    public int limitTurn = 10;
-    public int goalScore = 100;
+    public int turnCount;
+    public int limitTurn;
+    private int firstLimitTurn;
+    public int goalScore;
+    private int firstGoalScore;
     private int increaseMultiplier = 2;
 
     [SerializeField] private TextMeshProUGUI limitTurnText;
@@ -29,6 +31,8 @@ public class TurnCounting : MonoBehaviour
             Destroy(gameObject); // 중복 방지
         }
 
+        firstLimitTurn = limitTurn;
+        firstGoalScore = goalScore;
         UpdateText();
     }
 
@@ -44,8 +48,8 @@ public class TurnCounting : MonoBehaviour
     private void ResetVariables()
     {
         turnCount = 0;
-        limitTurn = 10;
-        goalScore = 100;
+        limitTurn = firstLimitTurn;
+        goalScore = firstGoalScore;
         increaseMultiplier = 2;
     }
 
@@ -69,8 +73,8 @@ public class TurnCounting : MonoBehaviour
             else
             {
                 //갱신
-                limitTurn += 10 * increaseMultiplier;
-                goalScore += 100 * increaseMultiplier;
+                limitTurn += firstLimitTurn;
+                goalScore += firstGoalScore * increaseMultiplier;
                 increaseMultiplier += 1;
             }
         }

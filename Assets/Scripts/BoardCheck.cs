@@ -15,7 +15,8 @@ public class BoardCheck : MonoBehaviour
     public int displayedTileCount = 0;
     //dfs추적을 위한 list. 각 int값으로 arr의 인덱스값이 들어갑니다.
     private List<(int, int)> path = new List<(int, int)>();
-    private bool[,] visited = new bool[7, 7];
+    //어떤 아이템을 그 칸에 들어있는지 나타내는 배열. 0 : 빈칸, 1 : 리롤+1, 2 : 타일제거
+    private int[,] item = new int[7, 7];
     //배율 변수. 길이에 따라 얼마나 점수 증폭될 지
     [SerializeField]
     private int scoreMultiplier = 1;
@@ -26,6 +27,11 @@ public class BoardCheck : MonoBehaviour
     {
         arr = new int[7, 7] { { 0, 4, 4, 4, 4, 4, 0 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 0, 1, 1, 1, 1, 1, 0 } };
         scoreTxt.text = "Score : " + score;
+        GameObject boardInventory = GameObject.Find("BoardInventory");
+        for (int i = 0; i < 25; i++)
+        {
+            boardSlot[i] = boardInventory.transform.GetChild(i).gameObject;
+        }
     }
 
     public void check()
@@ -36,6 +42,7 @@ public class BoardCheck : MonoBehaviour
             {
                 if (i != 0 && i != 6 && j != 0 && j != 6) continue;
 
+                path.Clear();
                 int val = dfs(i, j, 0);
 
                 if (val > 0)
@@ -44,9 +51,11 @@ public class BoardCheck : MonoBehaviour
                     {
                         gameOverTxt.text = "Your Score is " + score;
                     }
-                    
-                    gameOverTxt.gameObject.SetActive(true);
-                    gameOverTxt.text = "Your length is " + val;
+
+                    //gameOverTxt.gameObject.SetActive(true);
+                    //gameOverTxt.text = "Your length is " + val;
+
+                    getScore(val);
                 }
             }
         }
@@ -54,21 +63,20 @@ public class BoardCheck : MonoBehaviour
         scoreTxt.text = "Score : " + score;
     }
 
+
     private int dfs(int y, int x, int prev)
     {
-        // 이미 방문한 경우 탐색 종료
-        if (visited[y, x]) return 0;
-
         // 현재 위치 방문 표시 및 경로 저장
-            visited[y, x] = true;
+        if (y != 0 && y != 6 && x != 0 && x != 6)
+        {
             path.Add((y, x));
-            
+        }
 
         if (prev != 1 && y < 6 && (arr[y, x] & 4) > 0 && (arr[y + 1, x] & 1) > 0)
         {
             if (y + 1 == 6)
             {
-                return path.Count - 1;
+                return path.Count;
 
             }
             else
@@ -81,7 +89,7 @@ public class BoardCheck : MonoBehaviour
         {
             if (x - 1 == 0)
             {
-                return path.Count - 1;
+                return path.Count;
             }
             else
             {
@@ -93,7 +101,7 @@ public class BoardCheck : MonoBehaviour
         {
             if (y - 1 == 0)
             {
-                return path.Count - 1;
+                return path.Count;
             }
             else
             {
@@ -105,19 +113,13 @@ public class BoardCheck : MonoBehaviour
         {
             if (x + 1 == 6)
             {
-                return path.Count - 1;
+                return path.Count;
             }
             else
             {
                 return dfs(y, x + 1, 2);
             }
         }
-
-        // 탐색 종료 후 방문한 경로 초기화
-            visited[y, x] = false;
-            path.RemoveAt(path.Count - 1);
-
-        path.Clear();
         return 0;
     }
 
@@ -126,16 +128,25 @@ public class BoardCheck : MonoBehaviour
         // 점수 계산 : 배율 정해서. 이부분은 쉽게 수정되게. 배율변수 빼기.
         displayedTileCount -= len;
         score += len * scoreMultiplier;
-        // 타일 파괴. path에 들어있는 값들을 이용해서 파괴.
-        // { 추후 코드추가 }
+        // 타일 파괴. path에 들어있는 값들을 이용해서 파괴. 추가로 path에 들어있는 인덱스 값들 이용해서 item획득까지.
+        foreach (var (y, x) in path)
+        {
+            destroyTile(y, x);
+            if (item[y, x] == 1)
+            {
+                //리롤+1
+            }
+            else if (item[y, x] == 2)
+            {
+                //타일제거
+            }
+            item[y, x] = 0;
+        }
     }
 
     private void destroyTile(int y, int x)
     {
-        if (Random.Range(0, 4) >= 0)
-        {
-            arr[y, x] = 0;
-            Destroy(boardSlot[5 * y + x - 6].transform.GetChild(0).gameObject);
-        }
+        arr[y, x] = 0;
+        Destroy(boardSlot[5 * y + x - 6].transform.GetChild(0).gameObject);
     }
 }

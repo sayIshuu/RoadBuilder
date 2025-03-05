@@ -3,7 +3,7 @@ using TMPro;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-public class pdefd77_BoardCheck : MonoBehaviour
+public class BoardCheck : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] boardSlot;

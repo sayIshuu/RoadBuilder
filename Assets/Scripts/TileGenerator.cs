@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-public class pdefd77_TileGenerator : MonoBehaviour
+public class TileGenerator : MonoBehaviour
 {
     [SerializeField]
     private Transform InventorySlot1;
@@ -74,6 +74,6 @@ public class pdefd77_TileGenerator : MonoBehaviour
                 break;
         }
 
-        newTile.GetComponent<pdefd77_TileDraggable>().tileType = newType;
+        newTile.GetComponent<TileDraggable>().tileType = newType;
     }
 }

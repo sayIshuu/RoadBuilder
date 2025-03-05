@@ -127,7 +127,7 @@ public class BoardCheck : MonoBehaviour
     {
         // 점수 계산 : 배율 정해서. 이부분은 쉽게 수정되게. 배율변수 빼기.
         displayedTileCount -= len;
-        score += len * scoreMultiplier;
+        score += len * scoreMultiplier * scoreMultiplier;
         // 타일 파괴. path에 들어있는 값들을 이용해서 파괴. 추가로 path에 들어있는 인덱스 값들 이용해서 item획득까지.
         foreach (var (y, x) in path)
         {

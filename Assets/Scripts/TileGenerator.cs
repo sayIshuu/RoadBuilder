@@ -78,6 +78,32 @@ public class TileGenerator : MonoBehaviour
                 newType = 3;
                 ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[6]);
                 break;
+            //���� �߰�
+            case 7:
+                newType = 7; // 0111
+                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[6]);
+                ChangeColorMagenta(childList[4]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
+                break;
+            case 8:
+                newType = 11; // 1011
+                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[6]); ChageColor(childList[4]);
+                ChangeColorMagenta(childList[8]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
+                break;
+            case 9:
+                newType = 14; // 1110
+                ChageColor(childList[4]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[6]);
+                ChangeColorMagenta(childList[2]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
+                break;
+            case 10:
+                newType = 13; // 1101
+                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[4]);
+                ChangeColorMagenta(childList[6]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
+                break;
+            case 11:
+                newType = 15; // 1111
+                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[4]); ChageColor(childList[6]);
+                ChangeColorYellow(childList[1]); ChangeColorYellow(childList[3]); ChangeColorYellow(childList[7]); ChangeColorYellow(childList[9]);
+                break;
             default:
                 newType = 0;
                 break;

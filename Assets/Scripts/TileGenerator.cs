@@ -35,17 +35,12 @@ public class TileGenerator : MonoBehaviour
         {
             Generate();
         }
-        if (Input.GetKeyDown("r"))
-        {
-            BoardCheck.score = 0;
-            BoardCheck.gameover = false;
-            SceneManager.LoadScene("MainScene");
-        }
     }
 
     public void Reset()
     {
         BoardCheck.score = 0;
+        BoardCheck.gameover = false;
         SceneManager.LoadScene("MainScene");
     }
 

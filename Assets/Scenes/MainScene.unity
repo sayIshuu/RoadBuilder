@@ -537,19 +537,7 @@ MonoBehaviour:
   InventorySlot1: {fileID: 1368387046}
   InventorySlot2: {fileID: 1612394814}
   InventorySlot3: {fileID: 211975258}
-  TileSet:
-  - {fileID: 232519769258362021, guid: 7eb63bd57157c4c40abf4f4c50cb75d8, type: 3}
-  - {fileID: 7084925436807798372, guid: 4f4fdcfb298ae9b418a23b54b9424f15, type: 3}
-  - {fileID: 2196132072906696323, guid: 1664c3732485b684ab83c1e2fa142e92, type: 3}
-  - {fileID: 2455246074610083378, guid: b3e677d6339ac6b4faea5b12e4d20b5c, type: 3}
-  - {fileID: 676111521449455752, guid: 042dfe0bb3f135b458807fa51d6779f3, type: 3}
-  - {fileID: 3417228381966366320, guid: 7c67c2b6c442d7f4881d91751f99cd6c, type: 3}
-  RerollToggle: {fileID: 286647607}
-  RerollBackground: {fileID: 1512647488}
-  RerollCount: 0
-  CrashToggle: {fileID: 285351397}
-  CrashBackground: {fileID: 635159657}
-  CrashCount: 0
+  Tile: {fileID: 5751471162977674497, guid: dfdc19b1bb8e1ef4ba28c7f054bc974c, type: 3}
 --- !u!4 &291107838
 Transform:
   m_ObjectHideFlags: 0

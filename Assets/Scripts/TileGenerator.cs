@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 using UnityEngine.UI;
 
+public enum Colors { WHITE, RED, MAGENTA, YELLOW };
+
 public class TileGenerator : MonoBehaviour
 {
     [SerializeField]
@@ -101,17 +103,17 @@ public class TileGenerator : MonoBehaviour
 
     private int getRandNum()
     {
-        float randomValue = Random.Range(0f, 100f); // 0~100 ÏÇ¨Ïù¥Ïùò ÎûúÎç§ Ïà´Ïûê
+        float randomValue = Random.Range(0f, 100f); // 0~100 ?¨Ïù¥???úÎç§ ?´Ïûê
 
-        if (randomValue < 95f)        // 95% ÌôïÎ•† ‚Üí 1~6
+        if (randomValue < 95f)        // 95% ?ïÎ•† ??1~6
         {
             return Random.Range(1, 7);
         }
-        else if (randomValue < 99.5f) // 4.5% ÌôïÎ•† ‚Üí 7~10
+        else if (randomValue < 99.5f) // 4.5% ?ïÎ•† ??7~10
         {
             return Random.Range(7, 11);
         }
-        else                          // 0.5% ÌôïÎ•† ‚Üí 11
+        else                          // 0.5% ?ïÎ•† ??11
         {
             return 11;
         }
@@ -129,53 +131,53 @@ public class TileGenerator : MonoBehaviour
         switch (randNum)
         {
             case 1:
-                newType = 10;
-                ChageColor(childList[4]); ChageColor(childList[5]); ChageColor(childList[6]);
+                newType = 10; // ¶°∏æÁ
+                ChangeColor(Colors.WHITE, childList[4], childList[5],childList[6]);
                 break;
             case 2:
-                newType = 5;
-                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[8]);
+                newType = 5; // ¶¢∏æÁ
+                ChangeColor(Colors.WHITE, childList[2], childList[5], childList[8]);
                 break;
             case 3:
-                newType = 6;
-                ChageColor(childList[5]); ChageColor(childList[6]); ChageColor(childList[8]);
+                newType = 6; // ¶£∏æÁ
+                ChangeColor(Colors.WHITE, childList[5], childList[6], childList[8]);
                 break;
             case 4:
-                newType = 12;
-                ChageColor(childList[4]); ChageColor(childList[5]); ChageColor(childList[8]);
+                newType = 12; // ¶§∏æÁ
+                ChangeColor(Colors.WHITE, childList[4], childList[5], childList[8]);
                 break;
             case 5:
-                newType = 9;
-                ChageColor(childList[2]); ChageColor(childList[4]); ChageColor(childList[5]);
+                newType = 9; // ¶•∏æÁ
+                ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5]);
                 break;
             case 6:
-                newType = 3;
-                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[6]);
+                newType = 3; // ¶¶∏æÁ
+                ChangeColor(Colors.WHITE, childList[2], childList[5], childList[6]);
                 break;
             case 7:
-                newType = 7; // 0111
-                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[6]);
-                ChangeColorMagenta(childList[4]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
+                newType = 7; // ¶®∏æÁ 0111
+                ChangeColor(Colors.WHITE, childList[2], childList[5], childList[6], childList[8]);
+                ChangeColor(Colors.MAGENTA, childList[1], childList[3], childList[4], childList[7], childList[9]);
                 break;
             case 8:
-                newType = 11; // 1011
-                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[6]); ChageColor(childList[4]);
-                ChangeColorMagenta(childList[8]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
+                newType = 11; // ¶©∏æÁ 1011
+                ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[6]);
+                ChangeColor(Colors.MAGENTA, childList[1], childList[3], childList[7], childList[8], childList[9]);
                 break;
             case 9:
-                newType = 14; // 1110
-                ChageColor(childList[4]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[6]);
-                ChangeColorMagenta(childList[2]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
+                newType = 14; // ¶™∏æÁ 1110
+                ChangeColor(Colors.WHITE, childList[4], childList[5], childList[6], childList[8]);
+                ChangeColor(Colors.MAGENTA, childList[1], childList[2], childList[3], childList[7], childList[9]);
                 break;
             case 10:
-                newType = 13; // 1101
-                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[4]);
-                ChangeColorMagenta(childList[6]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
+                newType = 13; // ¶ß∏æÁ 1101
+                ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[8]);
+                ChangeColor(Colors.MAGENTA, childList[1], childList[3], childList[6], childList[7], childList[9]);
                 break;
             case 11:
-                newType = 15; // 1111
-                ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[4]); ChageColor(childList[6]);
-                ChangeColorYellow(childList[1]); ChangeColorYellow(childList[3]); ChangeColorYellow(childList[7]); ChangeColorYellow(childList[9]);
+                newType = 15; // ¶´∏æÁ 1111
+                ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[6], childList[8]);
+                ChangeColor(Colors.YELLOW, childList[1], childList[3], childList[7], childList[9]);
                 break;
             default:
                 newType = 0;
@@ -185,18 +187,29 @@ public class TileGenerator : MonoBehaviour
         newTile.GetComponent<TileDraggable>().tileType = newType;
     }
 
-    public void ChageColor(Transform transform)
+    public void ChangeColor(Colors colorType, params Transform[] colorList)
     {
-        transform.GetComponent<Image>().color = Color.white;
-    }
+        Color newColor = Color.black;
 
-    public void ChangeColorMagenta(Transform transform)
-    {
-        transform.GetComponent<Image>().color = new Color32(127, 61, 242, 255);
-    }
+        switch (colorType)
+        {
+            case Colors.WHITE:
+                newColor = Color.white;
+                break;
+            case Colors.RED:
+                newColor = Color.red;
+                break;
+            case Colors.MAGENTA:
+                newColor = new Color32(127, 61, 242, 255);
+                break;
+            case Colors.YELLOW:
+                newColor = new Color32(230, 216, 3, 255);
+                break;
+        }
 
-    public void ChangeColorYellow(Transform transform)
-    {
-        transform.GetComponent<Image>().color = new Color32(230, 216, 3, 255);
+        foreach(Transform elem in colorList)
+        {
+            elem.GetComponent<Image>().color = newColor;
+        }
     }
 }

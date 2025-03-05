@@ -12,7 +12,7 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public int tileType;
 
-    public void Awake()
+    private void Awake()
     {
         canvas = FindFirstObjectByType<Canvas>().transform;
         rect = GetComponent<RectTransform>();

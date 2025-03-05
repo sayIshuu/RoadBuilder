@@ -7,14 +7,14 @@ public class TileDestroyCheck : MonoBehaviour
     ConstantForce2D cf;
     float h;
 
-    public void Awake()
+    private void Awake()
     {
         rb = transform.GetComponent<Rigidbody2D>();
         cf = transform.GetComponent<ConstantForce2D>();
         h = Screen.height;
     }
 
-    public void Update()
+    private void Update()
     {
         if (transform.position.y > h)
         {

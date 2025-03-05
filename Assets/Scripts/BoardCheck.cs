@@ -11,15 +11,12 @@ public class BoardCheck : MonoBehaviour
     private TextMeshProUGUI scoreTxt;
     [SerializeField]
     private TextMeshProUGUI gameOverTxt;
-    private int score = 0;
+    public static int score = 0;
     public int displayedTileCount = 0;
     //dfs추적을 위한 list. 각 int값으로 arr의 인덱스값이 들어갑니다.
     private List<(int, int)> path = new List<(int, int)>();
     //어떤 아이템을 그 칸에 들어있는지 나타내는 배열. 0 : 빈칸, 1 : 리롤+1, 2 : 타일제거
     private int[,] item = new int[7, 7];
-    //배율 변수. 길이에 따라 얼마나 점수 증폭될 지
-    [SerializeField]
-    private int scoreMultiplier = 1;
 
     public static int[,] arr = new int[7, 7] { { 0, 4, 4, 4, 4, 4, 0 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 0, 1, 1, 1, 1, 1, 0 } };
 
@@ -127,7 +124,7 @@ public class BoardCheck : MonoBehaviour
     {
         // 점수 계산 : 배율 정해서. 이부분은 쉽게 수정되게. 배율변수 빼기.
         displayedTileCount -= len;
-        score += len * scoreMultiplier * scoreMultiplier;
+        score += len * len * len;
         // 타일 파괴. path에 들어있는 값들을 이용해서 파괴. 추가로 path에 들어있는 인덱스 값들 이용해서 item획득까지.
         foreach (var (y, x) in path)
         {

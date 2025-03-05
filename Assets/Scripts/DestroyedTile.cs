@@ -1,11 +1,11 @@
 using System.Collections;
 using UnityEngine;
 
-public class TileDestroyCheck : MonoBehaviour
+public class DestroyedTile : MonoBehaviour
 {
     Rigidbody2D rb;
     ConstantForce2D cf;
-    float h;
+    private int h;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class TileDestroyCheck : MonoBehaviour
         {
             transform.position = new Vector2(transform.position.x, h);
         }
-        else if (transform.position.y < -h/5)
+        else if (transform.position.y < -0.2f * h)
         {
             Destroy(gameObject);
         }

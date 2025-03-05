@@ -61,10 +61,10 @@ public class TurnCounting : MonoBehaviour
 
         if (turnCount >= limitTurn)
         {
-            if(BoardCheck.score < goalScore)
+            if(BoardCheck.score <= goalScore)
             {
                 //game over
-                Debug.Log("Game Over");
+                BoardCheck.gameover = true;
             }
             else
             {

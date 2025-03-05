@@ -108,12 +108,12 @@ public class TileGenerator : MonoBehaviour
                 ChangeColorMagenta(childList[8]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
                 break;
             case 9:
-                newType = 13; // 1110
+                newType = 14; // 1110
                 ChageColor(childList[4]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[6]);
                 ChangeColorMagenta(childList[2]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
                 break;
             case 10:
-                newType = 14; // 1101
+                newType = 13; // 1101
                 ChageColor(childList[2]); ChageColor(childList[5]); ChageColor(childList[8]); ChageColor(childList[4]);
                 ChangeColorMagenta(childList[6]); ChangeColorMagenta(childList[1]); ChangeColorMagenta(childList[3]); ChangeColorMagenta(childList[7]); ChangeColorMagenta(childList[9]);
                 break;

@@ -15,7 +15,17 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private GameObject Tile;
 
+    public Toggle RerollToggle;
+    public Image RerollBackground;
+    public int RerollCount;
+
     private int tileCount = 0;
+
+    void Start()
+    {
+        RerollToggle.onValueChanged.AddListener(Reroll);
+        RerollCount = 3;
+    }
 
     public void Update()
     {
@@ -29,6 +39,52 @@ public class TileGenerator : MonoBehaviour
             SceneManager.LoadScene("MainScene");
         }
     }
+
+    public void Reroll(bool isOn)
+    {
+        if (RerollCount == 0)
+        {
+            Debug.Log("ºÒ°¡´É!");
+        }
+        else if (RerollCount == 1)
+        {
+            RerollCount--;
+
+            deleteTile(InventorySlot1);
+            deleteTile(InventorySlot2);
+            deleteTile(InventorySlot3);
+
+            Generate();
+
+            RerollBackground.color = Color.red;
+        }
+        else
+        {
+            RerollCount--;
+
+            deleteTile(InventorySlot1);
+            deleteTile(InventorySlot2);
+            deleteTile(InventorySlot3);
+
+            Generate();
+        }
+    }
+
+
+    public void deleteTile(Transform slot)
+    {
+        Transform tile;
+
+        if (slot.childCount > 0)
+        {
+            tile = slot.GetChild(0);
+
+            minusTileCount();
+
+            Destroy(tile.gameObject);
+        }
+    }
+
 
     public void minusTileCount()
     {

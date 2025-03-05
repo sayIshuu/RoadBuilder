@@ -35,12 +35,13 @@ public class TileGenerator : MonoBehaviour
         {
             Generate();
         }
-        if (Input.GetKeyDown("r"))
-        {
-            BoardCheck.score = 0;
-            SceneManager.LoadScene("MainScene");
-        }
     }
+
+    public void Reset()
+    {
+        BoardCheck.score = 0;
+        SceneManager.LoadScene("MainScene");
+}
 
     public void Reroll(bool isOn)
     {

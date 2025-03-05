@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using UnityEngine.UI;
 
 public class TileGenerator : MonoBehaviour
 {
@@ -14,7 +15,23 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private GameObject[] TileSet;
 
+    public Toggle RerollToggle;
+    public Image RerollBackground;
+    public int RerollCount;
+
+    public Toggle CrashToggle;
+    public Image CrashBackground;
+    public int CrashCount;
+
     private int tileCount = 0;
+
+    void Start()
+    {
+        RerollToggle.onValueChanged.AddListener(Reroll);
+        CrashToggle.onValueChanged.AddListener(OnToggleChanged);
+        RerollCount = 3;
+        CrashCount = 3;
+    }
 
     public void Update()
     {
@@ -22,9 +39,69 @@ public class TileGenerator : MonoBehaviour
         {
             Generate();
         }
+
         if (Input.GetKeyDown("r"))
         {
             SceneManager.LoadScene("MainScene");
+        }
+    }
+
+    //리롤 토글이 켜져있을 때 눌러지면 새로 3개 만들어짐. 카운트 전부 소실시 빨간 색으로 바뀌며
+    public void Reroll(bool isOn)
+    {
+        if (RerollCount == 0)
+        {
+            Debug.Log("리롤 못해!");
+        }
+        else if (RerollCount == 1)
+        {
+            RerollCount--;
+
+            deleteTile(InventorySlot1);
+            deleteTile(InventorySlot2);
+            deleteTile(InventorySlot3);
+
+            Generate();
+
+            RerollBackground.color = Color.red;
+        }
+        else
+        {
+            RerollCount--;
+
+            deleteTile(InventorySlot1);
+            deleteTile(InventorySlot2);
+            deleteTile(InventorySlot3);
+
+            Generate();
+        }
+    }
+
+
+    //크래시 토글이 켜져있을때 눌러지면 색깔을 파란색으로 변경 후 변경되어있는 동안 눌린 타일을 삭제 및 새로운 타일 생성
+    public void OnToggleChanged(bool isOn)
+    {
+        if (isOn)
+        {
+            Debug.Log("토글이 켜졌습니다!");
+        }
+        else
+        {
+            Debug.Log("토글이 꺼졌습니다!");
+        }
+    }
+
+    public void deleteTile(Transform slot)
+    {
+        Transform tile;
+
+        if (slot.childCount > 0)
+        {
+            tile = slot.GetChild(0);
+
+            minusTileCount();
+
+            Destroy(tile.gameObject);
         }
     }
 

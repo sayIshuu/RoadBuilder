@@ -43,6 +43,12 @@ public class TileGenerator : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        BoardCheck.score = 0;
+        SceneManager.LoadScene("MainScene");
+}
+
     public void Reroll(bool isOn)
     {
         if (RerollCount == 0)

@@ -14,6 +14,8 @@ public class TurnCounting : MonoBehaviour
     private int firstGoalScore;
     private int increaseMultiplier = 2;
 
+    private int level = 1;
+
     [SerializeField] private TextMeshProUGUI limitTurnText;
     [SerializeField] private TextMeshProUGUI goalScoreText;
 
@@ -48,6 +50,7 @@ public class TurnCounting : MonoBehaviour
     private void ResetVariables()
     {
         turnCount = 0;
+        level = 1;
         limitTurn = firstLimitTurn;
         goalScore = firstGoalScore;
         increaseMultiplier = 2;
@@ -76,6 +79,7 @@ public class TurnCounting : MonoBehaviour
                 limitTurn += firstLimitTurn;
                 goalScore += firstGoalScore * increaseMultiplier;
                 increaseMultiplier += 1;
+                level++;
             }
         }
     }

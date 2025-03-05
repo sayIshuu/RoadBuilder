@@ -24,6 +24,7 @@ public class TileGenerator : MonoBehaviour
         }
         if (Input.GetKeyDown("r"))
         {
+            BoardCheck.score = 0;
             SceneManager.LoadScene("MainScene");
         }
     }

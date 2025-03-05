@@ -59,7 +59,7 @@ public class TurnCounting : MonoBehaviour
     {
         updateText();
 
-        if (turnCount >= limitTurn-1)
+        if (turnCount >= limitTurn)
         {
             if(BoardCheck.score < goalScore)
             {

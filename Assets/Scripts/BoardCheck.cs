@@ -13,7 +13,7 @@ public class BoardCheck : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI gameOverTxt;
     public static int score = 0;
-    public static bool gameover;
+    public static bool gameover = false;
     public int displayedTileCount = 0;
     //dfs추적을 위한 list. 각 int값으로 arr의 인덱스값이 들어갑니다.
     private List<(int, int)> path = new List<(int, int)>();
@@ -57,12 +57,18 @@ public class BoardCheck : MonoBehaviour
                     //gameOverTxt.text = "Your Score is " + score;
                     gameover = true;
                 }
-                if(gameover)
-                {
-                    gameOverTxt.gameObject.SetActive(true);
-                    gameOverTxt.text = "Your Score is " + score;
-                }
+                
             }
+        }
+        //턴 증가
+        TurnCounting.Instance.turnCount++;
+        //턴에 해당하는 점수 충족 여부 확인 및 게임 종료 결정
+        TurnCounting.Instance.checkTrunAndGoal();
+
+        if (gameover)
+        {
+            gameOverTxt.gameObject.SetActive(true);
+            gameOverTxt.text = "Your Score is " + score;
         }
 
         scoreTxt.text = "Score : " + score;

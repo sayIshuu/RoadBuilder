@@ -29,7 +29,7 @@ public class TurnCounting : MonoBehaviour
             Destroy(gameObject); // 중복 방지
         }
 
-        updateText();
+        UpdateText();
     }
 
     // 씬이 로드될 때 변수 초기화
@@ -37,7 +37,7 @@ public class TurnCounting : MonoBehaviour
     {
         AssignUIElements(); // 텍스트누락방지 요소 할당
         ResetVariables(); // 변수를 기본값으로 초기화
-        updateText();
+        UpdateText();
     }
 
     // 변수 초기화 메서드
@@ -55,9 +55,9 @@ public class TurnCounting : MonoBehaviour
         goalScoreText = GameObject.Find("GoalText")?.GetComponent<TextMeshProUGUI>();
     }
 
-    public void checkTrunAndGoal()
+    public void CheckTrunAndGoal()
     {
-        updateText();
+        UpdateText();
 
         if (turnCount >= limitTurn-1)
         {
@@ -77,7 +77,7 @@ public class TurnCounting : MonoBehaviour
     }
 
     //텍스트 갱신
-    private void updateText()
+    private void UpdateText()
     {
         limitTurnText.text = "Turn : " + turnCount + " / " + limitTurn;
         goalScoreText.text = "Goal : " + goalScore;

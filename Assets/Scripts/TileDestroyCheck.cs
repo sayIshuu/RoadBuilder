@@ -5,25 +5,22 @@ public class TileDestroyCheck : MonoBehaviour
 {
     Rigidbody2D rb;
     ConstantForce2D cf;
+    float h;
 
     public void Awake()
     {
         rb = transform.GetComponent<Rigidbody2D>();
         cf = transform.GetComponent<ConstantForce2D>();
-
-        //초기화가 안됨, 생성된 타일에서는 안발생하는 버그로 추측
-        rb.gravityScale = 0f;
-        cf.force = Vector2.zero;
-        cf.torque = 0f;
+        h = Screen.height;
     }
 
     public void Update()
     {
-        if (transform.position.y > 1150)
+        if (transform.position.y > h)
         {
-            transform.position = new Vector2(transform.position.x, 1150);
+            transform.position = new Vector2(transform.position.x, h);
         }
-        else if (transform.position.y < -100)
+        else if (transform.position.y < -h/5)
         {
             Destroy(gameObject);
         }

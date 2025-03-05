@@ -52,9 +52,9 @@ public class TileGenerator : MonoBehaviour
         {
             RerollCount--;
 
-            deleteTile(InventorySlot1);
-            deleteTile(InventorySlot2);
-            deleteTile(InventorySlot3);
+            DeleteTile(InventorySlot1);
+            DeleteTile(InventorySlot2);
+            DeleteTile(InventorySlot3);
 
             Generate();
 
@@ -64,16 +64,16 @@ public class TileGenerator : MonoBehaviour
         {
             RerollCount--;
 
-            deleteTile(InventorySlot1);
-            deleteTile(InventorySlot2);
-            deleteTile(InventorySlot3);
+            DeleteTile(InventorySlot1);
+            DeleteTile(InventorySlot2);
+            DeleteTile(InventorySlot3);
 
             Generate();
         }
     }
 
 
-    public void deleteTile(Transform slot)
+    public void DeleteTile(Transform slot)
     {
         Transform tile;
 
@@ -81,14 +81,14 @@ public class TileGenerator : MonoBehaviour
         {
             tile = slot.GetChild(0);
 
-            minusTileCount();
+            MinusTileCount();
 
             Destroy(tile.gameObject);
         }
     }
 
 
-    public void minusTileCount()
+    public void MinusTileCount()
     {
         tileCount -= 1;
     }
@@ -101,7 +101,7 @@ public class TileGenerator : MonoBehaviour
         TileGenerate(InventorySlot3);
     }
 
-    private int getRandNum()
+    private int GetRandNum()
     {
         float randomValue = Random.Range(0f, 100f); // 0~100 사이의 랜덤 숫자
 
@@ -121,7 +121,7 @@ public class TileGenerator : MonoBehaviour
 
     public void TileGenerate(Transform slot)
     {
-        int randNum = getRandNum();
+        int randNum = GetRandNum();
         int newType;
 
         GameObject newTile = Instantiate(Tile, slot);

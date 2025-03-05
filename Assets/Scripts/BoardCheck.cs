@@ -76,6 +76,7 @@ public class BoardCheck : MonoBehaviour
 
         if (gameover)
         {
+            SoundManager.Instance.PlayGameOverSound();
             gameOverTxt.gameObject.SetActive(true);
             gameOverTxt.text = "Your Score is " + score;
         }
@@ -198,5 +199,4 @@ public class BoardCheck : MonoBehaviour
             boardSlot[5 * y + x - 6].transform.GetChild(0).GetComponent<TileBreaker>().StartBreak();
         }
     }
-
 }

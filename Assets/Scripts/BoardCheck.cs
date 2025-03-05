@@ -33,7 +33,7 @@ public class BoardCheck : MonoBehaviour
         }
     }
 
-    public void check()
+    public void Check()
     {
         for (int i = 0; i < 7; i++)
         {
@@ -41,7 +41,7 @@ public class BoardCheck : MonoBehaviour
             {
                 if (i != 0 && i != 6 && j != 0 && j != 6) continue;
 
-                int val = dfs(i, j, 0);
+                int val = Dfs(i, j, 0);
 
                 if (val > 0)
                 {
@@ -50,7 +50,7 @@ public class BoardCheck : MonoBehaviour
                     //gameOverTxt.gameObject.SetActive(true);
                     //gameOverTxt.text = "Your length is " + val;
 
-                    getScore(val);
+                    GetScore(val);
                 }
                 if (displayedTileCount >= 25)
                 {
@@ -75,7 +75,7 @@ public class BoardCheck : MonoBehaviour
     }
 
 
-    private int dfs(int y, int x, int prev)
+    private int Dfs(int y, int x, int prev)
     {
         // 현재 위치 방문 표시 및 경로 저장
         if (y != 0 && y != 6 && x != 0 && x != 6)
@@ -92,7 +92,7 @@ public class BoardCheck : MonoBehaviour
             }
             else
             {
-                return dfs(y + 1, x, 4);
+                return Dfs(y + 1, x, 4);
             }
         }
 
@@ -104,7 +104,7 @@ public class BoardCheck : MonoBehaviour
             }
             else
             {
-                return dfs(y, x - 1, 8);
+                return Dfs(y, x - 1, 8);
             }
         }
 
@@ -116,7 +116,7 @@ public class BoardCheck : MonoBehaviour
             }
             else
             {
-                return dfs(y - 1, x, 1);
+                return Dfs(y - 1, x, 1);
             }
         }
 
@@ -128,14 +128,14 @@ public class BoardCheck : MonoBehaviour
             }
             else
             {
-                return dfs(y, x + 1, 2);
+                return Dfs(y, x + 1, 2);
             }
         }
         path.Clear();
         return 0;
     }
 
-    private void getScore(int len)
+    private void GetScore(int len)
     {
         // 점수 계산 : 배율 정해서. 이부분은 쉽게 수정되게. 배율변수 빼기.
         displayedTileCount -= len;

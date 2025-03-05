@@ -33,7 +33,7 @@ public class BoardSlot : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPoi
         }
     }
 
-    public int getIdx()
+    public int GetIdx()
     {
         return idx;
     }

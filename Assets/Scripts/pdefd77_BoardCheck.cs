@@ -26,6 +26,18 @@ public class pdefd77_BoardCheck : MonoBehaviour
     {
         arr = new int[7, 7] { { 0, 4, 4, 4, 4, 4, 0 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 0, 1, 1, 1, 1, 1, 0 } };
         scoreTxt.text = "Score : " + score;
+        GameObject boardInventory = GameObject.Find("BoardInventory");
+        for (int i = 0; i < 25; i++)
+        {
+            boardSlot[i] = boardInventory.transform.GetChild(i).gameObject;
+        }
+        for (int i = 0; i < 7; i++)
+        {
+            for (int j = 0; j < 7; j++)
+            {
+                visited[i, j] = false;
+            }
+        }
     }
 
     public void check()
@@ -45,8 +57,20 @@ public class pdefd77_BoardCheck : MonoBehaviour
                         gameOverTxt.text = "Your Score is " + score;
                     }
                     
-                    gameOverTxt.gameObject.SetActive(true);
-                    gameOverTxt.text = "Your length is " + val;
+                    //gameOverTxt.gameObject.SetActive(true);
+                    //gameOverTxt.text = "Your length is " + val;
+                    score += val;
+                    for (int y = 1; y < 7; y++)
+                    {
+                        for (int x = 1; x < 7; x++)
+                        {
+                            if (visited[y, x])
+                            {
+                                destroyTile(y, x);
+                                visited[y, x] = false;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -57,11 +81,18 @@ public class pdefd77_BoardCheck : MonoBehaviour
     private int dfs(int y, int x, int prev)
     {
         // 이미 방문한 경우 탐색 종료
-        if (visited[y, x]) return 0;
+        if (visited[y, x])
+        {
+            visited[y, x] = false;
+            return 0;
+        }
 
         // 현재 위치 방문 표시 및 경로 저장
+        if (y != 0 && y != 6 && x != 0 && x != 6)
+        {
             visited[y, x] = true;
-            path.Add((y, x));
+        }
+        path.Add((y, x));
             
 
         if (prev != 1 && y < 6 && (arr[y, x] & 4) > 0 && (arr[y + 1, x] & 1) > 0)
@@ -114,8 +145,8 @@ public class pdefd77_BoardCheck : MonoBehaviour
         }
 
         // 탐색 종료 후 방문한 경로 초기화
-            visited[y, x] = false;
-            path.RemoveAt(path.Count - 1);
+        visited[y, x] = false;
+        path.RemoveAt(path.Count - 1);
 
         path.Clear();
         return 0;
@@ -132,10 +163,7 @@ public class pdefd77_BoardCheck : MonoBehaviour
 
     private void destroyTile(int y, int x)
     {
-        if (Random.Range(0, 4) >= 0)
-        {
-            arr[y, x] = 0;
-            Destroy(boardSlot[5 * y + x - 6].transform.GetChild(0).gameObject);
-        }
+        arr[y, x] = 0;
+        Destroy(boardSlot[5 * y + x - 6].transform.GetChild(0).gameObject);
     }
 }

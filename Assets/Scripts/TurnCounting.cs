@@ -59,9 +59,9 @@ public class TurnCounting : MonoBehaviour
     {
         updateText();
 
-        if (turnCount >= limitTurn)
+        if (turnCount >= limitTurn-1)
         {
-            if(BoardCheck.score <= goalScore)
+            if(BoardCheck.score < goalScore)
             {
                 //game over
                 BoardCheck.gameover = true;

@@ -57,6 +57,8 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
             tileGenerator.GetComponent<TileGenerator>().MinusTileCount();
             tileGenerator.GetComponent<BoardCheck>().Check();
+
+            SoundManager.Instance.PlayDisplaySound();
         }
     }
 }

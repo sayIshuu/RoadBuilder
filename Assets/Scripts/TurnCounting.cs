@@ -80,6 +80,7 @@ public class TurnCounting : MonoBehaviour
                 goalScore += firstGoalScore * increaseMultiplier;
                 increaseMultiplier += 1;
                 level++;
+                SoundManager.Instance.PlayLevelUpSound();
             }
         }
     }

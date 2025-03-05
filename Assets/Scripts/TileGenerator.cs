@@ -47,13 +47,13 @@ public class TileGenerator : MonoBehaviour
 
     public void Reroll(bool isOn)
     {
-        SoundManager.Instance.PlayDisplaySound();
         if (RerollCount == 0)
         {
-            Debug.Log("ºÒ°¡´É!");
+            SoundManager.Instance.PlayForbidSound();
         }
         else if (RerollCount == 1)
         {
+            SoundManager.Instance.PlayDisplaySound();
             RerollCount--;
 
             DeleteTile(InventorySlot1);
@@ -66,6 +66,7 @@ public class TileGenerator : MonoBehaviour
         }
         else
         {
+            SoundManager.Instance.PlayDisplaySound();
             RerollCount--;
 
             DeleteTile(InventorySlot1);

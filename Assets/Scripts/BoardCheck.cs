@@ -42,7 +42,6 @@ public class BoardCheck : MonoBehaviour
             {
                 if (i != 0 && i != 6 && j != 0 && j != 6) continue;
 
-                path.Clear();
                 int val = dfs(i, j, 0);
 
                 if (val > 0)
@@ -120,6 +119,7 @@ public class BoardCheck : MonoBehaviour
                 return dfs(y, x + 1, 2);
             }
         }
+        path.Clear();
         return 0;
     }
 

@@ -7,6 +7,8 @@ public class TurnCounting : MonoBehaviour
     //싱글톤패턴
     public static TurnCounting Instance;
 
+    [SerializeField]
+    LevelUpEffect levelUpEffect;
     public int turnCount;
     public int limitTurn;
     private int firstLimitTurn;
@@ -37,6 +39,15 @@ public class TurnCounting : MonoBehaviour
         firstGoalScore = goalScore;
         UpdateText();
     }
+
+    // testcode
+    /*private void Update()
+    {
+        if(Input.GetKeyDown("x")){
+            levelUpEffect.CrackerShoot(level);
+            //level++;
+        }
+    }*/
 
     // 씬이 로드될 때 변수 초기화
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -78,8 +89,14 @@ public class TurnCounting : MonoBehaviour
                 //갱신
                 limitTurn += firstLimitTurn;
                 goalScore += firstGoalScore * increaseMultiplier;
-                increaseMultiplier += 1;
+                if (increaseMultiplier < 10)
+                {
+                    increaseMultiplier += 1;
+                }
+
+                levelUpEffect.CrackerShoot(level);
                 level++;
+                SoundManager.Instance.PlayLevelUpSound();
             }
         }
     }

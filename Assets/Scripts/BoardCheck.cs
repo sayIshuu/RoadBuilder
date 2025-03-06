@@ -51,11 +51,11 @@ public class BoardCheck : MonoBehaviour
                 {
                     UfMerge(7 * i + j, 7 * i + j - 7);
                 }
-                if ((adj[i, j] & 2) > 0 && (adj[i, j + 1] & 8) > 0) // 도로와 오른쪽이 이어져 있는지
+                if ((adj[i, j] & 2) > 0 && (adj[i, j + 1] & 8) > 0) // 도로와 오른쪽이 이어져 있음
                 {
                     UfMerge(7 * i + j, 7 * i + j + 1);
                 }
-                if ((adj[i, j] & 4) > 0 && (adj[i + 1, j] & 1) > 0) // 도로와 아래쪽이 이어져 있는지
+                if ((adj[i, j] & 4) > 0 && (adj[i + 1, j] & 1) > 0) // 도로와 아래쪽이 이어져 있음
                 {
                     UfMerge(7 * i + j, 7 * i + j + 7);
                 }

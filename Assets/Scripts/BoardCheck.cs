@@ -49,22 +49,18 @@ public class BoardCheck : MonoBehaviour
             {
                 if ((adj[i, j] & 1) > 0 && (adj[i - 1, j] & 4) > 0) // 도로와 위쪽이 이어져 있음
                 {
-                    //if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j - 7) == 0) isCycle = true;
                     UfMerge(7 * i + j, 7 * i + j - 7);
                 }
-                if (j == 5 && (adj[i, j] & 2) > 0 && (adj[i, j + 1] & 8) > 0) // 도로와 오른쪽이 이어져 있음 (맨 오른쪽 타일에서만 확인)
+                if ((adj[i, j] & 2) > 0 && (adj[i, j + 1] & 8) > 0) // 도로와 오른쪽이 이어져 있음
                 {
-                    //if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j + 1) == 0) isCycle = true;
                     UfMerge(7 * i + j, 7 * i + j + 1);
                 }
-                if (i == 5 && (adj[i, j] & 4) > 0 && (adj[i + 1, j] & 1) > 0) // 도로와 아래쪽이 이어져 있음 (맨 아래쪽 타일에서만 확인)
+                if ((adj[i, j] & 4) > 0 && (adj[i + 1, j] & 1) > 0) // 도로와 아래쪽이 이어져 있음
                 {
-                    //if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j + 7) == 0) isCycle = true;
                     UfMerge(7 * i + j, 7 * i + j + 7);
                 }
                 if ((adj[i, j] & 8) > 0 && (adj[i, j - 1] & 2) > 0) // 도로와 왼쪽이 이어져 있음
                 {
-                    //if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j - 1) == 0) isCycle = true;
                     UfMerge(7 * i + j, 7 * i + j - 1);
                 }
             }
@@ -146,7 +142,7 @@ public class BoardCheck : MonoBehaviour
         {
             for(int j = 1; j <= 5; j++)
             {
-                if (uf[7 * i + j] == num || uf[7 * i + j] == num2)
+                if (UfFind(uf[7 * i + j]) == num || UfFind(uf[7 * i + j]) == num2)
                 {
                     DestroyTile(i, j);
                     len++;

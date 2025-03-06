@@ -99,17 +99,17 @@ public class TileGenerator : MonoBehaviour
 
     private int GetRandNum()
     {
-        float randomValue = Random.Range(0f, 100f); // 0~100 ?¬ì´???œë¤ ?«ì
+        float randomValue = Random.Range(0f, 100f); // 0~100 »çÀÌÀÇ ·£´ı ¼ıÀÚ
 
-        if (randomValue < 95f)        // 95% ?•ë¥  ??1~6
+        if (randomValue < 95f)        // 95% È®·ü ¡æ 1~6
         {
             return Random.Range(1, 7);
         }
-        else if (randomValue < 99.5f) // 4.5% ?•ë¥  ??7~10
+        else if (randomValue < 99.5f) // 4.5% È®·ü ¡æ 7~10
         {
             return Random.Range(7, 11);
         }
-        else                          // 0.5% ?•ë¥  ??11
+        else                          // 0.5% È®·ü ¡æ 11
         {
             return 11;
         }

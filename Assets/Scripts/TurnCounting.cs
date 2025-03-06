@@ -89,7 +89,7 @@ public class TurnCounting : MonoBehaviour
                 //°»½Å
                 limitTurn += firstLimitTurn;
                 goalScore += firstGoalScore * increaseMultiplier;
-                if (increaseMultiplier < 10)
+                if (increaseMultiplier < 20)
                 {
                     increaseMultiplier += 1;
                 }

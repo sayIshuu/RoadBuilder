@@ -42,7 +42,7 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
 
-        if (transform.parent == canvas || transform.parent.childCount > 1)
+        if (!transform.parent.CompareTag("Board") || transform.parent.childCount > 1)
         {
             transform.SetParent(previousParent);
             rect.position = previousParent.GetComponent<RectTransform>().position;
@@ -50,13 +50,13 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         else
         {
             int idx = transform.parent.GetComponent<BoardSlot>().GetIdx();
-            BoardCheck.arr[idx / 10, idx % 10] = tileType;
+            BoardCheck.adj[idx / 10, idx % 10] = tileType;
             tileGenerator = GameObject.Find("TileGenerator");
             tileGenerator.GetComponent<BoardCheck>().displayedTileCount += 1;
             tileDraggable.enabled = false;
 
             tileGenerator.GetComponent<TileGenerator>().MinusTileCount();
-            tileGenerator.GetComponent<BoardCheck>().Check();
+            tileGenerator.GetComponent<BoardCheck>().CheckEx();
 
             SoundManager.Instance.PlayDisplaySound();
         }

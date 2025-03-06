@@ -6,7 +6,7 @@ public class BoardSlot : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPoi
 {
     private Image image;
     private RectTransform rect;
-    public int idx;
+    private int idx;
 
     private void Awake()
     {
@@ -31,6 +31,11 @@ public class BoardSlot : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPoi
             eventData.pointerDrag.transform.SetParent(transform);
             eventData.pointerDrag.GetComponent<RectTransform>().position = rect.position;
         }
+    }
+
+    public void SetIdx(int x)
+    {
+        idx = x;
     }
 
     public int GetIdx()

@@ -63,7 +63,6 @@ public class BoardCheck : MonoBehaviour
                     if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j - 1) == 0) isCycle = true;
                     else UfMerge(7 * i + j, 7 * i + j - 1);
                 }
-                Debug.Log(uf[7 * i + j]); Debug.Log(uf[7 * i + j-7]); Debug.Log(uf[7 * i + j+1]); Debug.Log(uf[7 * i + j+7]); Debug.Log(uf[7 * i + j-1]);
             }
         }
 

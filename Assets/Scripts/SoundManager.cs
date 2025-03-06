@@ -5,10 +5,11 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
 
     [SerializeField] private AudioSource audioSource; // 오디오 소스
-    [SerializeField] private AudioClip displaySound;  
+    [SerializeField] private AudioClip displaySound;
     [SerializeField] private AudioClip levelUpSound;
     [SerializeField] private AudioClip forbidSound;
     [SerializeField] private AudioClip gameOverSound;
+    [SerializeField] private AudioClip getScoreSound;
 
     private void Awake()
     {
@@ -28,18 +29,18 @@ public class SoundManager : MonoBehaviour
     {
         if (clip != null && audioSource != null)
         {
-            audioSource.PlayOneShot(clip,volume);
+            audioSource.PlayOneShot(clip, volume);
         }
     }
 
     public void PlayDisplaySound()
     {
-        PlaySound(displaySound,1.0f);
+        PlaySound(displaySound, 1.0f);
     }
 
     public void PlayLevelUpSound()
     {
-        PlaySound(levelUpSound,1.0f);
+        PlaySound(levelUpSound, 1.0f);
     }
 
     public void PlayForbidSound()
@@ -50,5 +51,10 @@ public class SoundManager : MonoBehaviour
     public void PlayGameOverSound()
     {
         PlaySound(gameOverSound, 0.6f);
+    }
+
+    public void PlayScoreSound()
+    {
+        PlaySound(getScoreSound, 0.5f);
     }
 }

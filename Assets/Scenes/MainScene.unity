@@ -1296,6 +1296,7 @@ MonoBehaviour:
   levelUpSound: {fileID: 8300000, guid: 14fdf58378a836c4da07456c950eda49, type: 3}
   forbidSound: {fileID: 8300000, guid: 23ad5f2df0f40d64c9110bb6cecf53f5, type: 3}
   gameOverSound: {fileID: 8300000, guid: 66ac9e44487060c46bf12ec2dfb3e332, type: 3}
+  getScoreSound: {fileID: 8300000, guid: 5f06edd7b4ad57148ab572a6496dd853, type: 3}
 --- !u!4 &527637545
 Transform:
   m_ObjectHideFlags: 0
@@ -2722,7 +2723,6 @@ GameObject:
   - component: {fileID: 1294511015}
   - component: {fileID: 1294511014}
   - component: {fileID: 1294511013}
-  - component: {fileID: 1294511016}
   m_Layer: 5
   m_Name: BoardInventory
   m_TagString: Untagged
@@ -2836,18 +2836,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1294511011}
   m_CullTransparentMesh: 1
---- !u!114 &1294511016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1294511011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1afb8c8f52d98cf44845b065b697f74e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1298548574
 PrefabInstance:
   m_ObjectHideFlags: 0

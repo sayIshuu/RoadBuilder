@@ -136,6 +136,7 @@ public class BoardCheck : MonoBehaviour
 
     private void GetScoreEx(int num, int num2)
     {
+        SoundManager.Instance.PlayScoreSound();
         int len = 0;
 
         for(int i = 1; i <= 5; i++)

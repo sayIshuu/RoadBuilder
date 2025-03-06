@@ -43,7 +43,7 @@ public class BoardCheck : MonoBehaviour
                 if (i != 0 && i != 6 && j != 0 && j != 6) continue;
 
                 int val = Dfs(i, j, 0);
-                Debug.Log(val);
+
                 if (val < 0)
                 {
                     for (int k = 1; k < 6; k++)
@@ -55,18 +55,20 @@ public class BoardCheck : MonoBehaviour
                         }
                     }
                     score += 1000;
-                    circuitcount = 0;
                 }
+
                 if (val > 0)
                 {
                     GetScore(val);
                 }
+
                 if (displayedTileCount >= 25)
                 {
                     //gameOverTxt.text = "Your Score is " + score;
                     gameover = true;
                 }
-                
+
+                circuitcount = 0;
             }
         }
         //턴 증가

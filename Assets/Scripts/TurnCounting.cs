@@ -62,7 +62,7 @@ public class TurnCounting : MonoBehaviour
     {
         turnCount = 0;
         level = 1;
-        limitTurn = firstLimitTurn;
+        limitTurn = firstLimitTurn*10;
         goalScore = firstGoalScore;
         increaseMultiplier = 2;
     }

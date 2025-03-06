@@ -40,7 +40,7 @@ public class BoardCheck : MonoBehaviour
     {
         for (int i = 0; i < 49; i++) uf[i] = i;
         //uf = new int[49] { 0, 0, 0, 0, 0, 0, 0, 0, 8, 9, 10, 11, 12, 0, 0, 15, 16, 17, 18, 19, 0, 0, 22, 23, 24, 25, 26, 0, 0, 29, 30, 31, 32, 33, 0, 0, 36, 37, 38, 39, 40, 0, 0, 0, 0, 0, 0, 0, 0 };
-        int isCycle = 0;
+        int c1 = 0, c2 = 0;
 
         // 연결하기
         for (int i = 1; i <= 5; i++)
@@ -79,14 +79,15 @@ public class BoardCheck : MonoBehaviour
 
                 if (uf[7 * i + j] != 7 * i + j)
                 {
-                    isCycle = uf[7 * i + j];
+                    c1 = 7 * i + j;
+                    c2 = uf[7 * i + j];
                 }
             }
         }
 
-        if (isCycle > 0)
+        if (c1 > 0)
         {
-            GetScoreEx(isCycle);
+            GetScoreEx(c1, c2);
         }
 
         //턴 증가
@@ -137,7 +138,7 @@ public class BoardCheck : MonoBehaviour
         }
     }
 
-    private void GetScoreEx(int num)
+    private void GetScoreEx(int num, int num2)
     {
         int len = 0;
 
@@ -145,7 +146,7 @@ public class BoardCheck : MonoBehaviour
         {
             for(int j = 1; j <= 5; j++)
             {
-                if (uf[7 * i + j] == num)
+                if (uf[7 * i + j] == num || uf[7 * i + j] == num2)
                 {
                     DestroyTile(i, j);
                     len++;

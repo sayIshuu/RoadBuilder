@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using System.Runtime.CompilerServices;
+using System;
 
 public class BoardCheck : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class BoardCheck : MonoBehaviour
     public static bool gameover = false;
     public int displayedTileCount = 0;
     private int[] uf = new int[49];
+
+    private int[] checkNum = new int[] { 1, 2, 3, 4, 5, 7, 13, 14, 20, 21, 27, 28, 34, 35, 41, 43, 44, 45, 46, 47 };
 
     public static int[,] adj = new int[7, 7];
 
@@ -35,40 +38,55 @@ public class BoardCheck : MonoBehaviour
 
     public void CheckEx()
     {
-        uf = new int[49] { 0, 0, 0, 0, 0, 0, 0, 0, 8, 9, 10, 11, 12, 0, 0, 15, 16, 17, 18, 19, 0, 0, 22, 23, 24, 25, 26, 0, 0, 29, 30, 31, 32, 33, 0, 0, 36, 37, 38, 39, 40, 0, 0, 0, 0, 0, 0, 0, 0 };
-        bool isCycle = false;
+        for (int i = 0; i < 49; i++) uf[i] = i;
+        //uf = new int[49] { 0, 0, 0, 0, 0, 0, 0, 0, 8, 9, 10, 11, 12, 0, 0, 15, 16, 17, 18, 19, 0, 0, 22, 23, 24, 25, 26, 0, 0, 29, 30, 31, 32, 33, 0, 0, 36, 37, 38, 39, 40, 0, 0, 0, 0, 0, 0, 0, 0 };
+        int isCycle = 0;
 
-        // 연결 여부 확인
+        // 연결하기
         for (int i = 1; i <= 5; i++)
         {
             for (int j = 1; j <= 5; j++)
             {
                 if ((adj[i, j] & 1) > 0 && (adj[i - 1, j] & 4) > 0) // 도로와 위쪽이 이어져 있음
                 {
-                    if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j - 7) == 0) isCycle = true;
-                    else UfMerge(7 * i + j, 7 * i + j - 7);
+                    //if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j - 7) == 0) isCycle = true;
+                    UfMerge(7 * i + j, 7 * i + j - 7);
                 }
                 if (j == 5 && (adj[i, j] & 2) > 0 && (adj[i, j + 1] & 8) > 0) // 도로와 오른쪽이 이어져 있음 (맨 오른쪽 타일에서만 확인)
                 {
-                    if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j + 1) == 0) isCycle = true;
-                    else UfMerge(7 * i + j, 7 * i + j + 1);
+                    //if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j + 1) == 0) isCycle = true;
+                    UfMerge(7 * i + j, 7 * i + j + 1);
                 }
                 if (i == 5 && (adj[i, j] & 4) > 0 && (adj[i + 1, j] & 1) > 0) // 도로와 아래쪽이 이어져 있음 (맨 아래쪽 타일에서만 확인)
                 {
-                    if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j + 7) == 0) isCycle = true;
-                    else UfMerge(7 * i + j, 7 * i + j + 7);
+                    //if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j + 7) == 0) isCycle = true;
+                    UfMerge(7 * i + j, 7 * i + j + 7);
                 }
                 if ((adj[i, j] & 8) > 0 && (adj[i, j - 1] & 2) > 0) // 도로와 왼쪽이 이어져 있음
                 {
-                    if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j - 1) == 0) isCycle = true;
-                    else UfMerge(7 * i + j, 7 * i + j - 1);
+                    //if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j - 1) == 0) isCycle = true;
+                    UfMerge(7 * i + j, 7 * i + j - 1);
                 }
             }
         }
 
-        if (isCycle)
+        // 연결 확인
+        for(int i = 0; i < 7; i++)
         {
-            GetScoreEx();
+            for(int j = 0; j < 7; j++)
+            {
+                if (i > 0 && i < 6 && j > 0 && j < 6) continue;
+
+                if (uf[7 * i + j] != 7 * i + j)
+                {
+                    isCycle = uf[7 * i + j];
+                }
+            }
+        }
+
+        if (isCycle > 0)
+        {
+            GetScoreEx(isCycle);
         }
 
         //턴 증가
@@ -95,13 +113,13 @@ public class BoardCheck : MonoBehaviour
         a = UfFind(a);
         b = UfFind(b);
 
-        if (a > b)
-        {
-            uf[a] = b;
-        }
-        else if (a < b)
+        if (Array.Exists(checkNum, x => x == a))
         {
             uf[b] = a;
+        }
+        else
+        {
+            uf[a] = b;
         }
     }
 
@@ -119,7 +137,7 @@ public class BoardCheck : MonoBehaviour
         }
     }
 
-    private void GetScoreEx()
+    private void GetScoreEx(int num)
     {
         int len = 0;
 
@@ -127,7 +145,7 @@ public class BoardCheck : MonoBehaviour
         {
             for(int j = 1; j <= 5; j++)
             {
-                if (uf[7 * i + j] == 0)
+                if (uf[7 * i + j] == num)
                 {
                     DestroyTile(i, j);
                     len++;

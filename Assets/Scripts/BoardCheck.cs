@@ -79,6 +79,10 @@ public class BoardCheck : MonoBehaviour
 
         if (displayedTileCount >= 25) // gameover
         {
+            gameover = true;
+        }
+        if(gameover)
+        {
             SoundManager.Instance.PlayGameOverSound();
             gameOverTxt.gameObject.SetActive(true);
             gameOverTxt.text = "Your Score is " + score;

@@ -19,6 +19,7 @@ public class BoardCheck : MonoBehaviour
     private List<(int, int)> path = new List<(int, int)>();
     //어떤 아이템을 그 칸에 들어있는지 나타내는 배열. 0 : 빈칸, 1 : 리롤+1, 2 : 타일제거
     private int[,] item = new int[7, 7];
+    private int circuitcount = 0;
 
     public static int[,] arr = new int[7, 7] { { 0, 4, 4, 4, 4, 4, 0 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 2, 0, 0, 0, 0, 0, 8 }, { 0, 1, 1, 1, 1, 1, 0 } };
 
@@ -43,16 +44,31 @@ public class BoardCheck : MonoBehaviour
 
                 int val = Dfs(i, j, 0);
 
+                if (val < 0)
+                {
+                    for (int k = 1; k < 6; k++)
+                    {
+                        for (int l = 1; l < 6; l++)
+                        {
+                            DestroyTile(k, l);
+                            displayedTileCount--;
+                        }
+                    }
+                    score += 1000;
+                }
+
                 if (val > 0)
                 {
                     GetScore(val);
                 }
+
                 if (displayedTileCount >= 25)
                 {
                     //gameOverTxt.text = "Your Score is " + score;
                     gameover = true;
                 }
-                
+
+                circuitcount = 0;
             }
         }
         //턴 증가
@@ -79,16 +95,26 @@ public class BoardCheck : MonoBehaviour
             path.Add((y, x));
         }
 
+        circuitcount++;
+        if(circuitcount > 1000)
+        {
+            path.Clear();
+            return -1;
+        }
+
         if (prev != 1 && y < 6 && (arr[y, x] & 4) > 0 && (arr[y + 1, x] & 1) > 0)
         {
             if (y + 1 == 6)
             {
                 return path.Count;
-
             }
             else
             {
-                return Dfs(y + 1, x, 4);
+                int var = Dfs(y + 1, x, 4);
+                if(var > 0)
+                {
+                    return var;
+                }
             }
         }
 
@@ -100,7 +126,11 @@ public class BoardCheck : MonoBehaviour
             }
             else
             {
-                return Dfs(y, x - 1, 8);
+                int var = Dfs(y, x - 1, 8);
+                if (var > 0)
+                {
+                    return var;
+                }
             }
         }
 
@@ -112,7 +142,11 @@ public class BoardCheck : MonoBehaviour
             }
             else
             {
-                return Dfs(y - 1, x, 1);
+                int var = Dfs(y - 1, x, 1);
+                if (var > 0)
+                {
+                    return var;
+                }
             }
         }
 
@@ -124,10 +158,17 @@ public class BoardCheck : MonoBehaviour
             }
             else
             {
-                return Dfs(y, x + 1, 2);
+                int var = Dfs(y, x + 1, 2);
+                if (var > 0)
+                {
+                    return var;
+                }
             }
         }
-        path.Clear();
+        if(path.Count > 0)
+        {
+            path.RemoveAt(path.Count - 1);
+        }
         return 0;
     }
 
@@ -155,6 +196,9 @@ public class BoardCheck : MonoBehaviour
     private void DestroyTile(int y, int x)
     {
         arr[y, x] = 0;
-        boardSlot[5 * y + x - 6].transform.GetChild(0).GetComponent<TileDestroy>().StartBreak();
+        if(boardSlot[5 * y + x - 6].transform.childCount > 0)
+        {
+            boardSlot[5 * y + x - 6].transform.GetChild(0).GetComponent<TileDestroy>().StartBreak();
+        }
     }
 }

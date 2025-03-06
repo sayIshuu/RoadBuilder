@@ -4,12 +4,10 @@ using UnityEngine.UI;
 
 public class OfferSlot : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPointerExitHandler
 {
-    private Image image;
     private RectTransform rect;
 
     private void Awake()
     {
-        image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
     }
 

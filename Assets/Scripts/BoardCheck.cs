@@ -16,10 +16,6 @@ public class BoardCheck : MonoBehaviour
     public static int score = 0;
     public static bool gameover = false;
     public int displayedTileCount = 0;
-    //dfs추적을 위한 list. 각 int값으로 adj의 인덱스값이 들어갑니다.
-    private List<(int, int)> path = new List<(int, int)>();
-
-    private int circuitcount = 0;
     private int[] uf = new int[49];
 
     public static int[,] adj = new int[7, 7];
@@ -67,6 +63,7 @@ public class BoardCheck : MonoBehaviour
                     if (UfFind(7 * i + j) == 0 && UfFind(7 * i + j - 1) == 0) isCycle = true;
                     else UfMerge(7 * i + j, 7 * i + j - 1);
                 }
+                Debug.Log(uf[7 * i + j]); Debug.Log(uf[7 * i + j-7]); Debug.Log(uf[7 * i + j+1]); Debug.Log(uf[7 * i + j+7]); Debug.Log(uf[7 * i + j-1]);
             }
         }
 
@@ -140,21 +137,8 @@ public class BoardCheck : MonoBehaviour
         score += len * len * len;
     }
 
-    private void GetScore(int len)
-    {
-        // 점수 계산 : 배율 정해서. 이부분은 쉽게 수정되게. 배율변수 빼기.
-        displayedTileCount -= len;
-        score += len * len * len;
-
-        foreach(var (y, x) in path)
-        {
-            DestroyTile(y, x);
-        }
-    }
-
     private void DestroyTile(int y, int x)
     {
-
         adj[y, x] = 0;
         if(boardSlot[5 * y + x - 6].transform.childCount > 0)
         {

@@ -198,7 +198,7 @@ public class BoardCheck : MonoBehaviour
         arr[y, x] = 0;
         if(boardSlot[5 * y + x - 6].transform.childCount > 0)
         {
-            boardSlot[5 * y + x - 6].transform.GetChild(0).GetComponent<TileBreaker>().StartBreak();
+            boardSlot[5 * y + x - 6].transform.GetChild(0).GetComponent<TileDestroy>().StartBreak();
         }
     }
 }

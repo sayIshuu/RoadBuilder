@@ -4,20 +4,23 @@ public class LevelUpEffect : MonoBehaviour
 {
     [SerializeField]
     private GameObject goalEffect;
-    private Transform canvas;
+    public Transform canvas;
     private int w;
 
-    public void Awake()
+    private void Awake()
     {
-        canvas = FindFirstObjectByType<Canvas>().transform;
+        if (canvas == null) canvas = FindFirstObjectByType<Canvas>().transform;
         w = Screen.width;
     }
 
     public void CrackerShoot(int level)
     {
-        for(int i = 0; i < 20 + 10 * level; i++)
+        if(canvas == null) canvas = FindFirstObjectByType<Canvas>().transform;
+
+        for (int i = 0; i < 20 + 10 * level; i++)
         {
             GameObject newEffect = Instantiate(goalEffect, canvas);
+            newEffect.transform.SetParent(canvas);
             newEffect.transform.SetAsFirstSibling();
 
             newEffect.transform.position = new Vector2(Random.Range(0.1f * w, 0.9f * w), -200);

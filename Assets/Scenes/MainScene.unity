@@ -575,6 +575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalEffect: {fileID: 9088195248053493787, guid: ee97900d626e06f4f8082d31dab24de2, type: 3}
+  canvas: {fileID: 1824445558}
 --- !u!1001 &329747040
 PrefabInstance:
   m_ObjectHideFlags: 0

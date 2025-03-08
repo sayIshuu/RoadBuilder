@@ -5,10 +5,8 @@ public class RerollButton : MonoBehaviour
 {
     [SerializeField]
     private TileGenerator tileGenerator;
-    [SerializeField]
-    private Toggle rerollToggle;
-    [SerializeField]
-    private Image rerollButtonBackground;
+    //[SerializeField] private Toggle rerollToggle;
+    //[SerializeField] private Image rerollButtonBackground;
     private int rerollCount;
 
     private void Awake()
@@ -29,10 +27,12 @@ public class RerollButton : MonoBehaviour
 
             tileGenerator.Reroll();
 
+            /*
             if (rerollCount == 0)
             {
                 rerollButtonBackground.color = Color.red;
             }
+            */
         }
     }
 }

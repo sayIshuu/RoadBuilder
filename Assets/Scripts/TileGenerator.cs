@@ -17,18 +17,9 @@ public class TileGenerator : MonoBehaviour
     [SerializeField]
     private GameObject Tile;
 
-    public Toggle RerollToggle;
-    public Image RerollBackground;
-    public int RerollCount;
-
     private int tileCount = 0;
 
-    private void Start()
-    {
-        RerollToggle.onValueChanged.AddListener(Reroll);
-        RerollCount = 3;
-    }
-
+    //이벤트로 뺄만한 함수
     private void Update()
     {
         if (tileCount == 0)
@@ -36,38 +27,15 @@ public class TileGenerator : MonoBehaviour
             Generate();
         }
     }
-    public void Reroll(bool isOn)
+
+    public void Reroll()
     {
-        if (RerollCount == 0)
-        {
-            SoundManager.Instance.PlayForbidSound();
-        }
-        else if (RerollCount == 1)
-        {
-            SoundManager.Instance.PlayDisplaySound();
-            RerollCount--;
+        DeleteTile(InventorySlot1);
+        DeleteTile(InventorySlot2);
+        DeleteTile(InventorySlot3);
 
-            DeleteTile(InventorySlot1);
-            DeleteTile(InventorySlot2);
-            DeleteTile(InventorySlot3);
-
-            Generate();
-
-            RerollBackground.color = Color.red;
-        }
-        else
-        {
-            SoundManager.Instance.PlayDisplaySound();
-            RerollCount--;
-
-            DeleteTile(InventorySlot1);
-            DeleteTile(InventorySlot2);
-            DeleteTile(InventorySlot3);
-
-            Generate();
-        }
+        Generate();
     }
-
 
     private void DeleteTile(Transform slot)
     {

@@ -342,6 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 286647606}
   - component: {fileID: 286647607}
+  - component: {fileID: 286647608}
   m_Layer: 5
   m_Name: Reroll
   m_TagString: Untagged
@@ -416,8 +417,35 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 286647608}
+        m_TargetAssemblyTypeName: RerollButton, Assembly-CSharp
+        m_MethodName: Reroll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
+--- !u!114 &286647608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286647605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a8db5123e20fc245bc0aa1a518b98a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileGenerator: {fileID: 291107837}
+  rerollToggle: {fileID: 286647607}
+  rerollButtonBackground: {fileID: 1512647488}
 --- !u!1 &291107836
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,9 +480,6 @@ MonoBehaviour:
   InventorySlot2: {fileID: 1612394814}
   InventorySlot3: {fileID: 211975258}
   Tile: {fileID: 4281849821120186797, guid: dfdc19b1bb8e1ef4ba28c7f054bc974c, type: 3}
-  RerollToggle: {fileID: 286647607}
-  RerollBackground: {fileID: 1512647488}
-  RerollCount: 0
 --- !u!4 &291107838
 Transform:
   m_ObjectHideFlags: 0
@@ -575,7 +600,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalEffect: {fileID: 9088195248053493787, guid: ee97900d626e06f4f8082d31dab24de2, type: 3}
-  canvas: {fileID: 1824445558}
 --- !u!1001 &329747040
 PrefabInstance:
   m_ObjectHideFlags: 0

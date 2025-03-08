@@ -15,7 +15,8 @@ public class LevelUpEffect : MonoBehaviour
 
     public void CrackerShoot(int level)
     {
-        canvas ??= FindFirstObjectByType<Canvas>().transform;
+        //canvas ??= FindFirstObjectByType<Canvas>().transform;
+        if (canvas == null) canvas = FindFirstObjectByType<Canvas>().transform;
 
         for (int i = 0; i < 20 + 10 * level; i++)
         {

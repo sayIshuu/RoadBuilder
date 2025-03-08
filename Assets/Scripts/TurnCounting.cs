@@ -86,13 +86,16 @@ public class TurnCounting : MonoBehaviour
             }
             else
             {
+                if (increaseMultiplier == 10)
+                {
+                    firstGoalScore *= 2;
+                    increaseMultiplier = 6;
+                }
                 //°»½Å
                 limitTurn += firstLimitTurn;
                 goalScore += firstGoalScore * increaseMultiplier;
-                if (increaseMultiplier < 30)
-                {
-                    increaseMultiplier += 1;
-                }
+                increaseMultiplier += 1;
+                
 
                 levelUpEffect.CrackerShoot(level);
                 level++;

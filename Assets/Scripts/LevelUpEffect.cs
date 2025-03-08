@@ -4,18 +4,18 @@ public class LevelUpEffect : MonoBehaviour
 {
     [SerializeField]
     private GameObject goalEffect;
-    public Transform canvas;
+    private Transform canvas;
     private int w;
 
     private void Awake()
     {
-        if (canvas == null) canvas = FindFirstObjectByType<Canvas>().transform;
+        canvas = FindFirstObjectByType<Canvas>().transform;
         w = Screen.width;
     }
 
     public void CrackerShoot(int level)
     {
-        if(canvas == null) canvas = FindFirstObjectByType<Canvas>().transform;
+        canvas ??= FindFirstObjectByType<Canvas>().transform;
 
         for (int i = 0; i < 20 + 10 * level; i++)
         {

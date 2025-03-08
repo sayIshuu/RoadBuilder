@@ -14,6 +14,7 @@ public class ShootedCracker : MonoBehaviour
         h = Screen.height;
     }
 
+    //결국 부서졌을 때에만 발동할 if문들임. 그래서 update로 체크하는건 비효율적.
     private void Update()
     {
         if (transform.position.y > 1.2f * h)

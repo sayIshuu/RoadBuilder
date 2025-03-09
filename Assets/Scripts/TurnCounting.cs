@@ -69,7 +69,7 @@ public class TurnCounting : MonoBehaviour
 
     private void AssignUIElements()
     {
-        limitTurnText = GameObject.Find("TurnText")?.GetComponent<TextMeshProUGUI>();
+        limitTurnText = GameObject.Find("TurnCountText")?.GetComponent<TextMeshProUGUI>();
         goalScoreText = GameObject.Find("GoalText")?.GetComponent<TextMeshProUGUI>();
     }
 
@@ -79,20 +79,23 @@ public class TurnCounting : MonoBehaviour
 
         if (turnCount >= limitTurn)
         {
-            if(BoardCheck.score < goalScore)
+            if(ScoreManager.score < goalScore)
             {
                 //game over
                 BoardCheck.gameover = true;
             }
             else
             {
+                if (increaseMultiplier == 10)
+                {
+                    firstGoalScore *= 2;
+                    increaseMultiplier = 6;
+                }
                 //갱신
                 limitTurn += firstLimitTurn;
                 goalScore += firstGoalScore * increaseMultiplier;
-                if (increaseMultiplier < 30)
-                {
-                    increaseMultiplier += 1;
-                }
+                increaseMultiplier += 1;
+                
 
                 levelUpEffect.CrackerShoot(level);
                 level++;
@@ -104,7 +107,7 @@ public class TurnCounting : MonoBehaviour
     //텍스트 갱신
     private void UpdateText()
     {
-        limitTurnText.text = "Turn : " + turnCount + " / " + limitTurn;
+        limitTurnText.text = turnCount.ToString();
         goalScoreText.text = "Goal : " + goalScore;
     }
 }

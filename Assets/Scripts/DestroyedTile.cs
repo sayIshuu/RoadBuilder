@@ -36,7 +36,9 @@ public class DestroyedTile : MonoBehaviour
         //cf의 force를 주는 대신 rb 속도의 x값을 바꾸는 방법도 가능
         rb.linearVelocity = new Vector2(0, 3500f);
         cf.force = new Vector2(Random.Range(-5000f, 5000f), 0);
-        
+        //rb.AddForce(new Vector2(Random.Range(-5000f, 5000f), 0));
+        //rb.AddForce(new Vector2(Random.Range(-5000f, 5000f), 0), ForceMode2D.Impulse);
+
         cf.torque = Random.Range(-100f, 100f);
 
         yield return new WaitForSecondsRealtime(0.05f);

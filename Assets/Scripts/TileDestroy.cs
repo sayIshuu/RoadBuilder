@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,11 +17,11 @@ public class TileDestroy : MonoBehaviour
 
     public void StartBreak()
     {
-        for (int i = 1; i < childList.Length; i++)
+        foreach (var child in childList.Skip(1))
         {
-            childList[i].SetParent(canvas);
-            childList[i].GetComponent<DestroyedTile>().enabled = true;
-            childList[i].GetComponent<DestroyedTile>().StartDestroyEffect();
+            child.SetParent(canvas);
+            child.GetComponent<DestroyedTile>().enabled = true;
+            child.GetComponent<DestroyedTile>().StartDestroyEffect();
         }
 
         Destroy(childList[0].gameObject);

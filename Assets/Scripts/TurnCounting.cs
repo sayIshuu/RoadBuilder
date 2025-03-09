@@ -40,15 +40,6 @@ public class TurnCounting : MonoBehaviour
         UpdateText();
     }
 
-    // testcode
-    /*private void Update()
-    {
-        if(Input.GetKeyDown("x")){
-            levelUpEffect.CrackerShoot(level);
-            //level++;
-        }
-    }*/
-
     // 씬이 로드될 때 변수 초기화
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -70,7 +61,7 @@ public class TurnCounting : MonoBehaviour
     private void AssignUIElements()
     {
         limitTurnText = GameObject.Find("TurnCountText")?.GetComponent<TextMeshProUGUI>();
-        goalScoreText = GameObject.Find("GoalText")?.GetComponent<TextMeshProUGUI>();
+        goalScoreText = GameObject.Find("GoalScoreCountText")?.GetComponent<TextMeshProUGUI>();
     }
 
     public void CheckTrunAndGoal()
@@ -108,6 +99,6 @@ public class TurnCounting : MonoBehaviour
     private void UpdateText()
     {
         limitTurnText.text = turnCount.ToString();
-        goalScoreText.text = "Goal : " + goalScore;
+        goalScoreText.text = goalScore.ToString();
     }
 }

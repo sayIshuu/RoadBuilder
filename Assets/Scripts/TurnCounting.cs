@@ -69,7 +69,7 @@ public class TurnCounting : MonoBehaviour
 
     private void AssignUIElements()
     {
-        limitTurnText = GameObject.Find("TurnText")?.GetComponent<TextMeshProUGUI>();
+        limitTurnText = GameObject.Find("TurnCountText")?.GetComponent<TextMeshProUGUI>();
         goalScoreText = GameObject.Find("GoalText")?.GetComponent<TextMeshProUGUI>();
     }
 
@@ -107,7 +107,7 @@ public class TurnCounting : MonoBehaviour
     //텍스트 갱신
     private void UpdateText()
     {
-        limitTurnText.text = "Turn : " + turnCount + " / " + limitTurn;
+        limitTurnText.text = turnCount.ToString();
         goalScoreText.text = "Goal : " + goalScore;
     }
 }

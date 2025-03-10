@@ -167,10 +167,10 @@ public class TileGenerator : MonoBehaviour
                 newColor = Color.red;
                 break;
             case Colors.MAGENTA:
-                newColor = new Color32(127, 61, 242, 255);
+                newColor = new Color32(155, 165, 248, 255);
                 break;
             case Colors.YELLOW:
-                newColor = new Color32(230, 216, 3, 255);
+                newColor = new Color32(255, 83, 110, 255);
                 break;
         }
 

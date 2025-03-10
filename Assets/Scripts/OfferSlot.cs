@@ -27,7 +27,9 @@ public class OfferSlot : MonoBehaviour, IDropHandler
 
     public void SelectedColor()
     {
-        image.color = Color.yellow;
+        //image.color = Color.yellow;
+        // C8FF56로 색맞추기
+        image.color = new Color32(200, 255, 86, 255);
     }
 
     public void ResetColor()

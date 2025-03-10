@@ -1,17 +1,19 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class RerollButton : MonoBehaviour
 {
-    [SerializeField]
-    private TileGenerator tileGenerator;
+    [SerializeField] private TileGenerator tileGenerator;
     //[SerializeField] private Toggle rerollToggle;
     //[SerializeField] private Image rerollButtonBackground;
     private int rerollCount;
+    [SerializeField] private TextMeshProUGUI rerollCountText;
 
     private void Awake()
     {
         rerollCount = 3;
+        rerollCountText.text = rerollCount.ToString();
     }
 
     public void Reroll()
@@ -34,5 +36,6 @@ public class RerollButton : MonoBehaviour
             }
             */
         }
+        rerollCountText.text = rerollCount.ToString();
     }
 }

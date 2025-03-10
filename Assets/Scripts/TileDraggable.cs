@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Transform canvas;
     private Transform previousParent;
@@ -21,7 +21,7 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         tileGenerator = GameObject.Find("TileGenerator");
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
+    public void BeginDrag()
     {
         previousParent = transform.parent;
 
@@ -32,12 +32,14 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvasGroup.blocksRaycasts = false;
     }
 
+    /*
     public void OnDrag(PointerEventData eventData)
     {
         rect.position = eventData.position;
     }
+    */
 
-    public void OnEndDrag(PointerEventData eventData)
+    public bool EndDrag()
     {
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
@@ -46,6 +48,7 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             transform.SetParent(previousParent);
             rect.position = previousParent.GetComponent<RectTransform>().position;
+            return false;
         }
         else
         {
@@ -59,6 +62,7 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             tileGenerator.GetComponent<BoardCheck>().Check();
 
             SoundManager.Instance.PlayDisplaySound();
+            return true;
         }
     }
 }

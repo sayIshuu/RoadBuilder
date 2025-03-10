@@ -8,16 +8,18 @@ public enum Colors { WHITE, RED, MAGENTA, YELLOW };
 
 public class TileGenerator : MonoBehaviour
 {
-    [SerializeField]
-    private Transform InventorySlot1;
-    [SerializeField]
-    private Transform InventorySlot2;
-    [SerializeField]
-    private Transform InventorySlot3;
-    [SerializeField]
-    private GameObject Tile;
+    [SerializeField] private TouchPadHandler touchPadHandler;
+    [SerializeField] private Transform InventorySlot1;
+    [SerializeField] private Transform InventorySlot2;
+    [SerializeField] private Transform InventorySlot3;
+    [SerializeField] private GameObject Tile;
 
     private int tileCount = 0;
+
+    private void Awake()
+    {
+        Generate();
+    }
 
     //이벤트로 뺄만한 함수
     private void Update()
@@ -63,6 +65,7 @@ public class TileGenerator : MonoBehaviour
         TileGenerate(InventorySlot1);
         TileGenerate(InventorySlot2);
         TileGenerate(InventorySlot3);
+        touchPadHandler.RerollTileList();
     }
 
     private int GetRandNum()
@@ -164,10 +167,10 @@ public class TileGenerator : MonoBehaviour
                 newColor = Color.red;
                 break;
             case Colors.MAGENTA:
-                newColor = new Color32(127, 61, 242, 255);
+                newColor = new Color32(155, 165, 248, 255);
                 break;
             case Colors.YELLOW:
-                newColor = new Color32(230, 216, 3, 255);
+                newColor = new Color32(255, 83, 110, 255);
                 break;
         }
 

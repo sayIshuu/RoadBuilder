@@ -2,25 +2,20 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class OfferSlot : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPointerExitHandler
+public class OfferSlot : MonoBehaviour, IDropHandler
 {
     private RectTransform rect;
+    private Image image;
+    private Color startColor;
 
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
+        image = GetComponent<Image>();
+        startColor = image.color;
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-
-    }
-
+    // 마우스 커서 -> 슬롯으로 변경해야함.
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag != null)
@@ -28,5 +23,17 @@ public class OfferSlot : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPoi
             eventData.pointerDrag.transform.SetParent(transform);
             eventData.pointerDrag.GetComponent<RectTransform>().position = rect.position;
         }
+    }
+
+    public void SelectedColor()
+    {
+        //image.color = Color.yellow;
+        // DCFF92 색맞추기
+        image.color = new Color32(220, 255, 146, 255);
+    }
+
+    public void ResetColor()
+    {
+        image.color = startColor;
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class BoardSlot : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPointerExitHandler
+public class BoardSlot : MonoBehaviour //, IPointerEnterHandler, IDropHandler, IPointerExitHandler
 {
     private Image image;
     private RectTransform rect;
@@ -17,6 +17,32 @@ public class BoardSlot : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPoi
         rect = GetComponent<RectTransform>();
     }
 
+    public void HighlightSlot()
+    {
+        image.color = Color.yellow;
+    }
+
+    public void ResetSlotColor()
+    {
+        image.color = startColor;
+    }
+
+    public bool IsPositionOverSlot(Vector2 position)
+    {
+        return RectTransformUtility.RectangleContainsScreenPoint(rect, position);
+    }
+
+    // 기존 OnDrop 기능을 함수화하여 직접 호출 가능하도록 변경
+    public void PlaceTile(GameObject tile)
+    {
+        if (tile != null)
+        {
+            tile.transform.SetParent(transform);
+            tile.GetComponent<RectTransform>().position = rect.position;
+        }
+    }
+
+    /*
     public void OnPointerEnter(PointerEventData eventData)
     {
         image.color = Color.yellow;
@@ -35,6 +61,7 @@ public class BoardSlot : MonoBehaviour, IPointerEnterHandler, IDropHandler, IPoi
             eventData.pointerDrag.GetComponent<RectTransform>().position = rect.position;
         }
     }
+    */
 
     public void SetIdx(int x)
     {

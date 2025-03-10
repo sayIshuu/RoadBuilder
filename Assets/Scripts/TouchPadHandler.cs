@@ -13,6 +13,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     public float slideThreshold = 100f; // 슬라이드 감지 거리
 
     public List<Transform> tiles = new List<Transform>(); // offerslot에 있는 타일 리스트
+    private List<BoardSlot> boardSlots = new List<BoardSlot>(); // 보드 슬롯 리스트
     private int selectedTileIndex = 0; // 현재 선택된 타일 인덱스
     private Vector2 touchStartPos;
     private Vector2 touchEndPos;
@@ -21,6 +22,8 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     private bool isSliding = false;
     private int tapCount = 0;
     private float lastTapTime = 0f;
+    //마지막으로 감지된 슬롯.. 마우스 커서 달라져서
+    private BoardSlot lastHoveredSlot = null;
 
     private void Start()
     {
@@ -30,6 +33,9 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
         // 첫 번째 타일 선택
         UpdateSelectedTile(0);
+
+        // 보드 슬롯 가져오기
+        boardSlots = new List<BoardSlot>(FindObjectsByType<BoardSlot>(FindObjectsSortMode.None));
     }
 
     private void AddTileList()
@@ -85,6 +91,8 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         Vector2 newTilePos = new Vector2(currentTouchPos.x + dragOffsetX, currentTouchPos.y + dragOffsetY);
 
         tiles[selectedTileIndex].position = newTilePos;
+
+        DetectBoardSlot(newTilePos);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -92,6 +100,11 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         if (isDragging)
         {
             isDragging = false;
+            if (lastHoveredSlot != null)
+            {
+                // 보드 슬롯에 타일 배치
+                lastHoveredSlot.PlaceTile(tiles[selectedTileIndex].gameObject);
+            }
 
             tiles[selectedTileIndex].GetComponent<TileDraggable>().EndDrag();
 
@@ -120,6 +133,36 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
         isSliding = false;
     }
+
+    private void DetectBoardSlot(Vector2 tilePosition)
+    {
+        BoardSlot hoveredSlot = null;
+
+        foreach (BoardSlot slot in boardSlots) // 미리 저장된 리스트에서 검색
+        {
+            if (slot.IsPositionOverSlot(tilePosition))
+            {
+                hoveredSlot = slot;
+                break;
+            }
+        }
+
+        if (hoveredSlot != lastHoveredSlot)
+        {
+            if (lastHoveredSlot != null)
+            {
+                lastHoveredSlot.ResetSlotColor();
+            }
+
+            if (hoveredSlot != null)
+            {
+                hoveredSlot.HighlightSlot();
+            }
+
+            lastHoveredSlot = hoveredSlot;
+        }
+    }
+
 
     private void UpdateSelectedTile(int index)
     {

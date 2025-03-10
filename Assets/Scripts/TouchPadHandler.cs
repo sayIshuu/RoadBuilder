@@ -7,9 +7,10 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     [SerializeField] private Transform OfferSlot1;
     [SerializeField] private Transform OfferSlot2;
     [SerializeField] private Transform OfferSlot3;
-    public float dragOffsetY = 200f; // 손가락보다 위쪽에서 이동할 거리
+    private float dragOffsetX = 0f; // 손가락과 타일의 x축 거리
+    private float dragOffsetY = 0f; // 손가락보다 위쪽에서 이동할 거리
     public float doubleTapTime = 0.3f; // 더블 터치 감지 시간
-    public float slideThreshold = 80f; // 슬라이드 감지 거리
+    public float slideThreshold = 100f; // 슬라이드 감지 거리
 
     public List<Transform> tiles = new List<Transform>(); // offerslot에 있는 타일 리스트
     private int selectedTileIndex = 0; // 현재 선택된 타일 인덱스
@@ -64,6 +65,8 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         if (tiles.Count > 0)
         {
             tileStartPos = tiles[selectedTileIndex].position;
+            dragOffsetX = tileStartPos.x - eventData.position.x;
+            dragOffsetY = tileStartPos.y - eventData.position.y;
             tiles[selectedTileIndex].GetComponent<TileDraggable>().BeginDrag();
             isDragging = true;
         }
@@ -79,7 +82,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
         // 손가락의 현재 위치를 가져오고, 타일을 위쪽에서 이동
         Vector2 currentTouchPos = eventData.position;
-        Vector2 newTilePos = new Vector2(currentTouchPos.x, currentTouchPos.y + dragOffsetY);
+        Vector2 newTilePos = new Vector2(currentTouchPos.x + dragOffsetX, currentTouchPos.y + dragOffsetY);
 
         tiles[selectedTileIndex].position = newTilePos;
     }

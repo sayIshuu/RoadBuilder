@@ -8,16 +8,17 @@ public enum Colors { WHITE, RED, MAGENTA, YELLOW };
 
 public class TileGenerator : MonoBehaviour
 {
-    [SerializeField]
-    private Transform InventorySlot1;
-    [SerializeField]
-    private Transform InventorySlot2;
-    [SerializeField]
-    private Transform InventorySlot3;
-    [SerializeField]
-    private GameObject Tile;
+    [SerializeField] private Transform InventorySlot1;
+    [SerializeField] private Transform InventorySlot2;
+    [SerializeField] private Transform InventorySlot3;
+    [SerializeField] private GameObject Tile;
 
     private int tileCount = 0;
+
+    private void Awake()
+    {
+        Generate();
+    }
 
     //이벤트로 뺄만한 함수
     private void Update()

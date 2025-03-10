@@ -9,7 +9,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     [SerializeField] private Transform OfferSlot2;
     [SerializeField] private Transform OfferSlot3;
     [SerializeField] private float sensitivity; // 감도
-    [SerializeField] private float holdThreshold = 0.2f; // 길게 눌렀을 때 드래그 시작 시간
+    [SerializeField] private float holdThreshold = 0.15f; // 길게 눌렀을 때 드래그 시작 시간
     private float dragOffsetX = 0f; // 손가락과 타일의 x축 거리
     private float dragOffsetY = 0f; // 손가락보다 위쪽에서 이동할 거리
     //public float doubleTapTime = 0.3f; // 더블 터치 감지 시간
@@ -286,7 +286,6 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         else if (isSliding)
         {
             isSliding = false;
-            SoundManager.Instance.PlaySlideSound();
             touchEndPos = eventData.position;
             float slideDistance = touchEndPos.x - touchStartPos.x;
 
@@ -300,6 +299,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
                 {
                     SelectPreviousTile();
                 }
+                SoundManager.Instance.PlaySlideSound();
             }
         }
     }

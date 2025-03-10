@@ -38,4 +38,10 @@ public class RerollButton : MonoBehaviour
         }
         rerollCountText.text = rerollCount.ToString();
     }
+
+    public void PlusRerollCount()
+    {
+        rerollCount++;
+        rerollCountText.text = rerollCount.ToString();
+    }
 }

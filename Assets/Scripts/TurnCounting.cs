@@ -6,7 +6,7 @@ public class TurnCounting : MonoBehaviour
 {
     //½Ì±ÛÅæÆÐÅÏ
     public static TurnCounting Instance;
-
+    public RerollButton rerollObject;
     [SerializeField]
     LevelUpEffect levelUpEffect;
     public int turnCount;
@@ -18,7 +18,9 @@ public class TurnCounting : MonoBehaviour
 
     private int level = 1;
 
+    [SerializeField] private TextMeshProUGUI turnText;
     [SerializeField] private TextMeshProUGUI limitTurnText;
+    [SerializeField] private TextMeshProUGUI goalText;
     [SerializeField] private TextMeshProUGUI goalScoreText;
 
     private void Awake()
@@ -68,25 +70,69 @@ public class TurnCounting : MonoBehaviour
     {
         UpdateText();
 
-        if (turnCount >= limitTurn)
+        if(turnCount%100 == 0 && turnCount != 0)
+        {
+            rerollObject.PlusRerollCount();
+        }
+
+        if(turnCount == limitTurn-1)
         {
             if(ScoreManager.score < goalScore)
+            {
+                //FF3B3B
+                limitTurnText.color = new Color32(255, 59, 59, 255);
+                turnText.color = new Color32(255, 59, 59, 255);
+                goalText.color = new Color32(255, 59, 59, 255);
+                goalScoreText.color = new Color32(255, 59, 59, 255);
+            }
+            else
+            {
+                //8DFF9F
+                limitTurnText.color = new Color32(141, 255, 159, 255);
+                turnText.color = new Color32(141, 255, 159, 255);
+                goalText.color = new Color32(141, 255, 159, 255);
+                goalScoreText.color = new Color32(141, 255, 159, 255);
+            }
+        }
+
+        if (turnCount >= limitTurn)
+        {
+            turnText.color = Color.white;
+            goalText.color = Color.white;
+            limitTurnText.color = Color.white;
+            goalScoreText.color = Color.white;
+            if (ScoreManager.score < goalScore)
             {
                 //game over
                 BoardCheck.gameover = true;
             }
             else
             {
-                if (increaseMultiplier == 10)
+                if(increaseMultiplier == 5)
+                {
+                    firstGoalScore *= 2;
+                }
+                else if (increaseMultiplier == 10)
                 {
                     firstGoalScore *= 2;
                     increaseMultiplier = 6;
                 }
                 //°»½Å
                 limitTurn += firstLimitTurn;
-                goalScore += firstGoalScore * increaseMultiplier;
-                increaseMultiplier += 1;
                 
+                if(goalScore >= 30000)
+                {
+                    goalScore += 5000;
+                }
+                else if(goalScore >= 25000)
+                {
+                    goalScore = 30000;
+                }
+                else
+                {
+                    goalScore += firstGoalScore * increaseMultiplier;
+                    increaseMultiplier += 1;
+                }
 
                 levelUpEffect.CrackerShoot(level);
                 level++;

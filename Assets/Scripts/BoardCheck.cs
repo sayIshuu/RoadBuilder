@@ -8,6 +8,7 @@ using System;
 
 public class BoardCheck : MonoBehaviour
 {
+    [SerializeField] private GameObject gameOverPanel;
     [SerializeField]
     private MissionController missionController;
     [SerializeField]
@@ -34,6 +35,7 @@ public class BoardCheck : MonoBehaviour
         {
             boardSlot[i] = boardInventory.transform.GetChild(i).gameObject;
         }
+        gameOverPanel.SetActive(false);
     }
 
     public void Check()
@@ -98,6 +100,7 @@ public class BoardCheck : MonoBehaviour
             SoundManager.Instance.PlayGameOverSound();
             gameOverTxt.gameObject.SetActive(true);
             gameOverTxt.text = "Your Score is " + ScoreManager.score;
+            gameOverPanel.SetActive(true);
         }
 
         //scoreTxt.text = score.ToString();

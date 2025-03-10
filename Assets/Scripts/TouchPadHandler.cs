@@ -276,6 +276,10 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
             if (tiles[selectedTileIndex].GetComponent<TileDraggable>().EndDrag())
             {
                 tiles[selectedTileIndex] = null;
+                if (lastHoveredSlot != null)
+                {
+                    lastHoveredSlot.ResetSlotColor();
+                }
             }
         }
         else if (isSliding)
@@ -329,6 +333,9 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     private void UpdateSelectedTile(int index)
     {
+        index = (index + 3) % 3;
+        selectedTileIndex = index;
+
         if (index == 0)
         {
             OfferSlot1.GetComponent<OfferSlot>().SelectedColor();
@@ -350,9 +357,6 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
 
         if (tiles.Count == 0) return;
-
-        // 선택된 타일을 변경
-        selectedTileIndex = Mathf.Clamp(index, 0, tiles.Count - 1);
     }
 
     private void SelectNextTile()

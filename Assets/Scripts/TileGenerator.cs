@@ -8,6 +8,7 @@ public enum Colors { WHITE, RED, MAGENTA, YELLOW };
 
 public class TileGenerator : MonoBehaviour
 {
+    [SerializeField] private TouchPadHandler touchPadHandler;
     [SerializeField] private Transform InventorySlot1;
     [SerializeField] private Transform InventorySlot2;
     [SerializeField] private Transform InventorySlot3;
@@ -64,6 +65,7 @@ public class TileGenerator : MonoBehaviour
         TileGenerate(InventorySlot1);
         TileGenerate(InventorySlot2);
         TileGenerate(InventorySlot3);
+        touchPadHandler.RerollTileList();
     }
 
     private int GetRandNum()

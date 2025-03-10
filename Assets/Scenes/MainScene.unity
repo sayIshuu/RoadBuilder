@@ -881,6 +881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f0973ed6dc4ecd4cadccb86c825877b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  touchPadHandler: {fileID: 1412294162}
   InventorySlot1: {fileID: 1368387046}
   InventorySlot2: {fileID: 1612394814}
   InventorySlot3: {fileID: 211975258}
@@ -4126,9 +4127,9 @@ MonoBehaviour:
   OfferSlot1: {fileID: 1368387046}
   OfferSlot2: {fileID: 1612394814}
   OfferSlot3: {fileID: 211975258}
-  dragOffsetY: 200
   doubleTapTime: 0.3
   slideThreshold: 50
+  tiles: []
 --- !u!1001 &1463463954
 PrefabInstance:
   m_ObjectHideFlags: 0

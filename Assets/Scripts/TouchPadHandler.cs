@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using System.Collections;
 
 public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
@@ -27,9 +28,13 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     private void Start()
     {
+        while (tiles.Count < 3)
+        {
+            tiles.Add(null);
+        }
         // offerslot의 모든 자식(타일) 가져오기
         // offerslot에 타일이 없으면 리스트에 추가하지 않음.. 씬 시작 시 TileGenerator가 먼저 실행되어야 함
-        AddTileList();
+        //RerollTileList();
 
         // 첫 번째 타일 선택
         UpdateSelectedTile(0);
@@ -38,11 +43,41 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         boardSlots = new List<BoardSlot>(FindObjectsByType<BoardSlot>(FindObjectsSortMode.None));
     }
 
-    private void AddTileList()
+    public void RerollTileList()
     {
-        if (OfferSlot1.childCount > 0) tiles.Add(OfferSlot1.GetChild(0));
-        if (OfferSlot2.childCount > 0) tiles.Add(OfferSlot2.GetChild(0));
-        if (OfferSlot3.childCount > 0) tiles.Add(OfferSlot3.GetChild(0));
+        StartCoroutine(RerollTileListCoroutine());
+    }
+
+    IEnumerator RerollTileListCoroutine()
+    {
+        yield return null; //1프레임 늦춰서 참조꼬임 방지
+        tiles.Clear();
+
+        //none이면 childCount가 있다고 치는구나?
+        if (OfferSlot1.childCount > 0)
+        {
+            tiles.Add(OfferSlot1.GetChild(0)); // 리스트가 비어있으므로 무조건 Add()
+        }
+        else
+        {
+            tiles.Add(null); // 인덱스를 유지하려면 null 추가
+        }
+        if (OfferSlot2.childCount > 0)
+        {
+            tiles.Add(OfferSlot2.GetChild(0));
+        }
+        else
+        {
+            tiles.Add(null);
+        }
+        if (OfferSlot3.childCount > 0)
+        {
+            tiles.Add(OfferSlot3.GetChild(0));
+        }
+        else
+        {
+            tiles.Add(null);
+        }
     }
 
 
@@ -70,6 +105,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         // 드래그 시작
         if (tiles.Count > 0)
         {
+            if (tiles[selectedTileIndex] == null) return;
             tileStartPos = tiles[selectedTileIndex].position;
             dragOffsetX = tileStartPos.x - eventData.position.x;
             dragOffsetY = tileStartPos.y - eventData.position.y;
@@ -106,7 +142,11 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
                 lastHoveredSlot.PlaceTile(tiles[selectedTileIndex].gameObject);
             }
 
-            tiles[selectedTileIndex].GetComponent<TileDraggable>().EndDrag();
+            if(tiles[selectedTileIndex].GetComponent<TileDraggable>().EndDrag())
+            {
+                // 배치된 tiles는 리스트에서 제거
+                tiles[selectedTileIndex] = null;
+            }
 
             // 터치 카운트 초기화 (연속 터치 방지)
             tapCount = 0;
@@ -138,6 +178,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         BoardSlot hoveredSlot = null;
 
+        // 존나 비효율적.. 리팩토링 필요.........
         foreach (BoardSlot slot in boardSlots) // 미리 저장된 리스트에서 검색
         {
             if (slot.IsPositionOverSlot(tilePosition))

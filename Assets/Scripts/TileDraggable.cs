@@ -39,7 +39,7 @@ public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, 
     }
     */
 
-    public void EndDrag()
+    public bool EndDrag()
     {
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
@@ -48,6 +48,7 @@ public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, 
         {
             transform.SetParent(previousParent);
             rect.position = previousParent.GetComponent<RectTransform>().position;
+            return false;
         }
         else
         {
@@ -61,6 +62,7 @@ public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, 
             tileGenerator.GetComponent<BoardCheck>().Check();
 
             SoundManager.Instance.PlayDisplaySound();
+            return true;
         }
     }
 }

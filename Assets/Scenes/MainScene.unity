@@ -4127,6 +4127,7 @@ MonoBehaviour:
   OfferSlot1: {fileID: 1368387046}
   OfferSlot2: {fileID: 1612394814}
   OfferSlot3: {fileID: 211975258}
+  sensitivity: 2
   doubleTapTime: 0.3
   slideThreshold: 50
   tiles: []

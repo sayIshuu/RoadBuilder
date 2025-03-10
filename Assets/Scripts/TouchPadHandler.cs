@@ -8,6 +8,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     [SerializeField] private Transform OfferSlot1;
     [SerializeField] private Transform OfferSlot2;
     [SerializeField] private Transform OfferSlot3;
+    [SerializeField] private float sensitivity; // 감도
     private float dragOffsetX = 0f; // 손가락과 타일의 x축 거리
     private float dragOffsetY = 0f; // 손가락보다 위쪽에서 이동할 거리
     public float doubleTapTime = 0.3f; // 더블 터치 감지 시간
@@ -124,7 +125,8 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
         // 손가락의 현재 위치를 가져오고, 타일을 위쪽에서 이동
         Vector2 currentTouchPos = eventData.position;
-        Vector2 newTilePos = new Vector2(currentTouchPos.x + dragOffsetX, currentTouchPos.y + dragOffsetY);
+        Vector2 newTilePos = new Vector2(currentTouchPos.x + dragOffsetX + ((currentTouchPos.x - touchStartPos.x) * sensitivity), 
+                                    currentTouchPos.y + dragOffsetY + ((currentTouchPos.y - touchStartPos.y) * sensitivity));
 
         tiles[selectedTileIndex].position = newTilePos;
 

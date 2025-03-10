@@ -12,11 +12,13 @@ public class SettingManager : MonoBehaviour
 
     public void OpenSettingPanel()
     {
+        SoundManager.Instance.PlaySelectSound();
         settingPanel.SetActive(true);
     }
 
     public void CloseSettingPanel()
     {
+        SoundManager.Instance.PlaySelectSound();
         settingPanel.SetActive(false);
     }
 }

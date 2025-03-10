@@ -48,6 +48,7 @@ public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, 
         {
             transform.SetParent(previousParent);
             rect.position = previousParent.GetComponent<RectTransform>().position;
+            SoundManager.Instance.PlayDisplaySound();
             return false;
         }
         else

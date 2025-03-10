@@ -240,6 +240,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
             tiles[selectedTileIndex].GetComponent<TileDraggable>().BeginDrag();
             isDragging = true;
             isHolding = false; // 길게 누르기 완료
+            SoundManager.Instance.PlaySelectSound();
         }
     }
 
@@ -285,6 +286,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         else if (isSliding)
         {
             isSliding = false;
+            SoundManager.Instance.PlaySlideSound();
             touchEndPos = eventData.position;
             float slideDistance = touchEndPos.x - touchStartPos.x;
 

@@ -1942,11 +1942,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 527637543}
-  displaySound: {fileID: 8300000, guid: f42fba0b0e1b09042b5c6338f537d8ed, type: 3}
+  displaySound: {fileID: 8300000, guid: 7b12bb27ec2c45740a87ea51a5793603, type: 3}
+  displaySoundVolume: 1
+  displaySound2: {fileID: 8300000, guid: 469799068722441438688d4beb322c86, type: 3}
+  displaySound2Volume: 1
+  displaySound3: {fileID: 8300000, guid: 2f41b4a7353c2e14dbf54dde21a9be20, type: 3}
+  displaySound3Volume: 1
   levelUpSound: {fileID: 8300000, guid: 14fdf58378a836c4da07456c950eda49, type: 3}
+  levelUpSoundVolume: 0.5
   forbidSound: {fileID: 8300000, guid: 23ad5f2df0f40d64c9110bb6cecf53f5, type: 3}
-  gameOverSound: {fileID: 8300000, guid: 66ac9e44487060c46bf12ec2dfb3e332, type: 3}
-  getScoreSound: {fileID: 8300000, guid: 5f06edd7b4ad57148ab572a6496dd853, type: 3}
+  forbidSoundVolume: 0.5
+  gameOverSound: {fileID: 8300000, guid: 196817ac7b4a9414a8d2965c0bb3fb6d, type: 3}
+  gameOverSoundVolume: 1
+  getScoreSound: {fileID: 8300000, guid: b548f34d60fbc91498a2a1ded50106d9, type: 3}
+  getScoreSoundVolume: 1
+  getScoreSound2: {fileID: 8300000, guid: 196817ac7b4a9414a8d2965c0bb3fb6d, type: 3}
+  getScoreSound2Volume: 1
+  getLargeScoreSound: {fileID: 8300000, guid: a1e15dcfcc1a5c54facbe9a89b48c32f, type: 3}
+  getLargeScoreSoundVolume: 1
+  slideSound: {fileID: 8300000, guid: edf1796c6cedb6845aecdcb3f6b7d81a, type: 3}
+  slideSoundVolume: 0.6
+  selectSound: {fileID: 8300000, guid: 5bb6e87252d802c4a8eee5b6841f8bff, type: 3}
+  selectSoundVolume: 1.5
 --- !u!4 &527637545
 Transform:
   m_ObjectHideFlags: 0
@@ -7098,7 +7115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1638955599
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8644,8 +8661,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1610672910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.6280698}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}

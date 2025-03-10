@@ -9,6 +9,8 @@ using System;
 public class BoardCheck : MonoBehaviour
 {
     [SerializeField]
+    private MissionController missionController;
+    [SerializeField]
     private GameObject[] boardSlot;
     [SerializeField]
     private TextMeshProUGUI gameOverTxt;
@@ -150,6 +152,7 @@ public class BoardCheck : MonoBehaviour
         // 점수 계산 : 배율 정해서. 이부분은 쉽게 수정되게. 배율변수 빼기.
         displayedTileCount -= len;
         scoreManager.AddScore(len * len * len);
+        missionController.CheckAllLengthMission(len);
     }
 
     private void DestroyTile(int y, int x)

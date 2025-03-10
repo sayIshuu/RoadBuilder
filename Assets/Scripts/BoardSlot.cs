@@ -19,7 +19,7 @@ public class BoardSlot : MonoBehaviour //, IPointerEnterHandler, IDropHandler, I
 
     public void HighlightSlot()
     {
-        image.color = new Color32(200, 255, 86, 255);
+        image.color = new Color32(220, 255, 146, 255);
     }
 
     public void ResetSlotColor()

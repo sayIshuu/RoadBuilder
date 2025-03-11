@@ -14,11 +14,13 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
     private float dragOffsetY = 0f; // 손가락보다 위쪽에서 이동할 거리
     //public float doubleTapTime = 0.3f; // 더블 터치 감지 시간
     [SerializeField] private float slideThreshold = 100f; // 슬라이드 감지 거리
+    [SerializeField] private float dragThreshold = 10f; // 드래그 감지 거리 
 
     public List<Transform> tiles = new List<Transform>(); // offerslot에 있는 타일 리스트
     private List<BoardSlot> boardSlots = new List<BoardSlot>(); // 보드 슬롯 리스트
     private int selectedTileIndex = 0; // 현재 선택된 타일 인덱스
     private Vector2 touchStartPos;
+    private Vector2 currentTouchPos; // 현재 터치 위치 저장
     private Vector2 touchEndPos;
     private Vector2 tileStartPos;
     private bool isDragging = false;
@@ -215,28 +217,49 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
         touchStartPos = eventData.position;
         holdStartTime = Time.time; // 터치한 시간 기록
         isHolding = true; // 길게 누르기 시작
+        isSliding = false;
 
-        StartCoroutine(CheckHoldForDrag(eventData)); // 일정 시간 후 드래그 여부 체크
+        StartCoroutine(CheckHoldForDrag()); // 일정 시간 후 드래그 여부 체크
     }
 
-    private IEnumerator CheckHoldForDrag(PointerEventData eventData)
+    private IEnumerator CheckHoldForDrag()
     {
-        yield return new WaitForSeconds(holdThreshold); // 일정 시간 기다림
-
-        if (isHolding && !isSliding) // 터치를 유지하고 슬라이드를 하지 않았으면 드래그 시작
+        while (Time.time - holdStartTime < holdThreshold)
         {
-            StartDrag(eventData);
+            // 현재 터치 위치 갱신
+            currentTouchPos = Input.mousePosition;
+
+            // 슬라이드인지 드래그인지 판별
+            float moveDistance = Vector2.Distance(touchStartPos, currentTouchPos);
+            if (moveDistance > slideThreshold) // 슬라이드로 간주
+            {
+                isHolding = false;
+                isSliding = true;
+                yield break;
+            }
+
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        // 홀드 시간이 지나고 슬라이드가 아니라면 드래그 시작 가능
+        if (isHolding && !isSliding)
+        {
+            float moveDistance = Vector2.Distance(touchStartPos, currentTouchPos);
+            if (moveDistance <= dragThreshold) // 일정 거리 이내에서 움직였으면 드래그 시작
+            {
+                StartDrag();
+            }
         }
     }
 
-    private void StartDrag(PointerEventData eventData)
+    private void StartDrag()
     {
         if (tiles.Count > 0)
         {
             if (tiles[selectedTileIndex] == null) return;
             tileStartPos = tiles[selectedTileIndex].position;
-            dragOffsetX = tileStartPos.x - eventData.position.x;
-            dragOffsetY = tileStartPos.y - eventData.position.y;
+            dragOffsetX = tileStartPos.x - currentTouchPos.x;
+            dragOffsetY = tileStartPos.y - currentTouchPos.y;
             tiles[selectedTileIndex].GetComponent<TileDraggable>().BeginDrag();
             isDragging = true;
             isHolding = false; // 길게 누르기 완료
@@ -255,10 +278,14 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
             tiles[selectedTileIndex].position = newTilePos;
             DetectBoardSlot(newTilePos);
         }
-        else if (!isDragging && isHolding) // 길게 누르기 전에 바로 이동하면 슬라이드로 전환
+        else if (isHolding) // 홀드 중이었지만 움직이면 슬라이드로 변경
         {
-            isHolding = false;
-            isSliding = true;
+            float moveDistance = Vector2.Distance(touchStartPos, eventData.position);
+            if (moveDistance > dragThreshold)
+            {
+                isHolding = false;
+                isSliding = true;
+            }
         }
     }
 

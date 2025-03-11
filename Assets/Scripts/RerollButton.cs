@@ -24,7 +24,7 @@ public class RerollButton : MonoBehaviour
         }
         else
         {
-            SoundManager.Instance.PlayDisplaySound();
+            SoundManager.Instance.PlaySelectSound();
             rerollCount--;
 
             tileGenerator.Reroll();
@@ -36,6 +36,12 @@ public class RerollButton : MonoBehaviour
             }
             */
         }
+        rerollCountText.text = rerollCount.ToString();
+    }
+
+    public void PlusRerollCount()
+    {
+        rerollCount++;
         rerollCountText.text = rerollCount.ToString();
     }
 }

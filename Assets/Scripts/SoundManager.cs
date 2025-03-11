@@ -5,11 +5,33 @@ public class SoundManager : MonoBehaviour
     public static SoundManager Instance { get; private set; }
 
     [SerializeField] private AudioSource audioSource; // 오디오 소스
+
     [SerializeField] private AudioClip displaySound;
+    [SerializeField] private float displaySoundVolume;
+    [SerializeField] private AudioClip displaySound2;
+    [SerializeField] private float displaySound2Volume;
+    [SerializeField] private AudioClip displaySound3;
+    [SerializeField] private float displaySound3Volume;
+
+
+
     [SerializeField] private AudioClip levelUpSound;
+    [SerializeField] private float levelUpSoundVolume;
     [SerializeField] private AudioClip forbidSound;
+    [SerializeField] protected float forbidSoundVolume;
     [SerializeField] private AudioClip gameOverSound;
+    [SerializeField] private float gameOverSoundVolume;
     [SerializeField] private AudioClip getScoreSound;
+    [SerializeField] private float getScoreSoundVolume;
+    [SerializeField] private AudioClip getScoreSound2;
+    [SerializeField] private float getScoreSound2Volume;
+    [SerializeField] private AudioClip getLargeScoreSound;
+    [SerializeField] private float getLargeScoreSoundVolume;
+    [SerializeField] private AudioClip slideSound;
+    [SerializeField] private float slideSoundVolume;
+    [SerializeField] private AudioClip selectSound;
+    [SerializeField] private float selectSoundVolume;
+
 
     private void Awake()
     {
@@ -33,28 +55,50 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+
     public void PlayDisplaySound()
     {
-        PlaySound(displaySound, 1.0f);
+        // 랜덤으로 displaySound1, displaySound2, displaySound3 중 하나 재생
+        int random = Random.Range(0, 3);
+        if (random == 0) PlaySound(displaySound, displaySoundVolume);
+        else if (random == 1) PlaySound(displaySound2, displaySound2Volume);
+        else PlaySound(displaySound3, displaySound3Volume);
     }
 
     public void PlayLevelUpSound()
     {
-        PlaySound(levelUpSound, 1.0f);
+        PlaySound(levelUpSound, levelUpSoundVolume);
     }
 
     public void PlayForbidSound()
     {
-        PlaySound(forbidSound, 0.5f);
+        PlaySound(forbidSound, forbidSoundVolume);
     }
 
     public void PlayGameOverSound()
     {
-        PlaySound(gameOverSound, 0.6f);
+        PlaySound(gameOverSound, gameOverSoundVolume);
     }
 
     public void PlayScoreSound()
     {
-        PlaySound(getScoreSound, 0.5f);
+        int random = Random.Range(0, 2);
+        if (random == 0) PlaySound(getScoreSound, getScoreSoundVolume);
+        else PlaySound(getScoreSound2, getScoreSound2Volume);
+    }
+
+    public void PlayLargeScoreSound()
+    {
+        PlaySound(getLargeScoreSound, getLargeScoreSoundVolume);
+    }
+
+    public void PlaySlideSound()
+    {
+        PlaySound(slideSound, slideSoundVolume);
+    }
+
+    public void PlaySelectSound()
+    {
+        PlaySound(selectSound, selectSoundVolume);
     }
 }

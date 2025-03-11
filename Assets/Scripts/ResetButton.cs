@@ -7,7 +7,7 @@ public class ResetButton : MonoBehaviour
     //[SerializeField] private Toggle resetToggle;
     public void Reset()
     {
-        SoundManager.Instance.PlayDisplaySound();
+        SoundManager.Instance.PlaySelectSound();
         SceneManager.LoadScene("MainScene");
     }
 }

@@ -8,6 +8,7 @@ using System;
 
 public class BoardCheck : MonoBehaviour
 {
+    [SerializeField] private GameObject gameOverPanel;
     [SerializeField]
     private MissionController missionController;
     [SerializeField]
@@ -34,6 +35,7 @@ public class BoardCheck : MonoBehaviour
         {
             boardSlot[i] = boardInventory.transform.GetChild(i).gameObject;
         }
+        gameOverPanel.SetActive(false);
     }
 
     public void Check()
@@ -98,6 +100,7 @@ public class BoardCheck : MonoBehaviour
             SoundManager.Instance.PlayGameOverSound();
             gameOverTxt.gameObject.SetActive(true);
             gameOverTxt.text = "Your Score is " + ScoreManager.score;
+            gameOverPanel.SetActive(true);
         }
 
         //scoreTxt.text = score.ToString();
@@ -134,7 +137,6 @@ public class BoardCheck : MonoBehaviour
 
     private void GetScore(int num)
     {
-        SoundManager.Instance.PlayScoreSound();
         int len = 0;
 
         for(int i = 1; i <= 5; i++)
@@ -148,6 +150,9 @@ public class BoardCheck : MonoBehaviour
                 }
             }
         }
+
+        if(len > 11) SoundManager.Instance.PlayLargeScoreSound();
+        else SoundManager.Instance.PlayScoreSound();
 
         // 점수 계산 : 배율 정해서. 이부분은 쉽게 수정되게. 배율변수 빼기.
         displayedTileCount -= len;

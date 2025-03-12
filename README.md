@@ -25,7 +25,7 @@
 <table>
   <tr>
     <td><img src="https://github.com/user-attachments/assets/fc75b2d6-7a11-4cca-8b59-e493924630bc" width="250"></td>
-    <td><img src="https://github.com/user-attachments/assets/34ad5c4d-1986-4415-ab1f-96e28758e41a)" width="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/34ad5c4d-1986-4415-ab1f-96e28758e41a" width="250"></td>
   </tr>
   <tr>
     <td>블록이 쌓여 더 이상 배치 불가</td>

@@ -260,7 +260,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
             tileStartPos = tiles[selectedTileIndex].position;
             dragOffsetX = tileStartPos.x - currentTouchPos.x;
             dragOffsetY = tileStartPos.y - currentTouchPos.y;
-            tiles[selectedTileIndex].GetComponent<TileDraggable>().BeginDrag();
+            //tiles[selectedTileIndex].GetComponent<TileDraggable>().BeginDrag();
             isDragging = true;
             isHolding = false; // 길게 누르기 완료
             SoundManager.Instance.PlaySelectSound();
@@ -301,7 +301,7 @@ public class TouchPadHandler : MonoBehaviour, IPointerDownHandler, IDragHandler,
                 lastHoveredSlot.PlaceTile(tiles[selectedTileIndex].gameObject);
             }
 
-            if (tiles[selectedTileIndex].GetComponent<TileDraggable>().EndDrag())
+            //if (tiles[selectedTileIndex].GetComponent<TileDraggable>().EndDrag())
             {
                 tiles[selectedTileIndex] = null;
                 if (lastHoveredSlot != null)

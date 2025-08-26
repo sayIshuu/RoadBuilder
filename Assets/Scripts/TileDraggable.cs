@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Transform canvas;
     private Transform previousParent;
@@ -9,6 +10,8 @@ public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, 
     private CanvasGroup canvasGroup;
     private TileDraggable tileDraggable;
     private GameObject tileGenerator;
+    private List<BoardSlot> boardSlots = new List<BoardSlot>(); // 보드 슬롯 리스트
+    private BoardSlot currentHover;                         // 현재 호버 중 슬롯
 
     public int tileType;
 
@@ -21,8 +24,16 @@ public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, 
         tileGenerator = GameObject.Find("TileGenerator");
     }
 
-    public void BeginDrag()
+    private void Start()
     {
+        boardSlots = new List<BoardSlot>(FindObjectsByType<BoardSlot>(FindObjectsSortMode.None));
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        //SoundManager.Instance.PlaySelectSound();
+        SoundManager.Instance.PlaySlideSound();
+
         previousParent = transform.parent;
 
         transform.SetParent(canvas);
@@ -32,24 +43,36 @@ public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, 
         canvasGroup.blocksRaycasts = false;
     }
 
-    /*
+    
     public void OnDrag(PointerEventData eventData)
     {
         rect.position = eventData.position;
-    }
-    */
 
-    public bool EndDrag()
+        DetectBoardSlot(eventData.position);
+    }
+    
+
+    public void OnEndDrag(PointerEventData eventData)
     {
         canvasGroup.alpha = 1.0f;
         canvasGroup.blocksRaycasts = true;
+
+        if (currentHover != null)
+        {
+            // 슬롯 배치
+            currentHover.PlaceTile(gameObject);
+
+            // 슬롯 하이라이트 해제
+            currentHover.ResetSlotColor();
+            currentHover = null;
+        }
 
         if (!transform.parent.CompareTag("Board") || transform.parent.childCount > 1)
         {
             transform.SetParent(previousParent);
             rect.position = previousParent.GetComponent<RectTransform>().position;
             SoundManager.Instance.PlayDisplaySound();
-            return false;
+            //return false;
         }
         else
         {
@@ -63,7 +86,28 @@ public class TileDraggable : MonoBehaviour //, IBeginDragHandler, IDragHandler, 
             tileGenerator.GetComponent<BoardCheck>().Check();
 
             SoundManager.Instance.PlayDisplaySound();
-            return true;
+            //return true;
+        }
+    }
+
+    private void DetectBoardSlot(Vector2 screenPos)
+    {
+        BoardSlot hovered = null;
+        foreach (var slot in boardSlots)
+        {
+            // 기존 BoardSlot.IsPositionOverSlot(Vector2 screenPos) 재사용
+            if (slot.IsPositionOverSlot(screenPos))
+            {
+                hovered = slot;
+                break;
+            }
+        }
+
+        if (hovered != currentHover)
+        {
+            if (currentHover != null) currentHover.ResetSlotColor();
+            if (hovered != null) hovered.HighlightSlot();
+            currentHover = hovered;
         }
     }
 }

@@ -65,7 +65,7 @@ public class TileGenerator : MonoBehaviour
         TileGenerate(InventorySlot1);
         TileGenerate(InventorySlot2);
         TileGenerate(InventorySlot3);
-        touchPadHandler.RerollTileList();
+        //touchPadHandler.RerollTileList();
     }
 
     private int GetRandNum()

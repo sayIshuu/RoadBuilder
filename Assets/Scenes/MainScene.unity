@@ -2078,27 +2078,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 527637543}
-  displaySound: {fileID: 8300000, guid: 7b12bb27ec2c45740a87ea51a5793603, type: 3}
+  displaySound: {fileID: 8300000, guid: 33f2895a77faf1a4ea3b6a704868ac33, type: 3}
   displaySoundVolume: 1
-  displaySound2: {fileID: 8300000, guid: 469799068722441438688d4beb322c86, type: 3}
+  displaySound2: {fileID: 8300000, guid: 8e0baa7cb1b9e6747a97209ded60ed3a, type: 3}
   displaySound2Volume: 1
-  displaySound3: {fileID: 8300000, guid: 2f41b4a7353c2e14dbf54dde21a9be20, type: 3}
+  displaySound3: {fileID: 8300000, guid: f386c70c19d95974e9f63a50eb60396d, type: 3}
   displaySound3Volume: 1
   levelUpSound: {fileID: 8300000, guid: 14fdf58378a836c4da07456c950eda49, type: 3}
   levelUpSoundVolume: 0.5
   forbidSound: {fileID: 8300000, guid: 23ad5f2df0f40d64c9110bb6cecf53f5, type: 3}
   forbidSoundVolume: 0.5
-  gameOverSound: {fileID: 8300000, guid: 196817ac7b4a9414a8d2965c0bb3fb6d, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 5ff1fdfc42ea42a4db15d96e4d05af4e, type: 3}
   gameOverSoundVolume: 0.8
-  getScoreSound: {fileID: 8300000, guid: b548f34d60fbc91498a2a1ded50106d9, type: 3}
+  getScoreSound: {fileID: 8300000, guid: 18c7925d74fc9ba45b71b0ca08dca611, type: 3}
   getScoreSoundVolume: 0.7
-  getScoreSound2: {fileID: 8300000, guid: 196817ac7b4a9414a8d2965c0bb3fb6d, type: 3}
+  getScoreSound2: {fileID: 8300000, guid: 18c7925d74fc9ba45b71b0ca08dca611, type: 3}
   getScoreSound2Volume: 0.7
-  getLargeScoreSound: {fileID: 8300000, guid: a1e15dcfcc1a5c54facbe9a89b48c32f, type: 3}
+  getLargeScoreSound: {fileID: 8300000, guid: c924a27a7f3c8b644a2b636d300aa090, type: 3}
   getLargeScoreSoundVolume: 1
-  slideSound: {fileID: 8300000, guid: edf1796c6cedb6845aecdcb3f6b7d81a, type: 3}
-  slideSoundVolume: 1
-  selectSound: {fileID: 8300000, guid: 5bb6e87252d802c4a8eee5b6841f8bff, type: 3}
+  slideSound: {fileID: 8300000, guid: 24d4fe68d7e2db04da23fa5c30ec9ae1, type: 3}
+  slideSoundVolume: 2
+  selectSound: {fileID: 8300000, guid: f42fba0b0e1b09042b5c6338f537d8ed, type: 3}
   selectSoundVolume: 1
 --- !u!4 &527637545
 Transform:

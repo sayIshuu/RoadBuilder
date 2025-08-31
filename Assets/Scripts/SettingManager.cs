@@ -21,4 +21,14 @@ public class SettingManager : MonoBehaviour
         SoundManager.Instance.PlaySelectSound();
         settingPanel.SetActive(false);
     }
+
+    public void ChangeToDarkMode()
+    {
+        SoundManager.Instance.PlaySelectSound();
+    }
+    
+    public void ChangeToLightMode()
+    {
+        SoundManager.Instance.PlaySelectSound();
+    }
 }

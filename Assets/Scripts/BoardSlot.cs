@@ -11,7 +11,6 @@ public class BoardSlot : MonoBehaviour //, IPointerEnterHandler, IDropHandler, I
 
     private void Awake()
     {
-        //시작 색상 저장
         startColor = GetComponent<Image>().color;
         image = GetComponent<Image>();
         rect = GetComponent<RectTransform>();
@@ -19,6 +18,7 @@ public class BoardSlot : MonoBehaviour //, IPointerEnterHandler, IDropHandler, I
 
     public void HighlightSlot()
     {
+        startColor = image.color;
         image.color = new Color32(220, 255, 146, 255);
     }
 
@@ -32,7 +32,6 @@ public class BoardSlot : MonoBehaviour //, IPointerEnterHandler, IDropHandler, I
         return RectTransformUtility.RectangleContainsScreenPoint(rect, position);
     }
 
-    // 기존 OnDrop 기능을 함수화하여 직접 호출 가능하도록 변경
     public void PlaceTile(GameObject tile)
     {
         if (tile != null)

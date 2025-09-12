@@ -4,7 +4,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    [SerializeField] private AudioSource audioSource; // ¿Àµğ¿À ¼Ò½º
+    [SerializeField] private AudioSource audioSource; // ì˜¤ë””ì˜¤ ì†ŒìŠ¤
 
     [SerializeField] private AudioClip displaySound;
     [SerializeField] private float displaySoundVolume;
@@ -38,15 +38,18 @@ public class SoundManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // ¾À ÀüÈ¯ ½Ã À¯Áö
+            DontDestroyOnLoad(gameObject); // ì”¬ ì „í™˜ ì‹œ ìœ ì§€
         }
         else
         {
             Destroy(gameObject);
         }
-    }
 
-    // »ç¿îµå Àç»ı ¸Ş¼­µå
+        // ToDo: ì €ì¥ëœ ì‚¬ìš´ë“œ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸° í•„ìš”
+        ChangeBgmVolume(1);
+        ChangeSfxVolume(1);
+    }
+    
     public void PlaySound(AudioClip clip, float volume)
     {
         if (clip != null && audioSource != null)
@@ -58,7 +61,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayDisplaySound()
     {
-        // ·£´ıÀ¸·Î displaySound1, displaySound2, displaySound3 Áß ÇÏ³ª Àç»ı
+        // ëœë¤ìœ¼ë¡œ displaySound1, displaySound2, displaySound3 ì¤‘ í•˜ë‚˜ ì¬ìƒ
         int random = Random.Range(0, 3);
         if (random == 0) PlaySound(displaySound, displaySoundVolume);
         else if (random == 1) PlaySound(displaySound2, displaySound2Volume);
@@ -100,5 +103,16 @@ public class SoundManager : MonoBehaviour
     public void PlaySelectSound()
     {
         PlaySound(selectSound, selectSoundVolume);
+    }
+
+    public void ChangeBgmVolume(float volume)
+    {
+        // ToDo: Bgm ì¶”ê°€ ì‹œ ì‘ì—…
+    }
+
+    public void ChangeSfxVolume(float volume)
+    {
+        audioSource.volume = volume;
+        // ToDo: ì €ì¥ ë°ì´í„° ë³€ê²½ í•„ìš”
     }
 }

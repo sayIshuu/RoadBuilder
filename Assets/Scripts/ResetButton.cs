@@ -8,6 +8,10 @@ public class ResetButton : MonoBehaviour
     public void Reset()
     {
         SoundManager.Instance.PlaySelectSound();
-        SceneManager.LoadScene("MainScene");
+        // 다시 시작 시 전면 광고 보여주기
+        if (!AdsManager.I.TryShowInterstitial(() => { SceneManager.LoadScene("MainScene"); }))
+        {
+            SceneManager.LoadScene("MainScene");
+        }
     }
 }

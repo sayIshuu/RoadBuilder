@@ -74,3 +74,6 @@ crashlytics-build.properties
 
 # custom
 *.utmp
+
+# Rider
+.idea

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1330340761087111092}
   - component: {fileID: 7240611292467347904}
   - component: {fileID: 894673917961529158}
+  - component: {fileID: 3078814778407636722}
   m_Layer: 5
   m_Name: Mission
   m_TagString: Untagged
@@ -91,6 +92,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   missionName: 
   requiredLength: 0
+--- !u!114 &3078814778407636722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694028354560964482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a090ef72cd2e9b2488e888b0dc6d6c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  role: 1
 --- !u!1 &1705347382317446044
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,6 +116,7 @@ GameObject:
   - component: {fileID: 8482283731623392443}
   - component: {fileID: 2375153340004211313}
   - component: {fileID: 2518620966031741413}
+  - component: {fileID: 6419062954526930147}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -227,3 +242,16 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6419062954526930147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1705347382317446044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a924af78252137647bae781bf4dc82eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  role: 1

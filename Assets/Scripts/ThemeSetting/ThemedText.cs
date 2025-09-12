@@ -6,11 +6,11 @@ public class ThemedText : ThemedBehaviour
     public enum Role { Primary, Secondary, Warning, Success }
 
     [SerializeField] Role role;
-    [SerializeField] TMP_Text tmp;
+    private TMP_Text _target;
 
-    void Reset()
+    void Awake()
     {
-        tmp   = GetComponent<TMP_Text>();
+        _target   = GetComponent<TMP_Text>();
     }
 
     public override void ApplyTheme(ThemePalette p)
@@ -24,6 +24,6 @@ public class ThemedText : ThemedBehaviour
             _             => p.textPrimary
         };
 
-        tmp.color = c;
+        _target.color = c;
     }
 }

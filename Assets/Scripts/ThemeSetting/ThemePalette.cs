@@ -8,6 +8,7 @@ public class ThemePalette : ScriptableObject
     public Color bgLight;    // 연한 배경 (타일, 업적 등)
     public Color bgDark;     // 진한 배경 (스코어, 스크롤뷰 등)
     public Color bgAccent;   // 강조 배경 (재시작 버튼, 슬라이더 핸들 등)
+    public Color bgSetting;  // 설정창 배경
 
     [Header("Texts")]
     public Color textPrimary;   // 기본 텍스트(흰 글씨)

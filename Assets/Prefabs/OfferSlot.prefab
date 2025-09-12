@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4071014275302496507}
   - component: {fileID: 7935134693531038263}
   - component: {fileID: 7879771239336410017}
+  - component: {fileID: 525794982058095634}
   m_Layer: 5
   m_Name: OfferSlot
   m_TagString: Offer
@@ -88,3 +89,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3008dc4b924cc0f48aed150e278f9261, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &525794982058095634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1248695705654678682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a090ef72cd2e9b2488e888b0dc6d6c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  role: 1

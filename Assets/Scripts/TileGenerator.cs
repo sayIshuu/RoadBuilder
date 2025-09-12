@@ -1,8 +1,6 @@
 using UnityEngine;
-using TMPro;
-using UnityEngine.SceneManagement;
-using System.Linq;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 public enum Colors { WHITE, RED, MAGENTA, YELLOW };
 
@@ -15,13 +13,14 @@ public class TileGenerator : MonoBehaviour
     [SerializeField] private GameObject Tile;
 
     private int tileCount = 0;
+    private List<int> tileTypes = new List<int>();
 
     private void Awake()
     {
         Generate();
     }
 
-    //ÀÌº¥Æ®·Î »¬¸¸ÇÑ ÇÔ¼ö
+    //ì´ë²¤íŠ¸ë¡œ ëº„ë§Œí•œ í•¨ìˆ˜
     private void Update()
     {
         if (tileCount == 0)
@@ -32,55 +31,71 @@ public class TileGenerator : MonoBehaviour
 
     public void Reroll()
     {
-        DeleteTile(InventorySlot1);
-        DeleteTile(InventorySlot2);
-        DeleteTile(InventorySlot3);
-
         Generate();
     }
 
     private void DeleteTile(Transform slot)
     {
-        Transform tile;
-
-        if (slot.childCount > 0)
+        // slotì˜ ëª¨ë“  ìì‹ ì˜¤ë¸Œì íŠ¸ë¥¼ ìˆœíšŒí•˜ë©° íŒŒê´´í•©ë‹ˆë‹¤.
+        // ì´ë ‡ê²Œ í•˜ë©´ íƒ€ì¼ì´ ì—¬ëŸ¬ ê°œ ìŒ“ì—¬ë„ ëª¨ë‘ í™•ì‹¤í•˜ê²Œ ì œê±°ë©ë‹ˆë‹¤.
+        foreach (Transform childTile in slot)
         {
-            tile = slot.GetChild(0);
-
             MinusTileCount();
-
-            Destroy(tile.gameObject);
+            Destroy(childTile.gameObject);
         }
     }
 
 
     public void MinusTileCount()
     {
-        tileCount -= 1;
+        tileCount --;
     }
 
     private void Generate()
     {
-        tileCount = 3;
-        TileGenerate(InventorySlot1);
-        TileGenerate(InventorySlot2);
-        TileGenerate(InventorySlot3);
-        //touchPadHandler.RerollTileList();
+        DeleteTile(InventorySlot1);
+        DeleteTile(InventorySlot2);
+        DeleteTile(InventorySlot3);
+
+        // ëª¨ë‘ ê°™ì€ íƒ€ì¼ì´ ë‚˜ì˜¤ì§€ ì•Šì„ ë•Œê¹Œì§€ ê³„ì† ë°˜ë³µí•˜ëŠ” ë£¨í”„
+        while (true)
+        {
+            // ë£¨í”„ê°€ ëŒ ë•Œë§ˆë‹¤ ìƒíƒœë¥¼ ì´ˆê¸°í™”
+            tileCount = 3;
+            tileTypes.Clear();
+
+            // íƒ€ì¼ 3ê°œë¥¼ ìƒì„±
+            TileGenerate(InventorySlot1);
+            TileGenerate(InventorySlot2);
+            TileGenerate(InventorySlot3);
+
+            // ìƒì„± ì„±ê³µ
+            if (!IsAllSame())
+            {
+                break;
+            }
+
+            // ë§Œì•½ ëª¨ë‘ ê°™ë‹¤ë©´, ë‹¤ì‹œ ìƒì„±í•˜ê¸° ì „ì— ë°©ê¸ˆ ë§Œë“  íƒ€ì¼ë“¤ì„ ì‚­ì œ
+            Debug.Log("All same tiles generated.");
+            DeleteTile(InventorySlot1);
+            DeleteTile(InventorySlot2);
+            DeleteTile(InventorySlot3);
+        }
     }
 
     private int GetRandNum()
     {
-        float randomValue = Random.Range(0f, 100f); // 0~100 »çÀÌÀÇ ·£´ı ¼ıÀÚ
+        float randomValue = Random.Range(0f, 100f); // 0~100 ì‚¬ì´ì˜ ëœë¤ ìˆ«ì
 
-        if (randomValue < 95f)        // 95% È®·ü ¡æ 1~6
+        if (randomValue < 95f)        // 95% í™•ë¥  â†’ 1~6
         {
             return Random.Range(1, 7);
         }
-        else if (randomValue < 99.5f) // 4.5% È®·ü ¡æ 7~10
+        else if (randomValue < 99.5f) // 4.5% í™•ë¥  â†’ 7~10
         {
             return Random.Range(7, 11);
         }
-        else                          // 0.5% È®·ü ¡æ 11
+        else                          // 0.5% í™•ë¥  â†’ 11
         {
             return 11;
         }
@@ -89,60 +104,63 @@ public class TileGenerator : MonoBehaviour
     private void TileGenerate(Transform slot)
     {
         int randNum = GetRandNum();
+
+        tileTypes.Add(randNum);
+
         int newType;
 
         GameObject newTile = Instantiate(Tile, slot);
-        newTile.transform.SetParent(slot);
+        //newTile.transform.SetParent(slot);
         Transform[] childList = newTile.GetComponentsInChildren<Transform>();
 
         switch (randNum)
         {
             case 1:
-                newType = 10; // ¦¡¸ğ¾ç
+                newType = 10; // â”€ëª¨ì–‘
                 ChangeColor(Colors.WHITE, childList[4], childList[5],childList[6]);
                 break;
             case 2:
-                newType = 5; // ¦¢¸ğ¾ç
+                newType = 5; // â”‚ëª¨ì–‘
                 ChangeColor(Colors.WHITE, childList[2], childList[5], childList[8]);
                 break;
             case 3:
-                newType = 6; // ¦£¸ğ¾ç
+                newType = 6; // â”Œëª¨ì–‘
                 ChangeColor(Colors.WHITE, childList[5], childList[6], childList[8]);
                 break;
             case 4:
-                newType = 12; // ¦¤¸ğ¾ç
+                newType = 12; // â”ëª¨ì–‘
                 ChangeColor(Colors.WHITE, childList[4], childList[5], childList[8]);
                 break;
             case 5:
-                newType = 9; // ¦¥¸ğ¾ç
+                newType = 9; // â”˜ëª¨ì–‘
                 ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5]);
                 break;
             case 6:
-                newType = 3; // ¦¦¸ğ¾ç
+                newType = 3; // â””ëª¨ì–‘
                 ChangeColor(Colors.WHITE, childList[2], childList[5], childList[6]);
                 break;
             case 7:
-                newType = 7; // ¦¨¸ğ¾ç 0111
+                newType = 7; // â”¬ëª¨ì–‘ 0111
                 ChangeColor(Colors.WHITE, childList[2], childList[5], childList[6], childList[8]);
                 ChangeColor(Colors.MAGENTA, childList[1], childList[3], childList[4], childList[7], childList[9]);
                 break;
             case 8:
-                newType = 11; // ¦©¸ğ¾ç 1011
+                newType = 11; // â”¤ëª¨ì–‘ 1011
                 ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[6]);
                 ChangeColor(Colors.MAGENTA, childList[1], childList[3], childList[7], childList[8], childList[9]);
                 break;
             case 9:
-                newType = 14; // ¦ª¸ğ¾ç 1110
+                newType = 14; // â”´ëª¨ì–‘ 1110
                 ChangeColor(Colors.WHITE, childList[4], childList[5], childList[6], childList[8]);
                 ChangeColor(Colors.MAGENTA, childList[1], childList[2], childList[3], childList[7], childList[9]);
                 break;
             case 10:
-                newType = 13; // ¦§¸ğ¾ç 1101
+                newType = 13; // â”œëª¨ì–‘ 1101
                 ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[8]);
                 ChangeColor(Colors.MAGENTA, childList[1], childList[3], childList[6], childList[7], childList[9]);
                 break;
             case 11:
-                newType = 15; // ¦«¸ğ¾ç 1111
+                newType = 15; // â”¼ëª¨ì–‘ 1111
                 ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[6], childList[8]);
                 ChangeColor(Colors.YELLOW, childList[1], childList[3], childList[7], childList[9]);
                 break;
@@ -178,5 +196,11 @@ public class TileGenerator : MonoBehaviour
         {
             elem.GetComponent<Image>().color = newColor;
         }
+    }
+
+    private bool IsAllSame()
+    {
+        if (tileTypes.Count < 3) return false;
+        return (tileTypes[0] == tileTypes[1]) && (tileTypes[1] == tileTypes[2]);
     }
 }

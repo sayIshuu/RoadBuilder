@@ -26,6 +26,8 @@ public class ThemeManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Current = lightPalette;
     }
 
     private void Start()

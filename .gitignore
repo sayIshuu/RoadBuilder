@@ -77,3 +77,6 @@ crashlytics-build.properties
 
 # Rider
 .idea
+
+# Android keystore files
+*.keystore

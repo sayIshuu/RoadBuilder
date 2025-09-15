@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: AdMobConfig
   m_EditorClassIdentifier: 
   useTestIds: 1
-  androidAppId: ca-app-pub-1809065657054455~1074100751
-  androidBannerId: ca-app-pub-1809065657054455/7882233449
-  androidInterstitialId: ca-app-pub-1809065657054455/3448944664
-  androidRewardedId: ca-app-pub-1809065657054455/2135862998
+  androidAppId: ca-app-pub-6429162037449523~8798432124
+  androidBannerId: ca-app-pub-6429162037449523/2997093499
+  androidInterstitialId: ca-app-pub-6429162037449523/6619771599
+  androidRewardedId: ca-app-pub-6429162037449523/8535542398
   testBannerId: ca-app-pub-3940256099942544/6300978111
   testInterstitialId: ca-app-pub-3940256099942544/1033173712
   testRewardedId: ca-app-pub-3940256099942544/5224354917

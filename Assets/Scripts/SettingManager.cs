@@ -25,8 +25,9 @@ public class SettingManager : MonoBehaviour
     public void ChangeToDarkMode()
     {
         SoundManager.Instance.PlaySelectSound();
+        ThemeManager.Instance.ToggleTheme();
     }
-    
+
     public void ChangeToLightMode()
     {
         SoundManager.Instance.PlaySelectSound();

@@ -4,7 +4,8 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
 
-    [SerializeField] private AudioSource audioSource; // 오디오 소스
+    [SerializeField] private AudioSource audioSource; // Sfx 오디오 소스
+    [SerializeField] private AudioSource mainAudioSource; // Bgm 오디오
 
     [SerializeField] private AudioClip displaySound;
     [SerializeField] private float displaySoundVolume;
@@ -45,11 +46,13 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // ToDo: 저장된 사운드 데이터 불러오기 필요
-        ChangeBgmVolume(1);
-        ChangeSfxVolume(1);
+        float bgmVol = PlayerPrefs.GetFloat("BGM_VOLUME", 1f);
+        float sfxVol = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
+
+        ChangeBgmVolume(bgmVol);
+        ChangeSfxVolume(sfxVol);
     }
-    
+
     public void PlaySound(AudioClip clip, float volume)
     {
         if (clip != null && audioSource != null)
@@ -107,12 +110,15 @@ public class SoundManager : MonoBehaviour
 
     public void ChangeBgmVolume(float volume)
     {
-        // ToDo: Bgm 추가 시 작업
+        mainAudioSource.volume = volume;
+        PlayerPrefs.SetFloat("BGM_VOLUME", volume);
+        PlayerPrefs.Save();
     }
 
     public void ChangeSfxVolume(float volume)
     {
         audioSource.volume = volume;
-        // ToDo: 저장 데이터 변경 필요
+        PlayerPrefs.SetFloat("SFX_VOLUME", volume);
+        PlayerPrefs.Save();
     }
 }

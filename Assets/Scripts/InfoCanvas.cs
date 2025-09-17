@@ -1,34 +1,28 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SettingManager : MonoBehaviour
+public class InfoCanvas : MonoBehaviour
 {
+    [SerializeField] private Button backButton;
     private Canvas _canvas;
 
     private void Awake()
     {
         _canvas = GetComponent<Canvas>();
-    }
+        backButton.onClick.AddListener(CloseInfoCanvas);
 
-    void Start()
-    {
         _canvas.enabled = false;
     }
 
-    public void OpenSettingPanel()
+    public void OpenInfoCanvas()
     {
         SoundManager.Instance.PlaySelectSound();
         _canvas.enabled = true;
     }
 
-    public void CloseSettingPanel()
+    public void CloseInfoCanvas()
     {
         SoundManager.Instance.PlaySelectSound();
         _canvas.enabled = false;
-    }
-
-    public void ChangeToDarkMode()
-    {
-        SoundManager.Instance.PlaySelectSound();
-        ThemeManager.Instance.ToggleTheme();
     }
 }

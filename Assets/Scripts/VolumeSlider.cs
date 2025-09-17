@@ -22,16 +22,15 @@ public class VolumeSlider : MonoBehaviour, IPointerUpHandler
 
     private float GetSavedVolume()
     {
-        // ToDo: 저장된 사운드 데이터 불러오기 필요
         float savedVolume = 0;
 
         switch (sliderType)
         {
             case SliderType.Bgm:
-                savedVolume = 1;
+                savedVolume = PlayerPrefs.GetFloat("BGM_VOLUME", 1f);;
                 break;
             case SliderType.Sfx:
-                savedVolume = 1;
+                savedVolume = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);;
                 break;
         }
 

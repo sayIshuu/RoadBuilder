@@ -10,14 +10,14 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private CanvasGroup canvasGroup;
     private TileDraggable tileDraggable;
     private GameObject tileGenerator;
-    private List<BoardSlot> boardSlots = new List<BoardSlot>(); // º¸µå ½½·Ô ¸®½ºÆ®
-    private BoardSlot currentHover;                         // ÇöÀç È£¹ö Áß ½½·Ô
+    private List<BoardSlot> boardSlots = new List<BoardSlot>(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+    private BoardSlot currentHover;                         // ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
     public int tileType;
 
     private void Awake()
     {
-        canvas = FindFirstObjectByType<Canvas>().transform;
+        canvas = FindFirstObjectByType<GameCanvas>().GetComponent<Canvas>().transform;
         rect = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         tileDraggable = GetComponent<TileDraggable>();
@@ -43,14 +43,14 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         canvasGroup.blocksRaycasts = false;
     }
 
-    
+
     public void OnDrag(PointerEventData eventData)
     {
         rect.position = eventData.position;
 
         DetectBoardSlot(eventData.position);
     }
-    
+
 
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -59,10 +59,10 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
         if (currentHover != null)
         {
-            // ½½·Ô ¹èÄ¡
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
             currentHover.PlaceTile(gameObject);
 
-            // ½½·Ô ÇÏÀÌ¶óÀÌÆ® ÇØÁ¦
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             currentHover.ResetSlotColor();
             currentHover = null;
         }
@@ -95,7 +95,7 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         BoardSlot hovered = null;
         foreach (var slot in boardSlots)
         {
-            // ±âÁ¸ BoardSlot.IsPositionOverSlot(Vector2 screenPos) Àç»ç¿ë
+            // ï¿½ï¿½ï¿½ï¿½ BoardSlot.IsPositionOverSlot(Vector2 screenPos) ï¿½ï¿½ï¿½ï¿½
             if (slot.IsPositionOverSlot(screenPos))
             {
                 hovered = slot;

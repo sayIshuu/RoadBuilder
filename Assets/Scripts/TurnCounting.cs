@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class TurnCounting : MonoBehaviour
 {
-    //½Ì±ÛÅæÆÐÅÏ
+    //ï¿½Ì±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public static TurnCounting Instance;
     public RerollButton rerollObject;
     [SerializeField]
@@ -13,6 +13,7 @@ public class TurnCounting : MonoBehaviour
     public int limitTurn;
     private int firstLimitTurn;
     public int goalScore;
+    public int prevGoalScore = 0;
     private int firstGoalScore;
     private int increaseMultiplier = 2;
 
@@ -25,16 +26,16 @@ public class TurnCounting : MonoBehaviour
 
     private void Awake()
     {
-        // ½Ì±ÛÅæ Àû¿ë
+        // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // ¾À º¯°æ ½Ã »èÁ¦µÇÁö ¾Êµµ·Ï ¼³Á¤
+            DontDestroyOnLoad(gameObject); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
-            Destroy(gameObject); // Áßº¹ ¹æÁö
+            Destroy(gameObject); // ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
         firstLimitTurn = limitTurn;
@@ -42,21 +43,22 @@ public class TurnCounting : MonoBehaviour
         UpdateText();
     }
 
-    // ¾ÀÀÌ ·ÎµåµÉ ¶§ º¯¼ö ÃÊ±âÈ­
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        AssignUIElements(); // ÅØ½ºÆ®´©¶ô¹æÁö ¿ä¼Ò ÇÒ´ç
-        ResetVariables(); // º¯¼ö¸¦ ±âº»°ªÀ¸·Î ÃÊ±âÈ­
+        AssignUIElements(); // ï¿½Ø½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
+        ResetVariables(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         UpdateText();
     }
 
-    // º¯¼ö ÃÊ±âÈ­ ¸Þ¼­µå
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Þ¼ï¿½ï¿½ï¿½
     private void ResetVariables()
     {
         turnCount = 0;
         level = 1;
         limitTurn = firstLimitTurn;
         goalScore = firstGoalScore;
+        prevGoalScore = 0;
         increaseMultiplier = 2;
     }
 
@@ -117,19 +119,22 @@ public class TurnCounting : MonoBehaviour
                     firstGoalScore *= 2;
                     increaseMultiplier = 6;
                 }
-                //°»½Å
+                //ï¿½ï¿½ï¿½ï¿½
                 limitTurn += firstLimitTurn;
-                
+
                 if(goalScore >= 30000)
                 {
+                    prevGoalScore = goalScore;
                     goalScore += 5000;
                 }
                 else if(goalScore >= 25000)
                 {
+                    prevGoalScore = goalScore;
                     goalScore = 30000;
                 }
                 else
                 {
+                    prevGoalScore = goalScore;
                     goalScore += firstGoalScore * increaseMultiplier;
                     increaseMultiplier += 1;
                 }
@@ -141,7 +146,7 @@ public class TurnCounting : MonoBehaviour
         }
     }
 
-    //ÅØ½ºÆ® °»½Å
+    //ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     private void UpdateText()
     {
         limitTurnText.text = turnCount.ToString();

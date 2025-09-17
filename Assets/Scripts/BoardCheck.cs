@@ -1,20 +1,11 @@
 using UnityEngine;
-using TMPro;
-using NUnit.Framework;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using System.Runtime.CompilerServices;
 using System;
 
 public class BoardCheck : MonoBehaviour
 {
-    [SerializeField] private GameObject gameOverPanel;
-    [SerializeField]
-    private MissionController missionController;
-    [SerializeField]
-    private GameObject[] boardSlot;
-    [SerializeField]
-    private TextMeshProUGUI gameOverTxt;
+    [SerializeField] private GameOverCanvas gameOverCanvas;
+    [SerializeField] private MissionController missionController;
+    [SerializeField] private GameObject[] boardSlot;
     //public static int score = 0;
     private ScoreManager scoreManager;
     public static bool gameover = false;
@@ -35,7 +26,6 @@ public class BoardCheck : MonoBehaviour
         {
             boardSlot[i] = boardInventory.transform.GetChild(i).gameObject;
         }
-        gameOverPanel.SetActive(false);
     }
 
     public void Check()
@@ -97,10 +87,7 @@ public class BoardCheck : MonoBehaviour
         }
         if(gameover)
         {
-            SoundManager.Instance.PlayGameOverSound();
-            gameOverTxt.gameObject.SetActive(true);
-            gameOverTxt.text = "Your Score is " + ScoreManager.score;
-            gameOverPanel.SetActive(true);
+            gameOverCanvas.ActivateGameOverUI();
         }
 
         //scoreTxt.text = score.ToString();

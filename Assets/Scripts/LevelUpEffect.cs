@@ -9,14 +9,14 @@ public class LevelUpEffect : MonoBehaviour
 
     private void Awake()
     {
-        canvas = FindFirstObjectByType<Canvas>().transform;
+        canvas = FindFirstObjectByType<GameCanvas>().GetComponent<Canvas>().transform;
         w = Screen.width;
     }
 
     public void CrackerShoot(int level)
     {
         //canvas ??= FindFirstObjectByType<Canvas>().transform;
-        if (canvas == null) canvas = FindFirstObjectByType<Canvas>().transform;
+        if (canvas == null) canvas = FindFirstObjectByType<GameCanvas>().GetComponent<Canvas>().transform;
 
         for (int i = 0; i < 20 + 10 * level; i++)
         {

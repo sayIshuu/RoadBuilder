@@ -2,34 +2,33 @@ using UnityEngine;
 
 public class SettingManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject settingPanel;
+    private Canvas _canvas;
+
+    private void Awake()
+    {
+        _canvas = GetComponent<Canvas>();
+    }
 
     void Start()
     {
-        settingPanel.SetActive(false);
+        _canvas.enabled = false;
     }
 
     public void OpenSettingPanel()
     {
         SoundManager.Instance.PlaySelectSound();
-        settingPanel.SetActive(true);
+        _canvas.enabled = true;
     }
 
     public void CloseSettingPanel()
     {
         SoundManager.Instance.PlaySelectSound();
-        settingPanel.SetActive(false);
+        _canvas.enabled = false;
     }
 
     public void ChangeToDarkMode()
     {
         SoundManager.Instance.PlaySelectSound();
         ThemeManager.Instance.ToggleTheme();
-    }
-
-    public void ChangeToLightMode()
-    {
-        SoundManager.Instance.PlaySelectSound();
     }
 }

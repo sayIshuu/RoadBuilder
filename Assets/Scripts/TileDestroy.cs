@@ -11,7 +11,7 @@ public class TileDestroy : MonoBehaviour
 
     private void Awake()
     {
-        canvas = FindFirstObjectByType<Canvas>().transform;
+        canvas = FindFirstObjectByType<GameCanvas>().GetComponent<Canvas>().transform;
         childList = gameObject.GetComponentsInChildren<Transform>();
     }
 

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class TurnCounting : MonoBehaviour
 {
-    //½Ì±ÛÅæÆĞÅÏ
+    //ï¿½Ì±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public static TurnCounting Instance;
     public RerollButton rerollObject;
     [SerializeField]
@@ -13,6 +13,7 @@ public class TurnCounting : MonoBehaviour
     public int limitTurn;
     private int firstLimitTurn;
     public int goalScore;
+    public int prevGoalScore = 0;
     private int firstGoalScore;
     private int increaseMultiplier = 2;
 
@@ -23,18 +24,22 @@ public class TurnCounting : MonoBehaviour
     [SerializeField] private TextMeshProUGUI goalText;
     [SerializeField] private TextMeshProUGUI goalScoreText;
 
+    private Color32 redColor = new Color32(255, 59, 59, 255);
+    private Color32 orangeColor = new Color32(255, 255, 0, 255);
+    private Color32 greenColor = new Color32(141, 255, 159, 255);
+
     private void Awake()
     {
-        // ½Ì±ÛÅæ Àû¿ë
+        // ï¿½Ì±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // ¾À º¯°æ ½Ã »èÁ¦µÇÁö ¾Êµµ·Ï ¼³Á¤
+            DontDestroyOnLoad(gameObject); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
-            Destroy(gameObject); // Áßº¹ ¹æÁö
+            Destroy(gameObject); // ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
         firstLimitTurn = limitTurn;
@@ -42,21 +47,22 @@ public class TurnCounting : MonoBehaviour
         UpdateText();
     }
 
-    // ¾ÀÀÌ ·ÎµåµÉ ¶§ º¯¼ö ÃÊ±âÈ­
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        AssignUIElements(); // ÅØ½ºÆ®´©¶ô¹æÁö ¿ä¼Ò ÇÒ´ç
-        ResetVariables(); // º¯¼ö¸¦ ±âº»°ªÀ¸·Î ÃÊ±âÈ­
+        AssignUIElements(); // ï¿½Ø½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
+        ResetVariables(); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         UpdateText();
     }
 
-    // º¯¼ö ÃÊ±âÈ­ ¸Ş¼­µå
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­ ï¿½Ş¼ï¿½ï¿½ï¿½
     private void ResetVariables()
     {
         turnCount = 0;
         level = 1;
         limitTurn = firstLimitTurn;
         goalScore = firstGoalScore;
+        prevGoalScore = 0;
         increaseMultiplier = 2;
     }
 
@@ -66,7 +72,7 @@ public class TurnCounting : MonoBehaviour
         goalScoreText = GameObject.Find("GoalScoreCountText")?.GetComponent<TextMeshProUGUI>();
     }
 
-    public void CheckTrunAndGoal()
+    public void CheckTurnAndGoal()
     {
         UpdateText();
 
@@ -75,25 +81,7 @@ public class TurnCounting : MonoBehaviour
             rerollObject.PlusRerollCount();
         }
 
-        if(turnCount == limitTurn-1)
-        {
-            if(ScoreManager.score < goalScore)
-            {
-                //FF3B3B
-                limitTurnText.color = new Color32(255, 59, 59, 255);
-                turnText.color = new Color32(255, 59, 59, 255);
-                goalText.color = new Color32(255, 59, 59, 255);
-                goalScoreText.color = new Color32(255, 59, 59, 255);
-            }
-            else
-            {
-                //8DFF9F
-                limitTurnText.color = new Color32(141, 255, 159, 255);
-                turnText.color = new Color32(141, 255, 159, 255);
-                goalText.color = new Color32(141, 255, 159, 255);
-                goalScoreText.color = new Color32(141, 255, 159, 255);
-            }
-        }
+        UpdateGoalWarningColor();
 
         if (turnCount >= limitTurn)
         {
@@ -117,19 +105,22 @@ public class TurnCounting : MonoBehaviour
                     firstGoalScore *= 2;
                     increaseMultiplier = 6;
                 }
-                //°»½Å
+                //ï¿½ï¿½ï¿½ï¿½
                 limitTurn += firstLimitTurn;
-                
+
                 if(goalScore >= 30000)
                 {
+                    prevGoalScore = goalScore;
                     goalScore += 5000;
                 }
                 else if(goalScore >= 25000)
                 {
+                    prevGoalScore = goalScore;
                     goalScore = 30000;
                 }
                 else
                 {
+                    prevGoalScore = goalScore;
                     goalScore += firstGoalScore * increaseMultiplier;
                     increaseMultiplier += 1;
                 }
@@ -141,10 +132,44 @@ public class TurnCounting : MonoBehaviour
         }
     }
 
-    //ÅØ½ºÆ® °»½Å
+    //ï¿½Ø½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     private void UpdateText()
     {
         limitTurnText.text = turnCount.ToString();
         goalScoreText.text = goalScore.ToString();
+    }
+
+    private void UpdateGoalWarningColor()
+    {
+        Color target = Color.white;
+
+        // ëª©í‘œ ë¯¸ë‹¬ì„± ì‹œ ê²½ê³  ìƒ‰ìƒ
+        if (ScoreManager.score < goalScore)
+        {
+            const int warnWindow = 10;
+            int startWarnTurn = Mathf.Max(0, limitTurn - warnWindow);
+            int endWarnTurn   = Mathf.Max(0, limitTurn - 1);
+
+            if (turnCount >= startWarnTurn && turnCount <= endWarnTurn)
+            {
+                float t = Mathf.InverseLerp(startWarnTurn, endWarnTurn, turnCount);
+
+                if (t < 0.5f)
+                {
+                    float subT = t / 0.5f;
+                    target = Color.Lerp(Color.white, orangeColor, subT);
+                }
+                else
+                {
+                    float subT = (t - 0.5f) / 0.5f;
+                    target = Color.Lerp(orangeColor, redColor, subT);
+                }
+            }
+        }
+
+        limitTurnText.color = target;
+        turnText.color = target;
+        goalText.color = target;
+        goalScoreText.color = target;
     }
 }

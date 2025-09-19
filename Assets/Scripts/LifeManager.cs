@@ -71,21 +71,37 @@ public class LifeManager : MonoBehaviour
 
     private void RecoverLives()
     {
-        // 마지막 목숨 회복 시간에서 현재 시간 차이 계산
+        // 목숨이 가득 차 있으면 굳이 계산할 필요가 없으므로 함수를 종료합니다.
+        if (_currentLives >= maxLives)
+        {
+            return;
+        }
+
         TimeSpan timeSinceLastLife = DateTime.Now - _lastLifeTime;
 
-        if (timeSinceLastLife >= _recoveryInterval)
+        // if를 while로 변경: 회복 가능한 목숨을 모두 회복시킬 때까지 반복
+        while (timeSinceLastLife >= _recoveryInterval)
         {
-            // 30분이 경과하면 목숨 1회복
             if (_currentLives < maxLives)
             {
                 CurrentLives++;
-                _lastLifeTime = DateTime.Now; // 마지막 회복 시간을 현재 시간으로 업데이트
-                PlayerPrefs.SetInt("CurrentLives", _currentLives);
-                PlayerPrefs.SetString("LastLifeTime", _lastLifeTime.ToString());
-                PlayerPrefs.Save();
+
+                // 현재 시간으로 초기화하는 대신, 마지막 회복 시간에 30분을 더해줍니다.
+                // 이렇게 해야 누적된 시간을 정확하게 계산할 수 있습니다.
+                _lastLifeTime += _recoveryInterval;
+                timeSinceLastLife -= _recoveryInterval; // 남은 시간 갱신
+            }
+            else
+            {
+                // 목숨이 가득 차면 루프를 빠져나옵니다.
+                break;
             }
         }
+
+        // 최종적으로 계산된 값들을 저장합니다.
+        PlayerPrefs.SetInt("CurrentLives", _currentLives);
+        PlayerPrefs.SetString("LastLifeTime", _lastLifeTime.ToString());
+        PlayerPrefs.Save();
     }
 
     public void UseLife()
@@ -101,5 +117,11 @@ public class LifeManager : MonoBehaviour
         {
             Debug.Log("목숨이 부족합니다.");
         }
+    }
+
+    public void RecoverAllLife()
+    {
+        CurrentLives = maxLives;
+        return;
     }
 }

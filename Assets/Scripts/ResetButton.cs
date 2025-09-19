@@ -9,7 +9,8 @@ public class ResetButton : MonoBehaviour
         // 목숨부족시 재시작 불가.
         if (LifeManager.Instance.CurrentLives <= 0)
         {
-            // todo : 광고유도
+            // todo : 광고유도 - 동영님
+            // 광고보면 LifeManager.Instance.RecoverAllLife(); 호출
             return;
         }
 

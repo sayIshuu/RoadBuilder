@@ -10,6 +10,7 @@ public class BoardCheck : MonoBehaviour
     [SerializeField] private MissionController missionController;
     [SerializeField] private GameObject[] boardSlot;
     private ScoreManager scoreManager;
+    private SfxManager sfxManager;
     public static bool gameover = false;
     public int displayedTileCount = 0;
     private int[] uf = new int[49];
@@ -40,6 +41,7 @@ public class BoardCheck : MonoBehaviour
         gameover = false;
         GameObject boardInventory = GameObject.Find("BoardInventory");
         scoreManager = FindAnyObjectByType<ScoreManager>();
+        sfxManager = FindAnyObjectByType<SfxManager>();
         for (int i = 0; i < 25; i++)
         {
             boardSlot[i] = boardInventory.transform.GetChild(i).gameObject;
@@ -291,6 +293,8 @@ public class BoardCheck : MonoBehaviour
     // 연출 코루틴
     IEnumerator PlayCompletionAnimation(List<Vector2Int> pathTiles, int num)
     {
+        if (sfxManager != null) sfxManager.ResetSfxIndex();
+
         isAnimating = true;
         var sortedPath = SortPath(pathTiles, num);
         float currentDuration = bounceDuration;
@@ -305,6 +309,13 @@ public class BoardCheck : MonoBehaviour
             {
                 Transform tileTransform = boardSlot[5 * tilePos.y + tilePos.x - 6].transform.GetChild(0);
                 Sequence sequence = DOTween.Sequence();
+
+                // 사운드 재생을 시퀀스의 가장 처음에 콜백으로 추가합니다.
+                if (sfxManager != null)
+                {
+                    sequence.AppendCallback(() => sfxManager.PlayRisingSfx());
+                }
+
                 sequence.Append(tileTransform.DOScale(1.2f, currentDuration * 0.25f));
                 sequence.Append(tileTransform.DOScale(0.8f, currentDuration * 0.3f));
                 sequence.Append(tileTransform.DOScale(1.0f, currentDuration * 0.25f));

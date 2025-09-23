@@ -15,7 +15,7 @@ public class OfferSlot : MonoBehaviour, IDropHandler
         startColor = image.color;
     }
 
-    // ¸¶¿ì½º Ä¿¼­ -> ½½·ÔÀ¸·Î º¯°æÇØ¾ßÇÔ.
+    // ë§ˆìš°ìŠ¤ ì»¤ì„œ -> ìŠ¬ë¡¯ìœ¼ë¡œ ë³€ê²½í•´ì•¼í•¨.
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag != null)
@@ -28,7 +28,7 @@ public class OfferSlot : MonoBehaviour, IDropHandler
     public void SelectedColor()
     {
         //image.color = Color.yellow;
-        // DCFF92 »ö¸ÂÃß±â
+        // DCFF92 ìƒ‰ë§žì¶”ê¸°
         image.color = new Color32(220, 255, 146, 255);
     }
 

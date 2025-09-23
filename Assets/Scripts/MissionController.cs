@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class MissionController : MonoBehaviour
 {
-    public Mission[] missions; // ¸ğµç ¾÷Àû ¸®½ºÆ®
+    public Mission[] missions; // ëª¨ë“  ì—…ì  ë¦¬ìŠ¤íŠ¸
 
     private void Start()
     {
-        //missions = GetComponentsInChildren<Mission>(); // ¾÷Àûµé ÀÚµ¿ µî·Ï
+        //missions = GetComponentsInChildren<Mission>(); // ì—…ì ë“¤ ìë™ ë“±ë¡
     }
 
-    // Àû Ã³Ä¡ ÀÌº¥Æ® ¹ß»ı ½Ã ¾÷Àû Ã¼Å©
+    // ì  ì²˜ì¹˜ ì´ë²¤íŠ¸ ë°œìƒ ì‹œ ì—…ì  ì²´í¬
     public void CheckAllLengthMission(int len)
     {
         foreach (Mission mission in missions)

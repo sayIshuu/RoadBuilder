@@ -80,3 +80,6 @@ crashlytics-build.properties
 
 # Android keystore files
 *.keystore
+
+# firebase config
+/[Aa]ssets/google-services.*

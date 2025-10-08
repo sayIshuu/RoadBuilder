@@ -1123,6 +1123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6216277a88831294f943b163ed569a61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneName: TutorialScene
   noButton: {fileID: 8075798929958938438}
   yesButton: {fileID: 8895419836071828177}
 --- !u!1 &3463620713171070975

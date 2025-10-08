@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class InfoCanvas : MonoBehaviour
 {
+    [SerializeField] private string sceneName;
     [SerializeField] private Button noButton;
     [SerializeField] private Button yesButton;
 
@@ -33,6 +34,6 @@ public class InfoCanvas : MonoBehaviour
     private void OnClickYesBtn()
     {
         SoundManager.Instance.PlaySelectSound();
-        SceneManager.LoadScene("TutorialScene");
+        SceneManager.LoadScene(sceneName);
     }
 }

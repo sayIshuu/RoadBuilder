@@ -49,11 +49,6 @@ public class TutorialTileGenerator : MonoBehaviour
         }
     }
 
-    public void Reroll()
-    {
-        Generate();
-    }
-
     private void DeleteTile(Transform slot)
     {
         // slot의 모든 자식 오브젝트를 순회하며 파괴합니다.

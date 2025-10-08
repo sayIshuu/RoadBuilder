@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TutorialRerollButton : MonoBehaviour
 {
-    [SerializeField] private TutorialTileGenerator tileGenerator;
+    [SerializeField] private TileGenerator tileGenerator;
 
     private int rerollCount;
     [SerializeField] private TMP_Text rerollCountText;

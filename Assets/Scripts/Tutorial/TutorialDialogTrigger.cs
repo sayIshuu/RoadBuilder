@@ -5,16 +5,23 @@ using UnityEngine.UI;
 public class TutorialDialogTrigger : TutorialBase
 {
     [SerializeField] private string dialog;
+    [SerializeField] private string subDialog;
+
     [SerializeField] private GameObject targetObj;
     private Transform _targetObjParent;
 
+    [SerializeField] private bool isBlinking;
+    private TutorialBlinkingEffect _blinkingEffect;
+
     private Image tutorialBackgroundImg;
-    private TMP_Text dialogueText;
+    private TMP_Text tutorialText;
+    private TMP_Text tutorialSubText;
 
     private void Awake()
     {
         tutorialBackgroundImg = FindAnyObjectByType<TutorialBackgroundImg>().GetComponent<Image>();
-        dialogueText = FindAnyObjectByType<TutorialText>().GetComponent<TMP_Text>();
+        tutorialText = FindAnyObjectByType<TutorialText>().GetComponent<TMP_Text>();
+        tutorialSubText =  FindAnyObjectByType<TutorialSubText>().GetComponent<TMP_Text>();
     }
 
     public override void Enter(TutorialController controller)
@@ -25,7 +32,15 @@ public class TutorialDialogTrigger : TutorialBase
             targetObj.transform.SetParent(tutorialBackgroundImg.gameObject.transform);
         }
 
-        dialogueText.text = dialog;
+        if (isBlinking && targetObj != null)
+        {
+            _blinkingEffect = gameObject.AddComponent<TutorialBlinkingEffect>();
+            _blinkingEffect.StartBlinking(targetObj);
+        }
+
+        tutorialText.text = dialog;
+        tutorialSubText.text = subDialog;
+
         tutorialBackgroundImg.gameObject.SetActive(true);
     }
 
@@ -42,6 +57,11 @@ public class TutorialDialogTrigger : TutorialBase
         if (targetObj != null)
         {
             targetObj.transform.SetParent(_targetObjParent);
+        }
+
+        if (isBlinking && targetObj != null)
+        {
+            _blinkingEffect.StopBlinking();
         }
 
         tutorialBackgroundImg.gameObject.SetActive(false);

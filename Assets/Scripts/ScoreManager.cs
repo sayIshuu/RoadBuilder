@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class ScoreManager : MonoBehaviour
 
     public void saveBestScore()
     {
+        if (SceneManager.GetActiveScene().name != "MainScene") return;
+
         if(score > bestScore)
         {
             bestScore = score;

@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class BoardSlot : MonoBehaviour //, IPointerEnterHandler, IDropHandler, IPointerExitHandler
 {
+    public event Action OnPlaced;
+
     private Image image;
     private RectTransform rect;
     private int idx;
@@ -38,6 +41,8 @@ public class BoardSlot : MonoBehaviour //, IPointerEnterHandler, IDropHandler, I
         {
             tile.transform.SetParent(transform);
             tile.GetComponent<RectTransform>().position = rect.position;
+
+            OnPlaced?.Invoke();
         }
     }
 

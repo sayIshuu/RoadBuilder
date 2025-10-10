@@ -1,22 +1,21 @@
 using System;
+using static VibrationManager;
 
-namespace VibrationUtility.Instance
+
+public class VibrationEditor : VibrationInstance
 {
-    public class VibrationEditor : VibrationInstance
+    public override bool IsVibrationAvailable()
     {
-        public override bool IsVibrationAvailable()
-        {
-            return false;
-        }
+        return false;
+    }
 
-        public override void Vibrate(VibrationType _, float __)
-        {
-            throw new NotSupportedException();
-        }
+    public override void Vibrate(VibrationType vibrationType, float intensity)
+    {
+        throw new NotSupportedException();
+    }
 
-        public override void VibrateCustom(long[] _, int[] __)
-        {
-            throw new NotSupportedException();
-        }
+    public override void VibrateCustom(long[] pattern, int[] amplitude)
+    {
+        throw new NotSupportedException();
     }
 }

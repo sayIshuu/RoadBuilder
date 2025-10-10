@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static VibrationManager;
 
 public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -86,6 +87,7 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             tileGenerator.GetComponent<BoardCheck>().Check();
 
             SoundManager.Instance.PlayDisplaySound();
+            VibrationManager.Instance.Vibrate(VibrationType.Peek);
             //return true;
         }
     }

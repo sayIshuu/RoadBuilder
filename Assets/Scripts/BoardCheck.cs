@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
+using VibrationUtility;
 
 public class BoardCheck : MonoBehaviour
 {
@@ -164,6 +165,7 @@ public class BoardCheck : MonoBehaviour
         if (useCompletionAnimation && pathTiles.Count > 0)
         {
             StartCoroutine(PlayCompletionAnimation(pathTiles, num));
+            VibrationUtil.Vibrate(VibrationType.Pop);
         }
         else
         {

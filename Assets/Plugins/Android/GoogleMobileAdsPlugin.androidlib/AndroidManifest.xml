@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 This Google Mobile Ads plugin library manifest will get merged with your
 application's manifest, adding the necessary metadata
@@ -8,6 +8,7 @@ required for displaying ads.
     package="com.google.unity.ads">
   <uses-sdk android:minSdkVersion="23"/>
   <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name = "android.permission.VIBRATE"/>
   <application>
     <uses-library android:required="false" android:name="org.apache.http.legacy"/>
   </application>

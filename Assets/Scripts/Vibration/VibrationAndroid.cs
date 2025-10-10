@@ -12,7 +12,7 @@ public class VibrationAndroid : VibrationInstance
 
     #region Variables
 
-    private float intensity;
+    private int _intensity;
 
     private AndroidJavaObject vibrator;
 
@@ -67,7 +67,7 @@ public class VibrationAndroid : VibrationInstance
         return hasVibrator && AndroidApiLevel >= 26;
     }
 
-    public override void Vibrate(VibrationType vibrationType, float intensity)
+    public override void Vibrate(VibrationType vibrationType, int intensity)
     {
         if (!IsVibrationAvailable())
         {
@@ -75,7 +75,7 @@ public class VibrationAndroid : VibrationInstance
             return;
         }
 
-        this.intensity = intensity;
+        _intensity = intensity;
 
         switch (vibrationType)
         {
@@ -183,12 +183,14 @@ public class VibrationAndroid : VibrationInstance
     {
         var vibrateEffect =
             VibrationEffectClass.CallStatic<AndroidJavaObject>("createOneShot",
-                new object[] { milliseconds, amplitude });
+                new object[] { milliseconds, amplitude *  _intensity});
         Vibrator.Call("vibrate", vibrateEffect);
     }
 
     private void CreateWaveform(long[] pattern, int[] amplitude, int repeat)
     {
+        for (int i = 0; i < amplitude.Length; i++) amplitude[i] *= _intensity;
+
         var vibrateEffect =
             VibrationEffectClass.CallStatic<AndroidJavaObject>("createWaveform",
                 new object[] { pattern, amplitude, repeat });

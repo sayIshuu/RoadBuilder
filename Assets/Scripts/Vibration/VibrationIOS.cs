@@ -19,7 +19,7 @@ namespace VibrationUtility.Instance
         [DllImport("__Internal")]
         public static extern void _notificationOccurred(string style);
 
-        public override void Vibrate(VibrationType vibrationType, float intensity)
+        public override void Vibrate(VibrationType vibrationType, int intensity)
         {
             switch (vibrationType)
             {

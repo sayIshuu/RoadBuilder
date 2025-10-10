@@ -26,7 +26,8 @@ public class VibrationManager : MonoBehaviour
 
     public static VibrationManager Instance { get; private set; }
     private VibrationInstance _vibrationInstance;
-    private float _intensity;
+
+    private int _intensity;
 
     private void Awake()
     {
@@ -42,8 +43,8 @@ public class VibrationManager : MonoBehaviour
 
         Init();
 
-        float intensity = PlayerPrefs.GetFloat("INTENSITY", 1f);
-        ChangeVibrationIntensity(intensity);
+        int savedIntensity = PlayerPrefs.GetInt("INTENSITY", 1);
+        ApplyVibrationIntensity(savedIntensity);
     }
 
     private void Init()
@@ -60,31 +61,24 @@ public class VibrationManager : MonoBehaviour
         }
         catch (NotSupportedException e)
         {
-            Debug.LogError($"Vibration Utility - {e}");
+            Debug.LogError($"Vibration: {e}");
             return;
         }
         catch (Exception e)
         {
-            Debug.LogError($"Vibration Utility - Failed to Initialize : {e}");
+            Debug.LogError($"Vibration: {e}");
             return;
         }
 
-        Debug.Log($"Vibration Utility - Initialized Successfully {_vibrationInstance}");
+        Debug.Log($"Vibration: Initialized Successfully {_vibrationInstance}");
     }
 
-    public void ChangeVibrationIntensity(float intensity)
-    {
-        _intensity = intensity;
-        PlayerPrefs.SetFloat("INTENSITY", intensity);
-        PlayerPrefs.Save();
-    }
-
-    public void Vibrate(VibrationType vibrationType, float intensity = 1.0f)
+    public void Vibrate(VibrationType vibrationType)
     {
         if (_vibrationInstance == null) return;
         if (!IsVibrationAvailable()) return;
 
-        _vibrationInstance.Vibrate(vibrationType, intensity);
+        _vibrationInstance.Vibrate(vibrationType, _intensity);
     }
 
     public void VibrateCustomized(long[] pattern, int[] amplitude)
@@ -99,5 +93,18 @@ public class VibrationManager : MonoBehaviour
     public bool IsVibrationAvailable()
     {
         return _vibrationInstance.IsVibrationAvailable();
+    }
+
+    public void ToggleVibrationIntensity()
+    {
+        ApplyVibrationIntensity(_intensity == 1 ? 0 : 1);
+    }
+
+    public void ApplyVibrationIntensity(int intensity)
+    {
+        _intensity = intensity;
+
+        PlayerPrefs.SetInt("INTENSITY", intensity);
+        PlayerPrefs.Save();
     }
 }

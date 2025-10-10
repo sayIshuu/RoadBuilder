@@ -9,7 +9,7 @@ public class VibrationEditor : VibrationInstance
         return false;
     }
 
-    public override void Vibrate(VibrationType vibrationType, float intensity)
+    public override void Vibrate(VibrationType vibrationType, int intensity)
     {
         throw new NotSupportedException();
     }

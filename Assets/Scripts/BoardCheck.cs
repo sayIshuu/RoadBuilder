@@ -314,6 +314,7 @@ public class BoardCheck : MonoBehaviour
                 if (sfxManager != null)
                 {
                     sequence.AppendCallback(() => sfxManager.PlayRisingSfx());
+                    sequence.AppendCallback(() => VibrationManager.Instance.Vibrate(VibrationManager.VibrationType.Pop));
                 }
 
                 sequence.Append(tileTransform.DOScale(1.2f, currentDuration * 0.25f));

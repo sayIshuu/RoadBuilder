@@ -26,8 +26,13 @@ public class MobildInputManager : MonoBehaviour
             if (now - lastPressTime <= timeout)
             {
                 // 두 번째 입력: 종료
+#if UNITY_EDITOR
+                // 유니티 에디터에서 플레이 모드를 종료할 때 사용
                 UnityEditor.EditorApplication.isPlaying = false;
+#else
+                // 빌드된 애플리케이션(PC, 모바일 등)을 종료할 때 사용
                 Application.Quit();
+#endif
                 return;
             }
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "257197925025",
+    "project_id": "roadbuilder-jyangle",
+    "storage_bucket": "roadbuilder-jyangle.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:257197925025:android:9b23fc0e9b5692e77e46e0",
+        "android_client_info": {
+          "package_name": "com.sayIshuu.RoadBuilder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlGcC-jUkIjb5FWqMRpLBoOEgUjZOHRDo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,6 +16,6 @@ public class ResetButton : MonoBehaviour
 
         SoundManager.Instance.PlaySelectSound();
         SceneManager.LoadScene("MainScene");
-        LifeManager.Instance.UseLife();
+        //LifeManager.Instance.UseLife();
     }
 }

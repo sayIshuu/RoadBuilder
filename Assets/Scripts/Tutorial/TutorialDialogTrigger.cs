@@ -17,6 +17,9 @@ public class TutorialDialogTrigger : TutorialBase
     private TMP_Text tutorialText;
     private TMP_Text tutorialSubText;
 
+    private float _clickDelay = 1f; // 클릭 딜레이
+    private float _enterTime;
+
     private void Awake()
     {
         tutorialBackgroundImg = FindAnyObjectByType<TutorialBackgroundImg>().GetComponent<Image>();
@@ -42,10 +45,13 @@ public class TutorialDialogTrigger : TutorialBase
         tutorialSubText.text = subDialog;
 
         tutorialBackgroundImg.gameObject.SetActive(true);
+        _enterTime = Time.time;
     }
 
     public override void Execute(TutorialController controller)
     {
+        if (Time.time - _enterTime < _clickDelay) return;
+            
         if (Input.GetMouseButtonDown(0))
         {
             controller.SetNextTutorial();

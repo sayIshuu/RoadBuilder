@@ -13,8 +13,8 @@ public class InfoCanvas : MonoBehaviour
     private void Awake()
     {
         _canvas = GetComponent<Canvas>();
-        noButton.onClick.AddListener(OnClickNoBtn);
-        yesButton.onClick.AddListener(OnClickYesBtn);
+        noButton?.onClick.AddListener(OnClickNoBtn);
+        yesButton?.onClick.AddListener(OnClickYesBtn);
 
         _canvas.enabled = false;
     }

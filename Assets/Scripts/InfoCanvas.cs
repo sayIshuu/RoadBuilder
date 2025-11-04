@@ -25,13 +25,13 @@ public class InfoCanvas : MonoBehaviour
         _canvas.enabled = true;
     }
 
-    private void OnClickNoBtn()
+    public void OnClickNoBtn()
     {
         SoundManager.Instance.PlaySelectSound();
         _canvas.enabled = false;
     }
 
-    private void OnClickYesBtn()
+    public void OnClickYesBtn()
     {
         SoundManager.Instance.PlaySelectSound();
         SceneManager.LoadScene(sceneName);

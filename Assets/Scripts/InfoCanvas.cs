@@ -13,8 +13,8 @@ public class InfoCanvas : MonoBehaviour
     private void Awake()
     {
         _canvas = GetComponent<Canvas>();
-        noButton.onClick.AddListener(OnClickNoBtn);
-        yesButton.onClick.AddListener(OnClickYesBtn);
+        noButton?.onClick.AddListener(OnClickNoBtn);
+        yesButton?.onClick.AddListener(OnClickYesBtn);
 
         _canvas.enabled = false;
     }
@@ -25,13 +25,13 @@ public class InfoCanvas : MonoBehaviour
         _canvas.enabled = true;
     }
 
-    private void OnClickNoBtn()
+    public void OnClickNoBtn()
     {
         SoundManager.Instance.PlaySelectSound();
         _canvas.enabled = false;
     }
 
-    private void OnClickYesBtn()
+    public void OnClickYesBtn()
     {
         SoundManager.Instance.PlaySelectSound();
         SceneManager.LoadScene(sceneName);

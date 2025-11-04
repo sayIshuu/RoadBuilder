@@ -26,9 +26,20 @@ public class SettingManager : MonoBehaviour
         _canvas.enabled = false;
     }
 
-    public void ChangeToDarkMode()
+    public void ChangeThemeMode()
     {
         SoundManager.Instance.PlaySelectSound();
         ThemeManager.Instance.ToggleTheme();
+    }
+
+    public void ChangeVibrationMode()
+    {
+        SoundManager.Instance.PlaySelectSound();
+        VibrationManager.Instance.ToggleVibrationIntensity();
+
+        if (PlayerPrefs.GetInt("INTENSITY", 1) == 1)
+        {
+            VibrationManager.Instance.Vibrate(VibrationManager.VibrationType.Pop);
+        }
     }
 }

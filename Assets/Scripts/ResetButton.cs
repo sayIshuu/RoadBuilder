@@ -6,15 +6,16 @@ public class ResetButton : MonoBehaviour
 {
     public void Reset()
     {
-        // 목숨부족시 재시작 불가.
-        if (LifeManager.Instance.CurrentLives <= 0)
-        {
-            // todo : 광고유도
-            return;
-        }
+        //// 목숨부족시 재시작 불가.
+        //if (LifeManager.Instance.CurrentLives <= 0)
+        //{
+        //    // todo : 광고유도 - 동영님
+        //    // 광고보면 LifeManager.Instance.RecoverAllLife(); 호출
+        //    return;
+        //}
 
         SoundManager.Instance.PlaySelectSound();
         SceneManager.LoadScene("MainScene");
-        LifeManager.Instance.UseLife();
+        //LifeManager.Instance.UseLife();
     }
 }

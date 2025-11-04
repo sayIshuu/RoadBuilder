@@ -1,105 +1,127 @@
 using System;
 using UnityEngine;
+using System.Globalization;
 
 public class LifeManager : MonoBehaviour
 {
-    //싱글톤
     public static LifeManager Instance { get; private set; }
 
-    public int maxLives = 3; // 최대 목숨 수
-    private int _currentLives; // 현재 목숨 수
+    public int maxLives = 5;
+    private int _currentLives;
     public int CurrentLives
     {
-        get { return _currentLives; }
+        get => _currentLives;
         set
         {
+            if (_currentLives == value) return;
             _currentLives = value;
             OnCurrentLivesChange?.Invoke(value);
         }
     }
     public Action<int> OnCurrentLivesChange;
 
-    private DateTime _lastLifeTime; // 마지막 목숨 회복 시간
-    private TimeSpan _recoveryInterval; // 30분 간격으로 회복
+    private DateTime _lastLifeTime;
+    private TimeSpan _recoveryInterval;
 
-    private void Awake()
+    const string KEY_LIFE = "CurrentLives";
+    const string KEY_TIME = "LastLifeTime"; // ISO 8601 "O"로 저장
+
+    void Awake()
     {
-        if(Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
-        // 게임 시작 시 목숨 수 초기화
-        // PlayerPrefs에서 현재 목숨을 불러오고, 만약 처음 실행이라면 기본값 설정
-        if (!PlayerPrefs.HasKey("CurrentLives"))
-        {
-            CurrentLives = maxLives; // 처음 실행 시 maxLives 값을 사용
-            PlayerPrefs.SetInt("CurrentLives", _currentLives); // 기본 값 저장
-        }
+        // load
+        if (PlayerPrefs.HasKey(KEY_LIFE))
+            CurrentLives = PlayerPrefs.GetInt(KEY_LIFE);
         else
         {
-            CurrentLives = PlayerPrefs.GetInt("CurrentLives"); // 기존 값 불러오기
+            CurrentLives = maxLives;
+            PlayerPrefs.SetInt(KEY_LIFE, _currentLives);
         }
 
-        // 마지막 목숨 회복 시간 확인
-        if (!PlayerPrefs.HasKey("LastLifeTime"))
-        {
-            _lastLifeTime = DateTime.Now; // 처음 실행 시 현재 시간으로 설정
-            PlayerPrefs.SetString("LastLifeTime", _lastLifeTime.ToString()); // 기본 값 저장
-        }
+        if (PlayerPrefs.HasKey(KEY_TIME))
+            _lastLifeTime = DateTime.Parse(PlayerPrefs.GetString(KEY_TIME), null, DateTimeStyles.RoundtripKind);
         else
         {
-            _lastLifeTime = DateTime.Parse(PlayerPrefs.GetString("LastLifeTime")); // 기존 값 불러오기
+            _lastLifeTime = DateTime.Now;
+            PlayerPrefs.SetString(KEY_TIME, _lastLifeTime.ToString("O"));
         }
+
         _recoveryInterval = TimeSpan.FromMinutes(30);
 
-        // 목숨 회복 여부 확인
-        RecoverLives();
+        RecoverLives(); // 최초 1회 계산
     }
 
     void Update()
     {
-        // 주기적으로 목숨 회복 여부 확인
         RecoverLives();
     }
 
     private void RecoverLives()
     {
-        // 마지막 목숨 회복 시간에서 현재 시간 차이 계산
-        TimeSpan timeSinceLastLife = DateTime.Now - _lastLifeTime;
-
-        if (timeSinceLastLife >= _recoveryInterval)
+        // 최대치면 즉시 리필 방지 위해 기준시간을 현재로 유지
+        if (_currentLives >= maxLives)
         {
-            // 30분이 경과하면 목숨 1회복
-            if (_currentLives < maxLives)
-            {
-                CurrentLives++;
-                _lastLifeTime = DateTime.Now; // 마지막 회복 시간을 현재 시간으로 업데이트
-                PlayerPrefs.SetInt("CurrentLives", _currentLives);
-                PlayerPrefs.SetString("LastLifeTime", _lastLifeTime.ToString());
-                PlayerPrefs.Save();
-            }
+            // 기준 시간 유지(다음에 1 깎을 때부터 30분 측정 시작)
+            _lastLifeTime = DateTime.Now;
+            // 저장 최소화: 너무 자주 저장 안 하려면 조건부 저장 가능
+            PlayerPrefs.SetString(KEY_TIME, _lastLifeTime.ToString("O"));
+            return;
+        }
+
+        TimeSpan elapsed = DateTime.Now - _lastLifeTime;
+        bool changed = false;
+
+        while (elapsed >= _recoveryInterval && _currentLives < maxLives)
+        {
+            CurrentLives++;
+            _lastLifeTime += _recoveryInterval;
+            elapsed -= _recoveryInterval;
+            changed = true;
+        }
+
+        if (changed)
+        {
+            PlayerPrefs.SetInt(KEY_LIFE, _currentLives);
+            PlayerPrefs.SetString(KEY_TIME, _lastLifeTime.ToString("O"));
+            PlayerPrefs.Save();
         }
     }
 
     public void UseLife()
     {
-        // 게임 진행 시 목숨 차감
         if (_currentLives > 0)
         {
+            bool wasMax = (_currentLives == maxLives);
             CurrentLives--;
-            PlayerPrefs.SetInt("CurrentLives", _currentLives);
+
+            // 최대치에서 처음 깎는 순간부터 타이머 시작
+            if (wasMax)
+            {
+                _lastLifeTime = DateTime.Now;
+                PlayerPrefs.SetString(KEY_TIME, _lastLifeTime.ToString("O"));
+            }
+
+            PlayerPrefs.SetInt(KEY_LIFE, _currentLives);
             PlayerPrefs.Save();
         }
         else
         {
             Debug.Log("목숨이 부족합니다.");
         }
+    }
+
+    public void RecoverAllLife()
+    {
+        CurrentLives = maxLives;
+        _lastLifeTime = DateTime.Now; // 최대치 유지 시 즉시 리필 방지 기준
+        PlayerPrefs.SetInt(KEY_LIFE, _currentLives);
+        PlayerPrefs.SetString(KEY_TIME, _lastLifeTime.ToString("O"));
+        PlayerPrefs.Save();
     }
 }

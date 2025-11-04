@@ -1,15 +1,20 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InfoCanvas : MonoBehaviour
 {
-    [SerializeField] private Button backButton;
+    [SerializeField] private string sceneName;
+    [SerializeField] private Button noButton;
+    [SerializeField] private Button yesButton;
+
     private Canvas _canvas;
 
     private void Awake()
     {
         _canvas = GetComponent<Canvas>();
-        backButton.onClick.AddListener(CloseInfoCanvas);
+        noButton?.onClick.AddListener(OnClickNoBtn);
+        yesButton?.onClick.AddListener(OnClickYesBtn);
 
         _canvas.enabled = false;
     }
@@ -20,9 +25,15 @@ public class InfoCanvas : MonoBehaviour
         _canvas.enabled = true;
     }
 
-    public void CloseInfoCanvas()
+    public void OnClickNoBtn()
     {
         SoundManager.Instance.PlaySelectSound();
         _canvas.enabled = false;
+    }
+
+    public void OnClickYesBtn()
+    {
+        SoundManager.Instance.PlaySelectSound();
+        SceneManager.LoadScene(sceneName);
     }
 }

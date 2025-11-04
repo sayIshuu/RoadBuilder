@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ThemeManager : MonoBehaviour
 {
-    public enum ThemeKind { Light = 0, Dark = 1 }
+    public enum ThemeKind { Dark = 0, Light = 1 }
 
     public static ThemeManager Instance { get; private set; }
 

@@ -1,0 +1,200 @@
+#if UNITY_ANDROID
+using UnityEngine;
+using static VibrationManager;
+
+public class VibrationAndroid : VibrationInstance
+{
+    public VibrationAndroid()
+    {
+        if (!IsVibrationAvailable())
+            throw new System.NotSupportedException();
+    }
+
+    #region Variables
+
+    private int _intensity;
+
+    private AndroidJavaObject vibrator;
+
+    public AndroidJavaObject Vibrator
+    {
+        get
+        {
+            if (vibrator == null)
+            {
+                var player = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+                var currentActivity = player.GetStatic<AndroidJavaObject>("currentActivity");
+                vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
+
+                Debug.Log($"Vibration Util : Android Vibrator {vibrator}");
+            }
+
+            return vibrator;
+        }
+    }
+
+    private AndroidJavaClass vibrationEffectClass;
+
+    public AndroidJavaClass VibrationEffectClass
+    {
+        get
+        {
+            vibrationEffectClass ??= new AndroidJavaClass("android.os.VibrationEffect");
+            return vibrationEffectClass;
+        }
+    }
+
+    private int androidApiLevel = 0;
+
+    public int AndroidApiLevel
+    {
+        get
+        {
+            if (androidApiLevel <= 0)
+            {
+                var buildVersionClass = new AndroidJavaClass("android.os.Build$VERSION");
+                androidApiLevel = buildVersionClass.GetStatic<int>("SDK_INT");
+            }
+
+            return androidApiLevel;
+        }
+    }
+    #endregion
+
+    public override bool IsVibrationAvailable()
+    {
+        var hasVibrator = Vibrator.Call<bool>("hasVibrator");
+        return hasVibrator && AndroidApiLevel >= 26;
+    }
+
+    public override void Vibrate(VibrationType vibrationType, int intensity)
+    {
+        if (!IsVibrationAvailable())
+        {
+            Debug.LogWarning("Vibration: Your device does not support Vibration");
+            return;
+        }
+
+        _intensity = intensity;
+
+        switch (vibrationType)
+        {
+            case VibrationType.Peek:
+                CreateOneShot(5, 150);
+                break;
+            case VibrationType.Pop:
+                CreateOneShot(10, 150);
+                break;
+            case VibrationType.Heavy:
+                CreateOneShot(10, 150);
+                break;
+            case VibrationType.Medium:
+                CreateOneShot(10, 100);
+                break;
+            case VibrationType.Light:
+                CreateOneShot(10, 50);
+                break;
+            case VibrationType.Rigid:
+                CreateOneShot(5, 100);
+                break;
+            case VibrationType.Soft:
+                CreateOneShot(15, 50);
+                break;
+            case VibrationType.Nope:
+                var pattern = new long[4]
+                {
+                    0, 10,
+                    80, 5,
+                };
+                var patternAmplitude = new int[4]
+                {
+                    0, 200,
+                    0, 200,
+                };
+                CreateWaveform(pattern, patternAmplitude, -1);
+                break;
+            case VibrationType.Error:
+                pattern = new long[8]
+                {
+                    0, 10,
+                    100, 10,
+                    100, 10,
+                    100, 15
+                };
+                patternAmplitude = new int[8]
+                {
+                    0, 100,
+                    0, 100,
+                    0, 150,
+                    0, 100
+                };
+                CreateWaveform(pattern, patternAmplitude, -1);
+                break;
+            case VibrationType.Success:
+                pattern = new long[4]
+                {
+                    0, 10,
+                    200, 10
+                };
+                patternAmplitude = new int[4]
+                {
+                    0, 150,
+                    0, 200
+                };
+                CreateWaveform(pattern, patternAmplitude, -1);
+                break;
+            case VibrationType.Warning:
+                pattern = new long[4]
+                {
+                    0, 10,
+                    250, 10
+                };
+                patternAmplitude = new int[4]
+                {
+                    0, 150,
+                    0, 100
+                };
+                CreateWaveform(pattern, patternAmplitude, -1);
+                break;
+            default:
+                CreateOneShot(500, -1);
+                break;
+        }
+    }
+
+    public override void VibrateCustom(long[] pattern, int[] amplitude)
+    {
+        if (pattern == null || amplitude == null
+                            || pattern.Length == 0 || amplitude.Length == 0)
+        {
+            Debug.LogWarning("Vibration: Check your customized input!");
+            return;
+        }
+
+        CreateWaveform(pattern, amplitude, -1);
+    }
+
+    public void VibrateFor(long duration, int amplitude)
+    {
+        CreateOneShot(duration, amplitude);
+    }
+
+    private void CreateOneShot(long milliseconds, int amplitude)
+    {
+        var vibrateEffect =
+            VibrationEffectClass.CallStatic<AndroidJavaObject>("createOneShot",
+                new object[] { milliseconds, amplitude *  _intensity});
+        Vibrator.Call("vibrate", vibrateEffect);
+    }
+
+    private void CreateWaveform(long[] pattern, int[] amplitude, int repeat)
+    {
+        for (int i = 0; i < amplitude.Length; i++) amplitude[i] *= _intensity;
+
+        var vibrateEffect =
+            VibrationEffectClass.CallStatic<AndroidJavaObject>("createWaveform",
+                new object[] { pattern, amplitude, repeat });
+        Vibrator.Call("vibrate", vibrateEffect);
+    }
+}
+#endif

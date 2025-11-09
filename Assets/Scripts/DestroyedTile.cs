@@ -33,7 +33,7 @@ public class DestroyedTile : MonoBehaviour
 
     IEnumerator DestroyEffect()
     {
-        //cfÀÇ force¸¦ ÁÖ´Â ´ë½Å rb ¼ÓµµÀÇ x°ªÀ» ¹Ù²Ù´Â ¹æ¹ıµµ °¡´É
+        //cfì˜ forceë¥¼ ì£¼ëŠ” ëŒ€ì‹  rb ì†ë„ì˜ xê°’ì„ ë°”ê¾¸ëŠ” ë°©ë²•ë„ ê°€ëŠ¥
         rb.linearVelocity = new Vector2(0, 3500f);
         cf.force = new Vector2(Random.Range(-5000f, 5000f), 0);
         //rb.AddForce(new Vector2(Random.Range(-5000f, 5000f), 0));

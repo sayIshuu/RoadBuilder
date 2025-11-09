@@ -86,6 +86,7 @@ Transform:
   - {fileID: 4984892474259413676}
   - {fileID: 3798559431773610360}
   - {fileID: 9193904931764709004}
+  - {fileID: 3033766203732090892}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1629837703000759809
@@ -160,7 +161,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2945946500124729845
 Transform:
   m_ObjectHideFlags: 0
@@ -303,6 +304,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toast: {fileID: 0}
   timeout: 2
+--- !u!1 &5312129888688009452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3033766203732090892}
+  - component: {fileID: 7202552410155285315}
+  m_Layer: 0
+  m_Name: GameplayAdTimer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3033766203732090892
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312129888688009452}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3658126106283743611}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7202552410155285315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312129888688009452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e32bc7eb1d40234087bd37991f5f86a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AD_INTERVAL_SECONDS: 300
 --- !u!1 &5538482603352289260
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,7 +737,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f56c583fceed54187c50a9c667bcb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _intensity: 1
 --- !u!1 &8641025390535653058
 GameObject:
   m_ObjectHideFlags: 0

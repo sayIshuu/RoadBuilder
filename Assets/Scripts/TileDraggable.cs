@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,6 +16,8 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private BoardSlot currentHover;                         // ���� ȣ�� �� ����
 
     public int tileType;
+
+    public event Action OnPlaced;
 
     private void Awake()
     {
@@ -88,6 +91,8 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
             SoundManager.Instance.PlayDisplaySound();
             VibrationManager.Instance.Vibrate(VibrationType.Peek);
+
+            OnPlaced?.Invoke();
             //return true;
         }
     }
@@ -111,5 +116,11 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             if (hovered != null) hovered.HighlightSlot();
             currentHover = hovered;
         }
+    }
+
+    private void OnDestroy()
+    {
+        if (currentHover != null) currentHover.ResetSlotColor();
+        OnPlaced = null;
     }
 }

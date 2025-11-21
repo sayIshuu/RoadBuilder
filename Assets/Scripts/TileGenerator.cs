@@ -2,14 +2,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public enum Colors { WHITE, RED, MAGENTA, YELLOW };
+public enum Colors { WHITE, RED, MAGENTA, YELLOW, TRANSPARENT };
 
 public class TileGenerator : MonoBehaviour
 {
     [SerializeField] private TouchPadHandler touchPadHandler;
-    [SerializeField] private Transform InventorySlot1;
-    [SerializeField] private Transform InventorySlot2;
-    [SerializeField] private Transform InventorySlot3;
+    private Transform[] _offerSlot = new Transform[3];
+    private GameObject[] _boardSlot = new GameObject[25];
     [SerializeField] private GameObject Tile;
 
     private int tileCount = 0;
@@ -17,6 +16,20 @@ public class TileGenerator : MonoBehaviour
 
     private void Awake()
     {
+        // InventorySlot 초기화
+        OfferSlot[] offerSlots = FindObjectsByType<OfferSlot>(FindObjectsSortMode.None);
+        for (int i = 0; i < 3; i++)
+        {
+            _offerSlot[i] = offerSlots[i].transform;
+        }
+
+        // BoardSlot 초기화
+        Transform boardInventory = FindAnyObjectByType<SetBoardIdx>().transform;
+        for (int i = 0; i < boardInventory.childCount; i++)
+        {
+            _boardSlot[i] = boardInventory.GetChild(i).gameObject;
+        }
+
         Generate();
     }
 
@@ -45,6 +58,23 @@ public class TileGenerator : MonoBehaviour
         }
     }
 
+    private void DeleteAllSlotTiles()
+    {
+        // Offer Slot의 모든 블록 제거
+        for (int i = 0; i < 3; i++)
+        {
+            DeleteTile(_offerSlot[i]);
+        }
+    }
+
+    public void DeleteAllBoardTiles()
+    {
+        // Board Slot의 모든 블록 제거
+        for (int i = 0; i < 25; i++)
+        {
+            DeleteTile(_boardSlot[i].transform);
+        }
+    }
 
     public void MinusTileCount()
     {
@@ -53,9 +83,7 @@ public class TileGenerator : MonoBehaviour
 
     private void Generate()
     {
-        DeleteTile(InventorySlot1);
-        DeleteTile(InventorySlot2);
-        DeleteTile(InventorySlot3);
+        DeleteAllSlotTiles();
 
         // 모두 같은 타일이 나오지 않을 때까지 계속 반복하는 루프
         while (true)
@@ -65,9 +93,10 @@ public class TileGenerator : MonoBehaviour
             tileTypes.Clear();
 
             // 타일 3개를 생성
-            TileGenerate(InventorySlot1);
-            TileGenerate(InventorySlot2);
-            TileGenerate(InventorySlot3);
+            for (int i = 0; i < 3; i++)
+            {
+                GenerateRandomTile(_offerSlot[i]);
+            }
 
             // 생성 성공
             if (!IsAllSame())
@@ -77,9 +106,7 @@ public class TileGenerator : MonoBehaviour
 
             // 만약 모두 같다면, 다시 생성하기 전에 방금 만든 타일들을 삭제
             Debug.Log("All same tiles generated.");
-            DeleteTile(InventorySlot1);
-            DeleteTile(InventorySlot2);
-            DeleteTile(InventorySlot3);
+            DeleteAllSlotTiles();
         }
     }
 
@@ -101,11 +128,17 @@ public class TileGenerator : MonoBehaviour
         }
     }
 
-    private void TileGenerate(Transform slot)
+    private void GenerateRandomTile(Transform slot)
     {
+        // 랜덤 타일 생성
         int randNum = GetRandNum();
+        GenerateTile(slot, randNum);
+    }
 
-        tileTypes.Add(randNum);
+    GameObject GenerateTile(Transform slot, int tileIndex)
+    {
+        // Tile Index에 따른 타일 생성
+        tileTypes.Add(tileIndex);
 
         int newType;
 
@@ -113,7 +146,7 @@ public class TileGenerator : MonoBehaviour
         //newTile.transform.SetParent(slot);
         Transform[] childList = newTile.GetComponentsInChildren<Transform>();
 
-        switch (randNum)
+        switch (tileIndex)
         {
             case 1:
                 newType = 10; // ─모양
@@ -164,12 +197,20 @@ public class TileGenerator : MonoBehaviour
                 ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[6], childList[8]);
                 ChangeColor(Colors.YELLOW, childList[1], childList[3], childList[7], childList[9]);
                 break;
+
+            case -1:
+                newType = 0; // Fake 타일 (튜토리얼에 사용되는 비어보이는 타일)
+                ChangeColor(Colors.TRANSPARENT, childList[1],  childList[2], childList[3],
+                    childList[4], childList[5], childList[6],
+                    childList[7],  childList[8], childList[9]);
+                break;
             default:
                 newType = 0;
                 break;
         }
 
         newTile.GetComponent<TileDraggable>().tileType = newType;
+        return newTile;
     }
 
     private void ChangeColor(Colors colorType, params Transform[] colorList)
@@ -190,6 +231,9 @@ public class TileGenerator : MonoBehaviour
             case Colors.YELLOW:
                 newColor = new Color32(255, 83, 110, 255);
                 break;
+            case Colors.TRANSPARENT:
+                newColor = new Color32(0, 0, 0, 0);
+                break;
         }
 
         foreach(Transform elem in colorList)
@@ -202,5 +246,57 @@ public class TileGenerator : MonoBehaviour
     {
         if (tileTypes.Count < 3) return false;
         return (tileTypes[0] == tileTypes[1]) && (tileTypes[1] == tileTypes[2]);
+    }
+
+    public void GenerateCustomTiles(int[] customIndex)
+    {
+        // Offer Slot에 커스텀 타일 생성
+        DeleteAllSlotTiles();
+        tileCount = 3;
+        tileTypes.Clear();
+
+        for (int i = 0; i < 3; i++)
+        {
+            GenerateTile(_offerSlot[i], customIndex[i]);
+        }
+    }
+
+    public void GenerateCustomBoard(int[] customIndex)
+    {
+        // Board Slot에 커스텀 타일 생성
+        BoardCheck boardCheck = GetComponent<BoardCheck>();
+        DeleteAllBoardTiles();
+        boardCheck.displayedTileCount = 0;
+
+        for (int i = 0; i < _boardSlot.Length; i++)
+        {
+            // 빈 칸
+            if (customIndex[i] == 0) continue;
+
+            // 타일 생성
+            GameObject newTile = GenerateTile(_boardSlot[i].transform, customIndex[i]);
+
+            int idx = newTile.transform.parent.GetComponent<BoardSlot>().GetIdx();
+            TileDraggable tileDraggable = newTile.GetComponent<TileDraggable>();
+            CanvasGroup canvasGroup = newTile.GetComponent<CanvasGroup>();
+
+            BoardCheck.adj[idx / 5 + 1, idx % 5 + 1] = tileDraggable.tileType;
+
+            // Fake 타일 아닐 시 카운트
+            if (tileDraggable.tileType != -1) boardCheck.displayedTileCount += 1;
+
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+        }
+    }
+
+    public void DeleteAnyTiles()
+    {
+        // 씬 내에 존재하는 모든 타일 제거
+        TileDraggable[] exitTile = FindObjectsByType<TileDraggable>(FindObjectsSortMode.None);
+        for (int i = 0; i < exitTile.Length; i++)
+        {
+            Destroy(exitTile[i].gameObject);
+        }
     }
 }

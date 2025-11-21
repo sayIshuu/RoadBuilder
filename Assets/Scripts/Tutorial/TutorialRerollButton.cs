@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class TutorialRerollButton : MonoBehaviour
 
     private int rerollCount;
     [SerializeField] private TMP_Text rerollCountText;
+
+    public event Action OnClicked;
 
     private void Awake()
     {
@@ -26,8 +29,15 @@ public class TutorialRerollButton : MonoBehaviour
             rerollCount--;
 
             tileGenerator.Reroll();
+
+            OnClicked?.Invoke();
         }
 
         rerollCountText.text = rerollCount.ToString();
+    }
+
+    private void OnDestroy()
+    {
+        OnClicked = null;
     }
 }

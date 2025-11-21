@@ -7,14 +7,13 @@ public class TutorialBlinkingEffect : MonoBehaviour
     [SerializeField] float minAlpha = 0.3f;
     [SerializeField] float maxAlpha = 1f;
 
-    private GameObject _tagetObj;
     private CanvasGroup _canvasGroup;
     private Tween _tween;
 
     public void StartBlinking(GameObject targetObj)
     {
-        _tagetObj = targetObj;
-        _canvasGroup = targetObj.AddComponent<CanvasGroup>();
+        _canvasGroup = targetObj.GetComponent<CanvasGroup>();
+        if (!_canvasGroup) _canvasGroup = targetObj.AddComponent<CanvasGroup>();
 
         _tween = _canvasGroup.DOFade(minAlpha, fadeTime)
             .SetEase(Ease.InOutSine)
@@ -27,7 +26,5 @@ public class TutorialBlinkingEffect : MonoBehaviour
 
         _tween?.Kill();
         _tween = null;
-
-        Destroy(_tagetObj.GetComponent<CanvasGroup>());
     }
 }

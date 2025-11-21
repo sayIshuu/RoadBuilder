@@ -167,6 +167,7 @@ MonoBehaviour:
   subDialog: 
   targetObj: {fileID: 6188715282885534208}
   isBlinking: 1
+  _clickDelay: 1
 --- !u!1 &110940311
 GameObject:
   m_ObjectHideFlags: 0
@@ -1132,7 +1133,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef356006febd9e34e8a82749bf7a1361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentIndex: -1
 --- !u!4 &551880364
 Transform:
   m_ObjectHideFlags: 0
@@ -1772,6 +1772,7 @@ MonoBehaviour:
   subDialog: 
   targetObj: {fileID: 8376093580739801493}
   isBlinking: 1
+  _clickDelay: 1
 --- !u!1 &993582771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1816,7 +1817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec38b7302154974a908bb37f4b4ae96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clickDelay: 2
+  _clickDelay: 1
   CustomSlotIndex: 020000000200000002000000
   CustomBoardIndex: ffffffff00000000ffffffffffffffffffffffffffffffff02000000ffffffffffffffffffffffffffffffff060000000100000004000000ffffffffffffffffffffffffffffffff02000000ffffffffffffffffffffffffffffffff02000000ffffffff
 --- !u!1 &1006680337 stripped
@@ -2285,6 +2286,7 @@ MonoBehaviour:
   subDialog: Drag and drop the block.
   targetObj: {fileID: 543134161548423086}
   isBlinking: 1
+  _clickDelay: 0
 --- !u!1 &1381932227 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2538061418696300508, guid: 87d5bfd4e00bb804c8ddc8f6b9b5b823, type: 3}
@@ -2535,6 +2537,7 @@ MonoBehaviour:
   subDialog: 
   targetObj: {fileID: 1060413949501454083}
   isBlinking: 1
+  _clickDelay: 1
 --- !u!1 &1473594340
 GameObject:
   m_ObjectHideFlags: 0
@@ -2857,7 +2860,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ec38b7302154974a908bb37f4b4ae96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _clickDelay: 3
+  _clickDelay: 1.5
   CustomSlotIndex: 070000000700000007000000
   CustomBoardIndex: 02000000ffffffffffffffffffffffffffffffff02000000ffffffffffffffffffffffffffffffff000000000100000001000000010000000100000002000000ffffffffffffffffffffffffffffffff02000000ffffffffffffffffffffffffffffffff
 --- !u!224 &1612394814 stripped
@@ -2913,6 +2916,7 @@ MonoBehaviour:
   subDialog: 
   targetObj: {fileID: 0}
   isBlinking: 0
+  _clickDelay: 1
 --- !u!1 &1721960130
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,6 +3011,7 @@ MonoBehaviour:
   subDialog: 
   targetObj: {fileID: 0}
   isBlinking: 0
+  _clickDelay: 1
 --- !u!1 &1773501772 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2538061418696300508, guid: 87d5bfd4e00bb804c8ddc8f6b9b5b823, type: 3}
@@ -3050,6 +3055,7 @@ MonoBehaviour:
   subDialog: Click to start the game
   targetObj: {fileID: 0}
   isBlinking: 0
+  _clickDelay: 1
 --- !u!4 &1883541057
 Transform:
   m_ObjectHideFlags: 0
@@ -3157,6 +3163,7 @@ MonoBehaviour:
   subDialog: 
   targetObj: {fileID: 6188715282885534208}
   isBlinking: 1
+  _clickDelay: 1
 --- !u!1 &2086470969 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2538061418696300508, guid: 87d5bfd4e00bb804c8ddc8f6b9b5b823, type: 3}

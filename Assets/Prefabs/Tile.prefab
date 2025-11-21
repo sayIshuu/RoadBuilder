@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 3279078517017304096}
   - component: {fileID: 3864546893843609978}
   - component: {fileID: 1821217006545703779}
+  - component: {fileID: 1597909804149331633}
   m_Layer: 5
   m_Name: Tile
   m_TagString: Untagged
@@ -326,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.9607843, g: 0.9490196, b: 0.8627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -380,6 +381,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3adeb0bc99c4ba847bbf5c5a5ff16a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1597909804149331633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4281849821120186797}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a090ef72cd2e9b2488e888b0dc6d6c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  role: 1
 --- !u!1 &4663485103775447879
 GameObject:
   m_ObjectHideFlags: 0

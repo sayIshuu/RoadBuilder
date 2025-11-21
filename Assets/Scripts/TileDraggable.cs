@@ -112,4 +112,9 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
             currentHover = hovered;
         }
     }
+
+    private void OnDestroy()
+    {
+        if (currentHover != null) currentHover.ResetSlotColor();
+    }
 }

@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 64581990}
   - component: {fileID: 64581991}
   m_Layer: 0
-  m_Name: 07_DialogTrigger
+  m_Name: 16_DialogTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da19819ee4b6da4d937f4446a792807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialog: Reach 50 points within 10 turns.
+  dialog: Reach goal score in 10 turns.
   subDialog: 
   targetObj: {fileID: 6188715282885534208}
   isBlinking: 1
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 110940312}
   - component: {fileID: 110940313}
   m_Layer: 0
-  m_Name: 01_TileTrigger_02
+  m_Name: 00_TileTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,50 +328,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7390498250321114105, guid: 05c39372888aa7142ae19939aa162be4, type: 3}
   m_PrefabInstance: {fileID: 6668033725481768502}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &214800883
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 214800885}
-  - component: {fileID: 214800884}
-  m_Layer: 0
-  m_Name: 08_TileTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &214800884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214800883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0510346bbfb46924eb25eb7c928afe42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &214800885
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 214800883}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551880364}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &219079696
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,50 +417,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 219079696}
   m_CullTransparentMesh: 1
---- !u!1 &226095786
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 226095787}
-  - component: {fileID: 226095788}
-  m_Layer: 0
-  m_Name: 11_TileTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &226095787
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226095786}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551880364}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &226095788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 226095786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0510346bbfb46924eb25eb7c928afe42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &270088529
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,7 +662,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Main Dialog '
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -865,7 +777,7 @@ GameObject:
   - component: {fileID: 454468742}
   - component: {fileID: 454468741}
   m_Layer: 0
-  m_Name: 06_TileTrigger
+  m_Name: 15_TileTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -977,50 +889,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
---- !u!1 &472538359
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 472538360}
-  - component: {fileID: 472538361}
-  m_Layer: 0
-  m_Name: 12_TileTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &472538360
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472538359}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551880364}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &472538361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 472538359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0510346bbfb46924eb25eb7c928afe42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &476510499 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2538061418696300508, guid: 87d5bfd4e00bb804c8ddc8f6b9b5b823, type: 3}
@@ -1052,7 +920,7 @@ GameObject:
   - component: {fileID: 504459807}
   - component: {fileID: 504459808}
   m_Layer: 0
-  m_Name: TutorialBoardSetter_01
+  m_Name: 00_TutorialBoardSetter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1264,6 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef356006febd9e34e8a82749bf7a1361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentIndex: -1
 --- !u!4 &551880364
 Transform:
   m_ObjectHideFlags: 0
@@ -1283,8 +1152,8 @@ Transform:
   - {fileID: 993582772}
   - {fileID: 959546487}
   - {fileID: 1466556949}
-  - {fileID: 1642703162}
   - {fileID: 1914470838}
+  - {fileID: 1642703162}
   - {fileID: 1584531254}
   - {fileID: 110940312}
   - {fileID: 1085336098}
@@ -1294,11 +1163,6 @@ Transform:
   - {fileID: 1438530081}
   - {fileID: 454468742}
   - {fileID: 64581990}
-  - {fileID: 214800885}
-  - {fileID: 1173856454}
-  - {fileID: 1079934055}
-  - {fileID: 226095787}
-  - {fileID: 472538360}
   - {fileID: 1932861025}
   - {fileID: 1883541057}
   m_Father: {fileID: 0}
@@ -1751,7 +1615,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sub Dialog
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1919,7 +1783,7 @@ GameObject:
   - component: {fileID: 993582772}
   - component: {fileID: 993582773}
   m_Layer: 0
-  m_Name: TutorialBoardSetter_02
+  m_Name: 03_TutorialBoardSetter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1975,50 +1839,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5798820101133094455, guid: 87d5bfd4e00bb804c8ddc8f6b9b5b823, type: 3}
   m_PrefabInstance: {fileID: 7451342058201530875}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1079934053
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1079934055}
-  - component: {fileID: 1079934054}
-  m_Layer: 0
-  m_Name: 10_TileTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1079934054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079934053}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0510346bbfb46924eb25eb7c928afe42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1079934055
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079934053}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551880364}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1085336097
 GameObject:
   m_ObjectHideFlags: 0
@@ -2030,7 +1850,7 @@ GameObject:
   - component: {fileID: 1085336098}
   - component: {fileID: 1085336099}
   m_Layer: 0
-  m_Name: TutorialBoardSetter_05
+  m_Name: 10_TutorialBoardSetter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2066,50 +1886,6 @@ MonoBehaviour:
   _clickDelay: 3
   CustomSlotIndex: 0b0000000b0000000b000000
   CustomBoardIndex: ffffffffffffffff02000000ffffffffffffffffffffffffffffffff02000000ffffffffffffffff0100000001000000000000000100000001000000ffffffffffffffff02000000ffffffffffffffffffffffffffffffff02000000ffffffffffffffff
---- !u!1 &1173856452
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1173856454}
-  - component: {fileID: 1173856453}
-  m_Layer: 0
-  m_Name: 09_TileTrigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1173856453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173856452}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0510346bbfb46924eb25eb7c928afe42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1173856454
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173856452}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551880364}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1224638874 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2538061418696300508, guid: 87d5bfd4e00bb804c8ddc8f6b9b5b823, type: 3}
@@ -2280,7 +2056,7 @@ GameObject:
   - component: {fileID: 1292755828}
   - component: {fileID: 1292755829}
   m_Layer: 0
-  m_Name: 01_TileTrigger_03
+  m_Name: 11_TileTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2472,7 +2248,7 @@ GameObject:
   - component: {fileID: 1372284448}
   - component: {fileID: 1372284449}
   m_Layer: 0
-  m_Name: 00_DialogTrigger
+  m_Name: 01_DialogTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2626,7 +2402,7 @@ GameObject:
   - component: {fileID: 1438530081}
   - component: {fileID: 1438530082}
   m_Layer: 0
-  m_Name: 05_ButtonTrigger
+  m_Name: 14_ButtonTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2675,7 +2451,7 @@ GameObject:
   - component: {fileID: 1444604194}
   - component: {fileID: 1444604195}
   m_Layer: 0
-  m_Name: TutorialBoardSetter_00
+  m_Name: 12_TutorialBoardSetter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2722,7 +2498,7 @@ GameObject:
   - component: {fileID: 1466556949}
   - component: {fileID: 1466556950}
   m_Layer: 0
-  m_Name: 02_DialogTrigger
+  m_Name: 05_DialogTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3048,7 +2824,7 @@ GameObject:
   - component: {fileID: 1584531254}
   - component: {fileID: 1584531255}
   m_Layer: 0
-  m_Name: TutorialBoardSetter_04
+  m_Name: 08_TutorialBoardSetter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3100,7 +2876,7 @@ GameObject:
   - component: {fileID: 1642703162}
   - component: {fileID: 1642703163}
   m_Layer: 0
-  m_Name: 02_DialogTrigger_02
+  m_Name: 06_DialogTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3194,7 +2970,7 @@ GameObject:
   - component: {fileID: 1767243463}
   - component: {fileID: 1767243464}
   m_Layer: 0
-  m_Name: 02_DialogTrigger_01
+  m_Name: 13_DialogTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3252,7 +3028,7 @@ GameObject:
   - component: {fileID: 1883541057}
   - component: {fileID: 1883541056}
   m_Layer: 0
-  m_Name: 18_DialogTrigger
+  m_Name: 23_DialogTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3300,7 +3076,7 @@ GameObject:
   - component: {fileID: 1914470838}
   - component: {fileID: 1914470839}
   m_Layer: 0
-  m_Name: 01_TileTrigger_01
+  m_Name: 07_TileTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3344,7 +3120,7 @@ GameObject:
   - component: {fileID: 1932861025}
   - component: {fileID: 1932861026}
   m_Layer: 0
-  m_Name: 17_DialogTrigger
+  m_Name: 22_DialogTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3377,7 +3153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8da19819ee4b6da4d937f4446a792807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialog: Goal is updated every 10 turns
+  dialog: Goal score is updated every 10 turns.
   subDialog: 
   targetObj: {fileID: 6188715282885534208}
   isBlinking: 1
@@ -3491,7 +3267,7 @@ GameObject:
   - component: {fileID: 2138757931}
   - component: {fileID: 2138757932}
   m_Layer: 0
-  m_Name: 01_TileTrigger
+  m_Name: 02_TileTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9717,7 +9493,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   touchPadHandler: {fileID: 1412294162}
   Tile: {fileID: 4281849821120186797, guid: dfdc19b1bb8e1ef4ba28c7f054bc974c, type: 3}
-  tileCount: 0
 --- !u!114 &7856238147150978120
 MonoBehaviour:
   m_ObjectHideFlags: 0

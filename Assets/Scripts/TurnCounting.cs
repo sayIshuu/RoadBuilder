@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class TurnCounting : MonoBehaviour
 {
-    //�̱�������
     public static TurnCounting Instance;
     public RerollButton rerollObject;
     [SerializeField]
@@ -30,16 +29,15 @@ public class TurnCounting : MonoBehaviour
 
     private void Awake()
     {
-        // �̱��� ����
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // �� ���� �� �������� �ʵ��� ����
+            DontDestroyOnLoad(gameObject);
             SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
-            Destroy(gameObject); // �ߺ� ����
+            Destroy(gameObject);
         }
 
         firstLimitTurn = limitTurn;
@@ -47,15 +45,13 @@ public class TurnCounting : MonoBehaviour
         UpdateText();
     }
 
-    // ���� �ε�� �� ���� �ʱ�ȭ
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        AssignUIElements(); // �ؽ�Ʈ�������� ��� �Ҵ�
-        ResetVariables(); // ������ �⺻������ �ʱ�ȭ
+        AssignUIElements();
+        ResetVariables();
         UpdateText();
     }
 
-    // ���� �ʱ�ȭ �޼���
     private void ResetVariables()
     {
         turnCount = 0;
@@ -135,8 +131,8 @@ public class TurnCounting : MonoBehaviour
     //�ؽ�Ʈ ����
     private void UpdateText()
     {
-        limitTurnText.text = turnCount.ToString();
-        goalScoreText.text = goalScore.ToString();
+        limitTurnText.text = turnCount.ToString() + " / " + (Mathf.Ceil(turnCount / 10f) * 10).ToString();
+        goalScoreText.text = ScoreManager.score.ToString() + " / " + goalScore.ToString();
     }
 
     private void UpdateGoalWarningColor()

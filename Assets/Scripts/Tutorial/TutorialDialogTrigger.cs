@@ -17,7 +17,7 @@ public class TutorialDialogTrigger : TutorialBase
     private TMP_Text tutorialText;
     private TMP_Text tutorialSubText;
 
-    private float _clickDelay = 1f; // 클릭 딜레이
+    [SerializeField] private float _clickDelay = 1f; // 클릭 딜레이
     private float _enterTime;
 
     private void Awake()

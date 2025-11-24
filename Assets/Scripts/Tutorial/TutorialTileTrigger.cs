@@ -1,23 +1,20 @@
-using System;
+
 using UnityEngine;
 
 public class TutorialTileTrigger : TutorialBase
 {
-    private BoardSlot[] boardSlot;
+    private TileDraggable[] tileDraggables;
     private TutorialController _controller;
-
-    private void Start()
-    {
-        boardSlot = FindObjectsByType<BoardSlot>(FindObjectsSortMode.None);
-    }
+    private TutorialRerollButton _rerollBtn;
+    private bool _completed = false;
 
     public override void Enter(TutorialController controller)
     {
-        for (int i=0;i<boardSlot.Length;i++)
-        {
-            boardSlot[i].OnPlaced += DetectPlacement;
-            _controller = controller;
-        }
+        _controller = controller;
+        _rerollBtn = FindAnyObjectByType<TutorialRerollButton>();
+        _rerollBtn.OnClicked += AddDetectPlacementEvent;
+
+        AddDetectPlacementEvent();
     }
 
     public override void Execute(TutorialController controller)
@@ -26,14 +23,42 @@ public class TutorialTileTrigger : TutorialBase
 
     public override void Exit()
     {
-        for (int i=0;i<boardSlot.Length;i++)
+        UnsubscribeTileEvents();
+        _rerollBtn.OnClicked -= AddDetectPlacementEvent;
+    }
+
+    private void AddDetectPlacementEvent()
+    {
+        UnsubscribeTileEvents();
+
+        tileDraggables = FindObjectsByType<TileDraggable>(FindObjectsSortMode.None);
+
+        for (int i = 0; i < tileDraggables.Length; i++)
         {
-            boardSlot[i].OnPlaced -= DetectPlacement;
+            tileDraggables[i].OnPlaced += DetectPlacement;
         }
+    }
+
+    private void UnsubscribeTileEvents()
+    {
+        if (tileDraggables == null) return;
+
+        for (int i = 0; i < tileDraggables.Length; i++)
+        {
+            if (tileDraggables[i] != null)
+            {
+                tileDraggables[i].OnPlaced -= DetectPlacement;
+            }
+        }
+
+        tileDraggables = null;
     }
 
     private void DetectPlacement()
     {
+        if (_completed) return;
+        _completed = true;
+
         _controller.SetNextTutorial();
     }
 }

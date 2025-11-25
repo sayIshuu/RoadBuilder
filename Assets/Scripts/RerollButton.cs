@@ -112,8 +112,8 @@ public class RerollButton : MonoBehaviour
         AdsManager.I.TryShowRewarded(
             onReward: () =>
             {
-                // 광고 시청 완료 시 리롤 3회 충전
-                rerollCount += 3;
+                // 광고 시청 완료 시 리롤 1회 충전
+                rerollCount += 1;
                 currentAdWatchCount++;
                 UpdateRerollCountUI();
 

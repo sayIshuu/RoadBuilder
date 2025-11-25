@@ -69,11 +69,8 @@ public class VibrationAndroid : VibrationInstance
 
     public override void Vibrate(VibrationType vibrationType, int intensity)
     {
-        if (!IsVibrationAvailable())
-        {
-            Debug.LogWarning("Vibration: Your device does not support Vibration");
-            return;
-        }
+        if (!IsVibrationAvailable()) return;
+        if (intensity == 0) return;
 
         _intensity = intensity;
 

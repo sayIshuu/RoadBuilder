@@ -245,6 +245,7 @@ MonoBehaviour:
   limitTurnText: {fileID: 0}
   goalText: {fileID: 0}
   goalScoreText: {fileID: 0}
+  tenTurnText: {fileID: 0}
 --- !u!114 &853888071622106151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,9 +442,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touchPadHandler: {fileID: 0}
-  InventorySlot1: {fileID: 0}
-  InventorySlot2: {fileID: 0}
-  InventorySlot3: {fileID: 0}
   Tile: {fileID: 4281849821120186797, guid: dfdc19b1bb8e1ef4ba28c7f054bc974c, type: 3}
 --- !u!114 &6264430634110962877
 MonoBehaviour:

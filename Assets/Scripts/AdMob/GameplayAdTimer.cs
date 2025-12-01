@@ -73,7 +73,9 @@ public class GameplayAdTimer : MonoBehaviour
         TimeSpan elapsed = DateTime.Now - lastAdShowTime;
         isTimerReady = elapsed.TotalSeconds >= AD_INTERVAL_SECONDS;
 
+#if UNITY_EDITOR
         Debug.Log($"[GameplayAdTimer] Elapsed: {elapsed.TotalSeconds}s / {AD_INTERVAL_SECONDS}s, Ready: {isTimerReady}");
+#endif
     }
 
     public bool ShouldShowInterstitial()
@@ -88,7 +90,9 @@ public class GameplayAdTimer : MonoBehaviour
         isTimerReady = false;
         SaveLastAdTime();
 
+#if UNITY_EDITOR
         Debug.Log("[GameplayAdTimer] Timer reset. Next ad in 5 minutes.");
+#endif
     }
 
     // 남은 시간 확인 (디버깅/UI용)

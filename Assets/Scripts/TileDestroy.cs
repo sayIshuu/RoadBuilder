@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class TileDestroy : MonoBehaviour
 {
@@ -11,7 +8,7 @@ public class TileDestroy : MonoBehaviour
 
     private void Awake()
     {
-        canvas = FindFirstObjectByType<GameCanvas>().GetComponent<Canvas>().transform;
+        canvas = FindAnyObjectByType<GameCanvas>().GetComponent<Canvas>().transform;
         childList = gameObject.GetComponentsInChildren<Transform>();
     }
 

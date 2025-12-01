@@ -41,13 +41,11 @@ public class VibrationManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Init();
-
         int savedIntensity = PlayerPrefs.GetInt("INTENSITY", 1);
         ApplyVibrationIntensity(savedIntensity);
     }
 
-    private void Init()
+    private void Start()
     {
         try
         {
@@ -70,7 +68,9 @@ public class VibrationManager : MonoBehaviour
             return;
         }
 
+#if UNITY_EDITOR
         Debug.Log($"Vibration: Initialized Successfully {_vibrationInstance}");
+#endif
     }
 
     public void Vibrate(VibrationType vibrationType)
@@ -90,7 +90,7 @@ public class VibrationManager : MonoBehaviour
         _vibrationInstance.VibrateCustom(pattern, amplitude);
     }
 
-    public bool IsVibrationAvailable()
+    private bool IsVibrationAvailable()
     {
         return _vibrationInstance.IsVibrationAvailable();
     }

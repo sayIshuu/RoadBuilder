@@ -67,8 +67,8 @@ public class TurnCounting : MonoBehaviour
 
     private void AssignUIElements()
     {
-        limitTurnText = GameObject.Find("TurnCountText")?.GetComponent<TextMeshProUGUI>();
-        goalScoreText = GameObject.Find("GoalScoreCountText")?.GetComponent<TextMeshProUGUI>();
+        if (!limitTurnText) limitTurnText = GameObject.Find("TurnCountText")?.GetComponent<TextMeshProUGUI>();
+        if (!goalText) goalScoreText = GameObject.Find("GoalScoreCountText")?.GetComponent<TextMeshProUGUI>();
     }
 
     public void UpdateUI()

@@ -442,7 +442,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   touchPadHandler: {fileID: 0}
-  Tile: {fileID: 4281849821120186797, guid: dfdc19b1bb8e1ef4ba28c7f054bc974c, type: 3}
+  Tile: {fileID: 4281849821120186797, guid: ddcea67afac70f64784612f7d39c355f, type: 3}
+  FakeTile: {fileID: 4281849821120186797, guid: 2abd256be4772b74890d2dab2bb5d204, type: 3}
+  tileSprites:
+  - {fileID: 21300000, guid: ea5fd31bd25fed9459e72b1eb5f7003f, type: 3}
+  - {fileID: 21300000, guid: d41639331d2347141a35895ac9c419b2, type: 3}
+  - {fileID: 21300000, guid: db7e2cbc002bef94c9012488dc4b1be0, type: 3}
+  - {fileID: 21300000, guid: 55179fa9a9ff9eb498964b6082fca34f, type: 3}
+  - {fileID: 21300000, guid: 6893bad903216384d9066c3c27843659, type: 3}
+  - {fileID: 21300000, guid: a2ec9e24d933f7f4394552ce197e7149, type: 3}
+  - {fileID: 21300000, guid: 25f55cc3bace008459c707cee588327f, type: 3}
+  - {fileID: 21300000, guid: f2e478b7af008d749bb56cb409237576, type: 3}
+  - {fileID: 21300000, guid: add53226e59eb8048be1d530e20a07b7, type: 3}
+  - {fileID: 21300000, guid: c06e4ed34c84efb429344810cd34da75, type: 3}
+  - {fileID: 21300000, guid: 7e427aa1cb912fd429fc1bad48c7aebf, type: 3}
+  _boardSlot: []
 --- !u!114 &6264430634110962877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,6 +504,7 @@ MonoBehaviour:
   fastForwardMultiplier: 3
   dominoOverlap: 0.7
   bounceEase: 7
+  tilePiecePref: {fileID: 0}
 --- !u!1 &7959791649258607983
 GameObject:
   m_ObjectHideFlags: 0

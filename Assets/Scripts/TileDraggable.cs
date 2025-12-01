@@ -10,27 +10,30 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     private Transform previousParent;
     private RectTransform rect;
     private CanvasGroup canvasGroup;
-    private TileDraggable tileDraggable;
-    private GameObject tileGenerator;
-    private List<BoardSlot> boardSlots = new List<BoardSlot>(); // ���� ���� ����Ʈ
-    private BoardSlot currentHover;                         // ���� ȣ�� �� ����
+    private TileGenerator tileGenerator;
+    private BoardCheck boardCheck;
 
-    public int tileType;
+    private BoardSlot[] boardSlots;
+    private BoardSlot currentHover;
+
+    public int TileType { get; private set; }
 
     public event Action OnPlaced;
 
     private void Awake()
     {
-        canvas = FindFirstObjectByType<GameCanvas>().GetComponent<Canvas>().transform;
+        canvas = FindAnyObjectByType<GameCanvas>().GetComponent<Canvas>().transform;
+        tileGenerator = FindAnyObjectByType<TileGenerator>();
+        boardCheck = FindAnyObjectByType<BoardCheck>();
+
         rect = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
-        tileDraggable = GetComponent<TileDraggable>();
-        tileGenerator = GameObject.Find("TileGenerator");
     }
 
-    private void Start()
+    public void Init(int tileType, BoardSlot[] boardSlotArr)
     {
-        boardSlots = new List<BoardSlot>(FindObjectsByType<BoardSlot>(FindObjectsSortMode.None));
+        TileType = tileType;
+        boardSlots = boardSlotArr;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -81,13 +84,12 @@ public class TileDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         else
         {
             int idx = transform.parent.GetComponent<BoardSlot>().GetIdx();
-            BoardCheck.adj[idx / 5 + 1, idx % 5 + 1] = tileType;
-            tileGenerator = GameObject.Find("TileGenerator");
-            tileGenerator.GetComponent<BoardCheck>().displayedTileCount += 1;
-            tileDraggable.enabled = false;
+            BoardCheck.adj[idx / 5 + 1, idx % 5 + 1] = TileType;
+            boardCheck.displayedTileCount += 1;
+            enabled = false;
 
-            tileGenerator.GetComponent<TileGenerator>().MinusTileCount();
-            tileGenerator.GetComponent<BoardCheck>().Check();
+            tileGenerator.MinusTileCount();
+            boardCheck.Check();
             TurnCounting.Instance.UpdateUI();
 
             SoundManager.Instance.PlayDisplaySound();

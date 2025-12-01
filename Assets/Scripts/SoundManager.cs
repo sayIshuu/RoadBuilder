@@ -14,8 +14,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip displaySound3;
     [SerializeField] private float displaySound3Volume;
 
-
-
     [SerializeField] private AudioClip levelUpSound;
     [SerializeField] private float levelUpSoundVolume;
     [SerializeField] private AudioClip forbidSound;
@@ -33,6 +31,9 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip selectSound;
     [SerializeField] private float selectSoundVolume;
 
+    private string _bgmVolumeKey = "BGM_VOLUME";
+    private string _sfxVolumeKey = "SFX_VOLUME";
+
 
     private void Awake()
     {
@@ -46,8 +47,8 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        float bgmVol = PlayerPrefs.GetFloat("BGM_VOLUME", 1f);
-        float sfxVol = PlayerPrefs.GetFloat("SFX_VOLUME", 1f);
+        float bgmVol = PlayerPrefs.GetFloat(_bgmVolumeKey, 1f);
+        float sfxVol = PlayerPrefs.GetFloat(_sfxVolumeKey, 1f);
 
         ChangeBgmVolume(bgmVol);
         ChangeSfxVolume(sfxVol);
@@ -111,14 +112,14 @@ public class SoundManager : MonoBehaviour
     public void ChangeBgmVolume(float volume)
     {
         mainAudioSource.volume = volume;
-        PlayerPrefs.SetFloat("BGM_VOLUME", volume);
+        PlayerPrefs.SetFloat(_bgmVolumeKey, volume);
         PlayerPrefs.Save();
     }
 
     public void ChangeSfxVolume(float volume)
     {
         audioSource.volume = volume;
-        PlayerPrefs.SetFloat("SFX_VOLUME", volume);
+        PlayerPrefs.SetFloat(_sfxVolumeKey, volume);
         PlayerPrefs.Save();
     }
 }

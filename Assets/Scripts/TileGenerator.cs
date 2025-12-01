@@ -1,35 +1,25 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.U2D;
 
 public enum Colors { WHITE, RED, MAGENTA, YELLOW, TRANSPARENT };
 
 public class TileGenerator : MonoBehaviour
 {
     [SerializeField] private TouchPadHandler touchPadHandler;
-    private Transform[] _offerSlot = new Transform[3];
-    private GameObject[] _boardSlot = new GameObject[25];
+    [SerializeField] private Transform[] _offerSlot;
+    [SerializeField] private BoardSlot[] _boardSlot;
+
     [SerializeField] private GameObject Tile;
+    [SerializeField] private GameObject FakeTile;
+    [SerializeField] private SpriteAtlas tileSpriteAtlas;
 
     private int tileCount = 0;
     private List<int> tileTypes = new List<int>();
 
-    private void Awake()
+    private void Start()
     {
-        // InventorySlot 초기화
-        OfferSlot[] offerSlots = FindObjectsByType<OfferSlot>(FindObjectsSortMode.None);
-        for (int i = 0; i < 3; i++)
-        {
-            _offerSlot[i] = offerSlots[i].transform;
-        }
-
-        // BoardSlot 초기화
-        Transform boardInventory = FindAnyObjectByType<SetBoardIdx>().transform;
-        for (int i = 0; i < boardInventory.childCount; i++)
-        {
-            _boardSlot[i] = boardInventory.GetChild(i).gameObject;
-        }
-
         Generate();
     }
 
@@ -105,7 +95,6 @@ public class TileGenerator : MonoBehaviour
             }
 
             // 만약 모두 같다면, 다시 생성하기 전에 방금 만든 타일들을 삭제
-            Debug.Log("All same tiles generated.");
             DeleteAllSlotTiles();
         }
     }
@@ -137,109 +126,65 @@ public class TileGenerator : MonoBehaviour
 
     GameObject GenerateTile(Transform slot, int tileIndex)
     {
+        if (tileIndex == -1)
+        {
+            // Fake 타일 (튜토리얼에 사용되는 빈 타일)
+            GameObject fakeTile = Instantiate(FakeTile, slot);
+            return fakeTile;
+        }
+
         // Tile Index에 따른 타일 생성
         tileTypes.Add(tileIndex);
 
         int newType;
 
         GameObject newTile = Instantiate(Tile, slot);
-        //newTile.transform.SetParent(slot);
-        Transform[] childList = newTile.GetComponentsInChildren<Transform>();
 
         switch (tileIndex)
         {
             case 1:
                 newType = 10; // ─모양
-                ChangeColor(Colors.WHITE, childList[4], childList[5],childList[6]);
                 break;
             case 2:
                 newType = 5; // │모양
-                ChangeColor(Colors.WHITE, childList[2], childList[5], childList[8]);
                 break;
             case 3:
                 newType = 6; // ┌모양
-                ChangeColor(Colors.WHITE, childList[5], childList[6], childList[8]);
                 break;
             case 4:
                 newType = 12; // ┐모양
-                ChangeColor(Colors.WHITE, childList[4], childList[5], childList[8]);
                 break;
             case 5:
                 newType = 9; // ┘모양
-                ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5]);
                 break;
             case 6:
                 newType = 3; // └모양
-                ChangeColor(Colors.WHITE, childList[2], childList[5], childList[6]);
                 break;
             case 7:
-                newType = 7; // ┬모양 0111
-                ChangeColor(Colors.WHITE, childList[2], childList[5], childList[6], childList[8]);
-                ChangeColor(Colors.MAGENTA, childList[1], childList[3], childList[4], childList[7], childList[9]);
+                newType = 7; // ├모양 1101
                 break;
             case 8:
-                newType = 11; // ┤모양 1011
-                ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[6]);
-                ChangeColor(Colors.MAGENTA, childList[1], childList[3], childList[7], childList[8], childList[9]);
+                newType = 11; // ┴모양 1110
                 break;
             case 9:
-                newType = 14; // ┴모양 1110
-                ChangeColor(Colors.WHITE, childList[4], childList[5], childList[6], childList[8]);
-                ChangeColor(Colors.MAGENTA, childList[1], childList[2], childList[3], childList[7], childList[9]);
+                newType = 14; // ┬모양 0111
                 break;
             case 10:
-                newType = 13; // ├모양 1101
-                ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[8]);
-                ChangeColor(Colors.MAGENTA, childList[1], childList[3], childList[6], childList[7], childList[9]);
+                newType = 13; // ┤모양 1011
                 break;
             case 11:
                 newType = 15; // ┼모양 1111
-                ChangeColor(Colors.WHITE, childList[2], childList[4], childList[5], childList[6], childList[8]);
-                ChangeColor(Colors.YELLOW, childList[1], childList[3], childList[7], childList[9]);
-                break;
-
-            case -1:
-                newType = 0; // Fake 타일 (튜토리얼에 사용되는 비어보이는 타일)
-                ChangeColor(Colors.TRANSPARENT, childList[1],  childList[2], childList[3],
-                    childList[4], childList[5], childList[6],
-                    childList[7],  childList[8], childList[9]);
                 break;
             default:
                 newType = 0;
                 break;
         }
 
-        newTile.GetComponent<TileDraggable>().tileType = newType;
+        // 타일 이미지 변경 및 초기화
+        Sprite tileSprite = tileSpriteAtlas.GetSprite("Tile" + tileIndex);
+        newTile.GetComponent<Image>().sprite = tileSprite;
+        newTile.GetComponent<TileDraggable>().Init(newType, _boardSlot);
         return newTile;
-    }
-
-    private void ChangeColor(Colors colorType, params Transform[] colorList)
-    {
-        Color newColor = Color.black;
-
-        switch (colorType)
-        {
-            case Colors.WHITE:
-                newColor = Color.white;
-                break;
-            case Colors.RED:
-                newColor = Color.red;
-                break;
-            case Colors.MAGENTA:
-                newColor = new Color32(155, 165, 248, 255);
-                break;
-            case Colors.YELLOW:
-                newColor = new Color32(255, 83, 110, 255);
-                break;
-            case Colors.TRANSPARENT:
-                newColor = new Color32(0, 0, 0, 0);
-                break;
-        }
-
-        foreach(Transform elem in colorList)
-        {
-            elem.GetComponent<Image>().color = newColor;
-        }
     }
 
     private bool IsAllSame()
@@ -280,10 +225,10 @@ public class TileGenerator : MonoBehaviour
             TileDraggable tileDraggable = newTile.GetComponent<TileDraggable>();
             CanvasGroup canvasGroup = newTile.GetComponent<CanvasGroup>();
 
-            BoardCheck.adj[idx / 5 + 1, idx % 5 + 1] = tileDraggable.tileType;
+            BoardCheck.adj[idx / 5 + 1, idx % 5 + 1] = tileDraggable.TileType;
 
             // Fake 타일 아닐 시 카운트
-            if (tileDraggable.tileType != -1) boardCheck.displayedTileCount += 1;
+            if (tileDraggable.TileType != -1) boardCheck.displayedTileCount += 1;
 
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;

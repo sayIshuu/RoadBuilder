@@ -15,6 +15,8 @@ public class ThemeManager : MonoBehaviour
 
     public event Action<ThemePalette> OnThemeChanged;
 
+    private string themeKindKey = "Theme_Kind";
+
     private void Awake()
     {
         if (Instance == null)
@@ -27,7 +29,7 @@ public class ThemeManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        int savedTheme = PlayerPrefs.GetInt("Theme_Kind", (int)ThemeKind.Light);
+        int savedTheme = PlayerPrefs.GetInt(themeKindKey, (int)ThemeKind.Light);
         CurrentTheme = (ThemeKind)savedTheme;
         ApplyTheme(CurrentTheme, false);
     }
@@ -47,7 +49,7 @@ public class ThemeManager : MonoBehaviour
         CurrentTheme = kind;
         Current = (kind == ThemeKind.Dark) ? darkPalette : lightPalette;
 
-        PlayerPrefs.SetInt("Theme_Kind", (int)CurrentTheme);
+        PlayerPrefs.SetInt(themeKindKey, (int)CurrentTheme);
         PlayerPrefs.Save();
 
         if (invokeEvent) OnThemeChanged?.Invoke(Current);

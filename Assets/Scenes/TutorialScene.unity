@@ -1414,6 +1414,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1087078970273627683, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 1626136727818610766, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1429,6 +1433,10 @@ PrefabInstance:
     - target: {fileID: 2533214499665167397, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2606344875112983020, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2706823253994073661, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
       propertyPath: tileGenerator
@@ -1558,6 +1566,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7428707148094856544, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -500
+      objectReference: {fileID: 0}
     - target: {fileID: 8086349474661914791, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1573,6 +1585,10 @@ PrefabInstance:
     - target: {fileID: 8558160103271503823, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771110270908668203, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -300
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2706823253994073661, guid: 527a6515249a7f441a93ea38fe4d3dfe, type: 3}
